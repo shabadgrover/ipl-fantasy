@@ -9,7 +9,17 @@ export const iplTeamMap = {
   "Delhi Capitals": "DC",
   "Kolkata Knight Riders": "KKR",
   "Rajasthan Royals": "RR",
-  "Lucknow Super Giants": "LSG"
+  "Lucknow Super Giants": "LSG",
+  "Royal Challengers Bengaluru": "RCB"
+};
+
+const normalizeTeamName = (name) => {
+  if (!name) return "";
+  const n = name.trim().toLowerCase();
+  if (n === "rcb" || n.includes("royal challengers") || n.includes("bangluru") || n.includes("bangalore")) {
+    return "Royal Challengers Bengaluru";
+  }
+  return name.trim();
 };
 
 const teamRoles = {
@@ -86,14 +96,15 @@ export const parseExcelData = (arrayBuffer) => {
       const multiplier = isCaptain ? 2 : (isVC ? 1.5 : 1);
       
       const iplTeamRaw = row[base.iplCol] || "";
+      const iplTeam = normalizeTeamName(iplTeamRaw);
       const basePoints = parseInt(row[base.pointsCol]) || 0;
       const finalPoints = basePoints * multiplier;
       
       players.push({
         name: cleanName,
         rawName: rawName,
-        iplTeam: iplTeamRaw,
-        iplAbbr: iplTeamMap[iplTeamRaw] || iplTeamRaw,
+        iplTeam: iplTeam,
+        iplAbbr: iplTeamMap[iplTeam] || iplTeam,
         basePoints,
         multiplier,
         finalPoints,
