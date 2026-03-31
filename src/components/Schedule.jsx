@@ -1,14 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { Calendar, ChevronRight, Users, Star, Zap, Shield, Info } from 'lucide-react';
+import { Calendar, ChevronRight, Info, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const matches = [
-  { id: 1, name: "Match 1: RCB vs SRH", teams: ["Royal Challengers Bengaluru", "Sunrisers Hyderabad"], abbrs: ["RCB", "SRH"], date: "Saturday, 28 March 2026", time: "7:30 PM", venue: "M. Chinnaswamy Stadium", isCompleted: true },
-  { id: 2, name: "Match 2: MI vs KKR", teams: ["Mumbai Indians", "Kolkata Knight Riders"], abbrs: ["MI", "KKR"], date: "Sunday, 29 March 2026", time: "7:30 PM", venue: "Wankhede Stadium", isCompleted: true },
-  { id: 3, name: "Match 3: RR vs CSK", teams: ["Rajasthan Royals", "Chennai Super Kings"], abbrs: ["RR", "CSK"], date: "Monday, 30 March 2026", time: "7:30 PM", venue: "Sawai Mansingh Stadium" },
-  { id: 4, name: "Match 4: GT vs PBKS", teams: ["Gujarat Titans", "Punjab Kings"], abbrs: ["GT", "PBKS"], date: "Tuesday, 31 March 2026", time: "7:30 PM", venue: "Narendra Modi Stadium" },
-  { id: 5, name: "Match 5: LSG vs DC", teams: ["Lucknow Super Giants", "Delhi Capitals"], abbrs: ["LSG", "DC"], date: "Wednesday, 1 April 2026", time: "7:30 PM", venue: "Ekana Stadium" },
-];
+import { matches } from '../data/matches';
 
 const Schedule = ({ teams, hideInternalHeader }) => {
   const [selectedMatch, setSelectedMatch] = useState(null);
@@ -21,8 +14,8 @@ const Schedule = ({ teams, hideInternalHeader }) => {
       playersByTeam[abbr] = [];
     });
 
-    teams.forEach(fTeam => {
-      fTeam.players.forEach(player => {
+    (teams || []).forEach(fTeam => {
+      (fTeam.players || []).forEach(player => {
         if (selectedMatch.abbrs.includes(player.iplAbbr)) {
           playersByTeam[player.iplAbbr].push({
             ...player,
@@ -51,7 +44,6 @@ const Schedule = ({ teams, hideInternalHeader }) => {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-        {/* Match List */}
         <div className="lg:col-span-5 space-y-4">
           {matches.map((match) => (
             <motion.button
@@ -99,7 +91,6 @@ const Schedule = ({ teams, hideInternalHeader }) => {
           ))}
         </div>
 
-        {/* Match Details / Player Breakdown */}
         <div className="lg:col-span-7">
           <AnimatePresence mode="wait">
             {selectedMatch ? (

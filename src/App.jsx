@@ -9,6 +9,7 @@ import Schedule from './components/Schedule';
 import { Home as HomeIcon, LayoutDashboard, Users, Zap, Calendar, Target, Sun, Moon, Share2, CheckCircle2 } from 'lucide-react';
 import { parseExcelData } from './utils/excelParser';
 import ImpactAnalysis from './components/ImpactAnalysis';
+import { matches } from './data/matches';
 
 function App() {
   const [teams, setTeams] = useState([]);
@@ -41,10 +42,30 @@ function App() {
         const arrayBuffer = await response.arrayBuffer();
         const parsedTeams = parseExcelData(arrayBuffer);
         const sortedTeams = [...parsedTeams].sort((a, b) => b.totalPoints - a.totalPoints);
-        setTeams(sortedTeams);
         
         const now = new Date();
         setLastUpdated(now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+        
+        // --- Rank Movement Logic ---
+        const previousLeaderboard = JSON.parse(localStorage.getItem('previousLeaderboard')) || [];
+        const teamsWithTrend = sortedTeams.map((team, index) => {
+          const currentRank = index + 1;
+          const prevEntry = previousLeaderboard.find(p => p.id === team.id);
+          let trend = 'same';
+          if (prevEntry) {
+            if (currentRank < prevEntry.rank) trend = 'up';
+            else if (currentRank > prevEntry.rank) trend = 'down';
+          }
+          return { ...team, trend };
+        });
+        
+        setTeams(teamsWithTrend);
+
+        // Store current rankings for next comparison
+        const rankingsToStore = teamsWithTrend.map((t, idx) => ({ id: t.id, rank: idx + 1 }));
+        localStorage.setItem('previousLeaderboard', JSON.stringify(rankingsToStore));
+        // ----------------------------
+
         setLoading(false);
       } catch (err) {
         console.error(err);
@@ -132,9 +153,10 @@ function App() {
     isUser: session?.role === 'player' && team.teamName === session.team
   }));
 
+  const upcomingMatch = matches.find(m => !m.isCompleted) || matches[matches.length - 1];
+
   return (
     <div className="min-h-screen bg-[#f5f5f7] dark:bg-black transition-colors duration-300">
-      {/* Navigation Header */}
       <header className="fixed top-0 inset-x-0 z-50 bg-white/60 dark:bg-black/40 backdrop-blur-2xl border-b border-black/5 dark:border-white/5 transition-all duration-500">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => scrollTo('home')}>
@@ -171,18 +193,12 @@ function App() {
             </button>
 
             {session?.role === 'player' && (
-              <button
-                onClick={handleLogout}
-                className="ml-2 md:ml-4 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors px-3 py-1.5 border border-black/10 dark:border-white/10 rounded-lg hover:bg-black/5 dark:hover:bg-white/5"
-              >
+              <button onClick={handleLogout} className="ml-2 md:ml-4 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors px-3 py-1.5 border border-black/10 dark:border-white/10 rounded-lg hover:bg-black/5 dark:hover:bg-white/5">
                 Logout
               </button>
             )}
             {session?.role === 'observer' && (
-              <button
-                onClick={handleLogout}
-                className="ml-2 md:ml-4 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors px-3 py-1.5 border border-black/10 dark:border-white/10 rounded-lg hover:bg-black/5 dark:hover:bg-white/5"
-              >
+              <button onClick={handleLogout} className="ml-2 md:ml-4 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors px-3 py-1.5 border border-black/10 dark:border-white/10 rounded-lg hover:bg-black/5 dark:hover:bg-white/5">
                 Exit
               </button>
             )}
@@ -190,7 +206,6 @@ function App() {
         </div>
       </header>
 
-      {/* Main Content Areas Wrapper with Fade In */}
       <motion.main 
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }} 
@@ -240,11 +255,11 @@ function App() {
             <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white">Plan Ahead.</h2>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">Deep impact analysis for the next upcoming fixture.</p>
           </motion.div>
-          <UpcomingMatch teams={teamsWithUser} hideInternalHeader={true} />
+          <UpcomingMatch teams={teamsWithUser} matchInfo={upcomingMatch} hideInternalHeader={true} />
         </section>
 
         <section id="impact" className="pb-20 pt-10">
-          <ImpactAnalysis teams={teamsWithUser} hideInternalHeader={true} />
+          <ImpactAnalysis teams={teamsWithUser} matchInfo={upcomingMatch} hideInternalHeader={true} />
         </section>
 
         <section id="schedule" className="pt-32 pb-32 border-t border-black/5 dark:border-white/5">
@@ -262,7 +277,6 @@ function App() {
         </section>
       </motion.main>
 
-      {/* Apple Style Footer */}
       <footer className="border-t border-black/5 dark:border-white/5 bg-[#f5f5f7] dark:bg-black py-16 transition-colors duration-300">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <p className="text-sm text-slate-500 dark:text-slate-500 font-medium">© 2026 IPL Fantasy League. All rights reserved.</p>
@@ -270,7 +284,6 @@ function App() {
         </div>
       </footer>
 
-      {/* Toast Notification for Share */}
       <AnimatePresence>
         {showToast && (
           <motion.div
@@ -284,7 +297,6 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
-
     </div>
   );
 }

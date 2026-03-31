@@ -2,15 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Target, TrendingUp, Users } from 'lucide-react';
 
-const ImpactAnalysis = ({ teams, hideInternalHeader }) => {
-  const matchInfo = {
-    matchName: "Match 3: RR vs CSK",
-    abbrs: ["RR", "CSK"]
-  };
+const ImpactAnalysis = ({ teams, matchInfo, hideInternalHeader }) => {
+  if (!matchInfo) return null;
 
   // Calculate Impact Data
-  const impactData = teams.map(fTeam => {
-    const matchPlayers = fTeam.players.filter(p => matchInfo.abbrs.includes(p.iplAbbr));
+  const impactData = (teams || []).map(fTeam => {
+    const matchPlayers = (fTeam.players || []).filter(p => matchInfo.abbrs.includes(p.iplAbbr));
     return {
       name: fTeam.teamName,
       count: matchPlayers.length,
@@ -45,7 +42,7 @@ const ImpactAnalysis = ({ teams, hideInternalHeader }) => {
             </div>
             <div>
               <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">Best Opportunity For</h2>
-              <p className="text-slate-600 dark:text-slate-400 font-medium tracking-wide">Fantasy Impact Analysis for {matchInfo.matchName}</p>
+              <p className="text-slate-600 dark:text-slate-400 font-medium tracking-wide">Fantasy Impact Analysis for {matchInfo.name}</p>
             </div>
           </div>
         </div>
@@ -126,11 +123,11 @@ const ImpactAnalysis = ({ teams, hideInternalHeader }) => {
         <div className="flex gap-4">
           <div className="px-5 py-3 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 text-center">
             <span className="block text-[10px] font-black text-slate-600 dark:text-slate-500 uppercase tracking-widest mb-1">Max Players</span>
-            <span className="text-xl font-black text-slate-900 dark:text-white">{Math.max(...impactData.map(d => d.count))}</span>
+            <span className="text-xl font-black text-slate-900 dark:text-white">{Math.max(0, ...impactData.map(d => d.count))}</span>
           </div>
           <div className="px-5 py-3 rounded-2xl bg-black/10 border border-black/10 dark:bg-white/10 dark:border-white/20 shadow-sm text-center">
             <span className="block text-[10px] font-black text-slate-700 dark:text-white/80 uppercase tracking-widest mb-1">Impact Avg</span>
-            <span className="text-xl font-black text-slate-900 dark:text-white">{(impactData.reduce((acc, curr) => acc + curr.count, 0) / impactData.length).toFixed(1)}</span>
+            <span className="text-xl font-black text-slate-900 dark:text-white">{(impactData.reduce((acc, curr) => acc + curr.count, 0) / (impactData.length || 1)).toFixed(1)}</span>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trophy, Medal } from 'lucide-react';
+import { Trophy, Medal, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Leaderboard = ({ teams, hideInternalHeader }) => {
@@ -35,7 +35,7 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
                 }
               }}
             >
-              {teams.map((team, index) => {
+              {(teams || []).map((team, index) => {
                 const rank = index + 1;
                 const isTop3 = rank <= 3;
                 const isUser = team.isUser;
@@ -56,21 +56,38 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
                     }`}
                   >
                     <td className="py-4 px-6 text-center w-20">
-                      {rank === 1 ? (
-                        <div className="w-8 h-8 rounded-full bg-black/10 dark:bg-white/20 text-slate-900 dark:text-white border border-black/20 dark:border-white/30 flex items-center justify-center mx-auto shadow-sm">
-                          <Trophy size={16} />
-                        </div>
-                      ) : rank === 2 ? (
-                        <div className="w-8 h-8 rounded-full bg-black/5 dark:bg-white/10 text-slate-700 dark:text-slate-300 border border-black/10 dark:border-white/20 flex items-center justify-center mx-auto shadow-sm">
-                          <Medal size={16} />
-                        </div>
-                      ) : rank === 3 ? (
-                        <div className="w-8 h-8 rounded-full bg-black/[0.02] dark:bg-white/5 text-slate-600 dark:text-slate-500 border border-black/5 dark:border-white/10 flex items-center justify-center mx-auto shadow-sm">
-                          <Medal size={16} />
-                        </div>
-                      ) : (
-                        <span className="text-slate-600 dark:text-slate-400 font-medium">{rank}</span>
-                      )}
+                      <div className="flex flex-col items-center gap-1">
+                        {rank === 1 ? (
+                          <div className="w-8 h-8 rounded-full bg-black/10 dark:bg-white/20 text-slate-900 dark:text-white border border-black/20 dark:border-white/30 flex items-center justify-center mx-auto shadow-sm">
+                            <Trophy size={16} />
+                          </div>
+                        ) : rank === 2 ? (
+                          <div className="w-8 h-8 rounded-full bg-black/5 dark:bg-white/10 text-slate-700 dark:text-slate-300 border border-black/10 dark:border-white/20 flex items-center justify-center mx-auto shadow-sm">
+                            <Medal size={16} />
+                          </div>
+                        ) : rank === 3 ? (
+                          <div className="w-8 h-8 rounded-full bg-black/[0.02] dark:bg-white/5 text-slate-600 dark:text-slate-500 border border-black/5 dark:border-white/10 flex items-center justify-center mx-auto shadow-sm">
+                            <Medal size={16} />
+                          </div>
+                        ) : (
+                          <span className="text-slate-600 dark:text-slate-400 font-medium">{rank}</span>
+                        )}
+                        
+                        {/* Trend Indicator */}
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          className="flex items-center justify-center"
+                        >
+                          {team.trend === 'up' ? (
+                            <TrendingUp size={12} className="text-emerald-500" />
+                          ) : team.trend === 'down' ? (
+                            <TrendingDown size={12} className="text-rose-500" />
+                          ) : (
+                            <Minus size={12} className="text-slate-300 dark:text-slate-700" />
+                          )}
+                        </motion.div>
+                      </div>
                     </td>
                     <td className="py-4 px-6">
                       <div className="flex items-center gap-3">
@@ -85,11 +102,9 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
                       </div>
                     </td>
                     <td className="py-5 px-8 text-right font-black text-[22px] tracking-tight">
-                      {isTop3 ? (
-                        <span className="text-slate-900 dark:text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.1)] dark:drop-shadow-lg">{team.totalPoints.toLocaleString()}</span>
-                      ) : (
-                        <span className="text-slate-800 dark:text-slate-200">{team.totalPoints.toLocaleString()}</span>
-                      )}
+                      <span className={`${isTop3 ? 'text-slate-900 dark:text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.1)] dark:drop-shadow-lg' : 'text-slate-800 dark:text-slate-200'}`}>
+                        {(team.totalPoints || 0).toLocaleString()}
+                      </span>
                     </td>
                   </motion.tr>
                 );
