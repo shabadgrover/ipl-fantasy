@@ -39,12 +39,11 @@
 }
 
 .glass-card {
-  @apply bg-white dark:bg-[#111111] backdrop-blur-3xl border border-black/5 dark:border-white/5 transition-all duration-500 shadow-sm dark:shadow-none pointer-events-auto;
+  @apply bg-white dark:bg-[#111111] backdrop-blur-3xl border border-black/5 dark:border-white/5 transition-all duration-300 shadow-sm dark:shadow-none pointer-events-auto;
 }
 
 .glass-card:hover {
   @apply bg-slate-50 dark:bg-[#151515] border-black/10 dark:border-white/10;
-  transform: translateY(-2px);
 }
 
 .btn-minimal {
@@ -53,6 +52,7 @@
 
 .btn-minimal:hover {
   @apply bg-black/10 dark:bg-white/20 border-black/20 dark:border-white/20;
+  transform: scale(1.03);
 }
 
 .btn-minimal:active {
@@ -94,4 +94,12 @@
 
 .slide-in-from-bottom-4 {
   animation-name: slideInFromBottom;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

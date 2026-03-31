@@ -11,15 +11,22 @@ const TeamCard = ({ team }) => {
   const remaining = sortedPlayers.slice(3);
 
   return (
-    <div className={`glass-card rounded-3xl p-6 h-fit self-start group transition-all duration-500 ${
-      team.isUser ? 'ring-1 ring-black/10 dark:ring-white/50 bg-black/[0.02] dark:bg-white/[0.06] shadow-[0_0_40px_rgba(0,0,0,0.05)] dark:shadow-[0_0_40px_rgba(255,255,255,0.05)] scale-[1.02]' : ''
+    <div className={`glass-card rounded-3xl p-6 h-fit self-start group transition-all duration-300 ${
+      team.isUser ? 'ring-2 ring-primary/30 dark:ring-primary/40 bg-primary/[0.02] dark:bg-primary/[0.03] shadow-[0_8px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_40px_rgba(255,255,255,0.06)] scale-[1.02] -translate-y-1' : 'hover:-translate-y-1 hover:shadow-xl'
     }`}>
       <div className="flex justify-between items-start mb-4">
         <div className="min-w-0 flex-1">
-          <h3 className="text-xl font-black text-slate-900 dark:text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-indigo-500 dark:group-hover:to-[#6366f1] transition-all truncate">
-            {team.teamName}
-          </h3>
-          <div className="flex items-center gap-1 mt-1 text-slate-500 dark:text-slate-400 text-[10px]">
+          <div className="flex items-center gap-2 mb-1">
+            <h3 className={`text-xl font-black truncate transition-all ${team.isUser ? 'text-primary dark:text-primary drop-shadow-[0_2px_10px_rgba(0,0,0,0.05)]' : 'text-slate-900 dark:text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-indigo-500 dark:group-hover:to-[#6366f1]'}`}>
+              {team.teamName}
+            </h3>
+            {team.isUser && (
+              <span className="text-[9px] px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 font-black uppercase tracking-widest shadow-sm flex-shrink-0">
+                Your Team
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-1 text-slate-500 dark:text-slate-400 text-[10px]">
             <Users size={12} />
             <span>11 Players</span>
           </div>

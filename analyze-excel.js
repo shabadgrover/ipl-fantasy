@@ -2,7 +2,7 @@ import * as XLSX from 'xlsx';
 import * as fs from 'fs';
 
 try {
-  const fileBuffer = fs.readFileSync('cricket_spirit_ipl26_Teams_2026-03-29.xlsx');
+  const fileBuffer = fs.readFileSync('./public/data.xlsx');
   const workbook = XLSX.read(fileBuffer);
   
   const result = {};

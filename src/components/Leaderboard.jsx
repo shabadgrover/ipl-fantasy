@@ -24,6 +24,7 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
               </tr>
             </thead>
             <motion.tbody
+              layout
               initial="hidden"
               animate="visible"
               variants={{
@@ -41,12 +42,18 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
 
                 return (
                   <motion.tr 
+                    layout
                     variants={{
                       hidden: { opacity: 0, x: -20 },
                       visible: { opacity: 1, x: 0 }
                     }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     key={team.id}
-                    className={`border-b border-black/5 dark:border-white/5 transition-colors hover:bg-black/[0.04] dark:hover:bg-white/[0.08] ${isUser ? 'bg-black/[0.02] dark:bg-white/[0.04]' : ''}`}
+                    className={`border-b border-black/5 dark:border-white/5 transition-colors hover:bg-black/[0.04] dark:hover:bg-white/[0.08] ${
+                      isUser 
+                        ? 'bg-primary/[0.03] dark:bg-primary/[0.05] ring-1 ring-primary/20 dark:ring-primary/20 relative z-10 shadow-[0_0_15px_rgba(0,0,0,0.03)] dark:shadow-[0_0_15px_rgba(255,255,255,0.02)]' 
+                        : ''
+                    }`}
                   >
                     <td className="py-4 px-6 text-center w-20">
                       {rank === 1 ? (
@@ -67,11 +74,11 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
                     </td>
                     <td className="py-4 px-6">
                       <div className="flex items-center gap-3">
-                        <span className={`font-black text-lg ${isUser ? 'text-slate-900 dark:text-white' : isTop3 ? 'text-slate-800 dark:text-slate-200' : 'text-slate-600 dark:text-slate-400'}`}>
+                        <span className={`font-black text-lg ${isUser ? 'text-slate-900 dark:text-white filter drop-shadow-sm' : isTop3 ? 'text-slate-800 dark:text-slate-200' : 'text-slate-600 dark:text-slate-400'}`}>
                           {team.teamName}
                         </span>
                         {isUser && (
-                          <span className="text-[10px] px-3 py-1 rounded-full bg-black/10 dark:bg-white/10 text-slate-900 dark:text-white border border-black/20 dark:border-white/20 font-black uppercase tracking-widest shadow-sm">
+                          <span className="text-[10px] px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-black uppercase tracking-widest shadow-sm">
                             Your Team
                           </span>
                         )}

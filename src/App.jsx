@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Login from './components/Login';
 import Leaderboard from './components/Leaderboard';
 import Teams from './components/Teams';
 import UpcomingMatch from './components/UpcomingMatch';
 import Home from './components/Home';
 import Schedule from './components/Schedule';
-import { Home as HomeIcon, LayoutDashboard, Users, Zap, Calendar, Target, Loader2, Sun, Moon } from 'lucide-react';
+import { Home as HomeIcon, LayoutDashboard, Users, Zap, Calendar, Target, Sun, Moon, Share2, CheckCircle2 } from 'lucide-react';
 import { parseExcelData } from './utils/excelParser';
 import ImpactAnalysis from './components/ImpactAnalysis';
 
@@ -17,6 +17,7 @@ function App() {
   const [lastUpdated, setLastUpdated] = useState('');
   const [session, setSession] = useState(() => JSON.parse(localStorage.getItem('userSession')) || null);
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -34,14 +35,8 @@ function App() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        let response;
-        try {
-          response = await fetch('/cricket_spirit_ipl26_Teams_2026-03-29.xlsx');
-          if (!response.ok) throw new Error('New file not found');
-        } catch (e) {
-          response = await fetch('/data.xlsx');
-          if (!response.ok) throw new Error('Failed to load excel data');
-        }
+        const response = await fetch('/data.xlsx?t=' + Date.now());
+        if (!response.ok) throw new Error('Failed to load excel data from /data.xlsx');
         
         const arrayBuffer = await response.arrayBuffer();
         const parsedTeams = parseExcelData(arrayBuffer);
@@ -70,16 +65,38 @@ function App() {
     { id: 'schedule', name: 'Schedule', icon: Calendar },
   ];
 
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+    } catch (err) {
+      console.error('Failed to copy', err);
+    }
+  };
+
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f5f5f7] dark:bg-black transition-colors duration-300">
-        <div className="text-center">
-          <Loader2 className="w-12 h-12 text-slate-900 dark:text-white animate-spin mx-auto mb-4" />
-          <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter">Parsing Live Data...</h2>
+      <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black transition-colors duration-500">
+        <div className="text-center flex flex-col items-center">
+          <motion.div 
+            animate={{ scale: [1, 1.05, 1], opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center mb-6 backdrop-blur-sm border border-white/20"
+          >
+            <Zap className="w-8 h-8 text-white" fill="currentColor" />
+          </motion.div>
+          <motion.h2 
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="text-2xl md:text-3xl font-black text-white tracking-tighter"
+          >
+            Loading Fantasy League...
+          </motion.h2>
         </div>
       </div>
     );
@@ -130,15 +147,24 @@ function App() {
               <button
                 key={tab.id}
                 onClick={() => scrollTo(tab.id)}
-                className="text-xs font-semibold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors tracking-wide px-3 py-2 whitespace-nowrap"
+                className="text-xs font-semibold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:scale-105 transition-all duration-300 tracking-wide px-3 py-2 whitespace-nowrap"
               >
                 {tab.name}
               </button>
             ))}
             
             <button
+              onClick={handleShare}
+              className="ml-2 flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:scale-105 transition-all duration-300"
+              aria-label="Share League"
+            >
+              <Share2 size={14} />
+              <span className="hidden sm:inline">Share</span>
+            </button>
+
+            <button
               onClick={toggleTheme}
-              className="ml-2 px-3 py-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"
+              className="ml-1 px-3 py-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:scale-105 transition-all duration-300"
               aria-label="Toggle Theme"
             >
               {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
@@ -164,8 +190,13 @@ function App() {
         </div>
       </header>
 
-      {/* Main Content Areas */}
-      <main className="flex flex-col">
+      {/* Main Content Areas Wrapper with Fade In */}
+      <motion.main 
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 1 }} 
+        transition={{ duration: 0.8 }} 
+        className="flex flex-col"
+      >
         <section id="home">
           <Home onNavigate={scrollTo} />
         </section>
@@ -229,7 +260,7 @@ function App() {
           </motion.div>
           <Schedule teams={teamsWithUser} hideInternalHeader={true} />
         </section>
-      </main>
+      </motion.main>
 
       {/* Apple Style Footer */}
       <footer className="border-t border-black/5 dark:border-white/5 bg-[#f5f5f7] dark:bg-black py-16 transition-colors duration-300">
@@ -238,6 +269,21 @@ function App() {
           <p className="text-xs text-slate-600 dark:text-slate-700 mt-2">Designed for the purists.</p>
         </div>
       </footer>
+
+      {/* Toast Notification for Share */}
+      <AnimatePresence>
+        {showToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-2 px-5 py-3 bg-slate-900/90 dark:bg-white/90 backdrop-blur-md text-white dark:text-black rounded-full shadow-2xl border border-white/10 dark:border-black/10"
+          >
+            <CheckCircle2 size={18} className="text-green-400 dark:text-green-600" />
+            <span className="text-sm font-semibold tracking-wide">Link copied to clipboard</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );

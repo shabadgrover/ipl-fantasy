@@ -1,7 +1,7 @@
 import * as XLSX from 'xlsx';
 import fs from 'fs';
 
-const buf = fs.readFileSync('d:/ipl26/public/cricket_spirit_ipl26_Teams_2026-03-29.xlsx');
+const buf = fs.readFileSync('./public/data.xlsx');
 const workbook = XLSX.read(buf, { type: 'buffer' });
 const sheet = workbook.Sheets[workbook.SheetNames[0]];
 
