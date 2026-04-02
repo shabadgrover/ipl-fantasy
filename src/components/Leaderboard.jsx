@@ -80,17 +80,17 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
                           className="flex items-center justify-center -mt-1"
                         >
                           {team.trend === 'up' ? (
-                            <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
-                              <TrendingUp size={10} className="text-emerald-500" strokeWidth={3} />
-                              <span className="text-[9px] font-black text-emerald-600 dark:text-emerald-400">{Math.abs(team.rankDiff || 0)}</span>
+                            <div className="flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+                              <TrendingUp size={11} className="text-emerald-500" strokeWidth={3} />
+                              <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400">{Math.abs(team.rankDiff || 0)}</span>
                             </div>
                           ) : team.trend === 'down' ? (
-                            <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20 shadow-[0_0_10px_rgba(244,63,94,0.1)]">
-                              <TrendingDown size={10} className="text-rose-500" strokeWidth={3} />
-                              <span className="text-[9px] font-black text-rose-600 dark:text-rose-400">{Math.abs(team.rankDiff || 0)}</span>
+                            <div className="flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20 shadow-[0_0_10px_rgba(244,63,94,0.1)]">
+                              <TrendingDown size={11} className="text-rose-500" strokeWidth={3} />
+                              <span className="text-[10px] font-black text-rose-600 dark:text-rose-400">{Math.abs(team.rankDiff || 0)}</span>
                             </div>
                           ) : (
-                            <div className="px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/5 border border-black/5 dark:border-white/5">
+                            <div className="px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/5 border border-black/5 dark:border-white/5 opacity-40">
                               <Minus size={10} className="text-slate-400 dark:text-slate-600" strokeWidth={3} />
                             </div>
                           )}
@@ -109,10 +109,22 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
                         )}
                       </div>
                     </td>
-                    <td className="py-5 px-8 text-right font-black text-[22px] tracking-tight">
-                      <span className={`${isTop3 ? 'text-slate-900 dark:text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.1)] dark:drop-shadow-lg' : 'text-slate-800 dark:text-slate-200'}`}>
-                        {(team.totalPoints || 0).toLocaleString()}
-                      </span>
+                    <td className="py-5 px-8 text-right">
+                      <div className="flex flex-col items-end">
+                        <span className={`font-black text-2xl tracking-tight ${isTop3 ? 'text-slate-900 dark:text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.1)] dark:drop-shadow-lg' : 'text-slate-800 dark:text-slate-200'}`}>
+                          {(team.totalPoints || 0).toLocaleString()}
+                        </span>
+                        {team.matchPoints > 0 && (
+                          <motion.div 
+                            initial={{ opacity: 0, x: 10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="flex items-center gap-1 mt-0.5 px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/20"
+                          >
+                            <TrendingUp size={8} className="text-emerald-500" />
+                            <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400">+{team.matchPoints.toLocaleString()}</span>
+                          </motion.div>
+                        )}
+                      </div>
                     </td>
                   </motion.tr>
                 );

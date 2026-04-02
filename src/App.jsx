@@ -41,32 +41,44 @@ function App() {
         
         const arrayBuffer = await response.arrayBuffer();
         const parsedTeams = parseExcelData(arrayBuffer);
-        const sortedTeams = [...parsedTeams].sort((a, b) => b.totalPoints - a.totalPoints);
         
         const now = new Date();
         setLastUpdated(now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
         
-        // --- Rank Movement Logic ---
-        const INITIAL_RANKS = [
-          "Ankit's Team",
-          "Piyush dhiman's Team",
-          "Aizen",
-          "Jenna Morrh Warriors",
-          "shabad's Team",
-          "GURI XI",
-          "Deepanshuu's Team",
-          "Maat maro shota bacha hu",
-          "Sumit's Team"
-        ].map((id, index) => ({ id, rank: index + 1 }));
+        // --- BASELINE DATA (Match 4 Screenshot Standings) ---
+        const BASELINE_MATCH4 = {
+          "Ankit's Team": 671,
+          "Piyush dhiman's Team": 583,
+          "shabad's Team": 479,
+          "Jenna Morrh Warriors": 439,
+          "Aizen": 425,
+          "Deepanshuu's Team": 356,
+          "Sumit's Team": 350.5,
+          "Maat maro shota bacha hu": 345.5,
+          "GURI XI": 288
+        };
 
-        const previousData = localStorage.getItem('previousLeaderboard');
-        const previousLeaderboard = (previousData && JSON.parse(previousData).length > 0) 
-          ? JSON.parse(previousData) 
-          : INITIAL_RANKS;
-        
+        const INITIAL_RANKS = Object.keys(BASELINE_MATCH4)
+          .sort((a, b) => BASELINE_MATCH4[b] - BASELINE_MATCH4[a])
+          .map((id, index) => ({ id, rank: index + 1 }));
+
+        // Current totals come directly from the public/data.xlsx (cumulative Match 5)
+        const finalStandings = parsedTeams.map(team => {
+          const totalPoints = team.totalPoints;
+          const previousPoints = BASELINE_MATCH4[team.id] || 0;
+          return {
+            ...team,
+            matchPoints: totalPoints - previousPoints,
+            totalPoints: totalPoints
+          };
+        });
+
+        const sortedTeams = [...finalStandings].sort((a, b) => b.totalPoints - a.totalPoints);
+
+        // Use INITIAL_RANKS (Match 4) as the fixed baseline for latest match movement
         const teamsWithTrend = sortedTeams.map((team, index) => {
           const currentRank = index + 1;
-          const prevEntry = previousLeaderboard.find(p => p.id === team.id);
+          const prevEntry = INITIAL_RANKS.find(p => p.id === team.id);
           let trend = 'same';
           let rankDiff = 0;
           

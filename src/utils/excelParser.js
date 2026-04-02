@@ -91,9 +91,15 @@ export const parseExcelData = (arrayBuffer) => {
 
       const cleanName = rawName.replace(/\s*\(\s*(C|VC)\s*\)\s*/i, "").trim();
       
-      const isCaptain = cleanName === roles.captain;
-      const isVC = cleanName === roles.viceCaptain;
-      const multiplier = isCaptain ? 2 : (isVC ? 1.5 : 1);
+      const isCaptain = rawName.includes("(C)");
+      const isVC = rawName.includes("(VC)");
+      
+      // Fallback to teamRoles if no marker is present in Excel
+      const roles = teamRoles[base.name] || {};
+      const finalIsCaptain = isCaptain || (cleanName === roles.captain);
+      const finalIsVC = isVC || (cleanName === roles.viceCaptain);
+      
+      const multiplier = finalIsCaptain ? 2 : (finalIsVC ? 1.5 : 1);
       
       const iplTeamRaw = row[base.iplCol] || "";
       const iplTeam = normalizeTeamName(iplTeamRaw);
@@ -108,8 +114,8 @@ export const parseExcelData = (arrayBuffer) => {
         basePoints,
         multiplier,
         finalPoints,
-        isCaptain,
-        isVC
+        isCaptain: finalIsCaptain,
+        isVC: finalIsVC
       });
       calculatedTotal += finalPoints;
     }
