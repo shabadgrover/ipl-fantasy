@@ -44,7 +44,7 @@ const Schedule = ({ teams, hideInternalHeader }) => {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-        <div className="lg:col-span-5 space-y-4">
+        <div className="lg:col-span-5 space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
           {matches.map((match) => (
             <motion.button
               key={match.id}
