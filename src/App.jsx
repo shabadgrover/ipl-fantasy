@@ -45,27 +45,27 @@ function App() {
         const now = new Date();
         setLastUpdated(now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
         
-        // --- BASELINE DATA (Match 9 Screenshot Standings) ---
-        const BASELINE_MATCH9 = {
+        // --- BASELINE DATA (Match 10 Screenshot Standings) ---
+        const BASELINE_MATCH10 = {
           "Piyush dhiman's Team": 1468.5,
-          "shabad's Team": 1163.5,
-          "Maat maro shota bacha hu": 1107.5,
-          "Jenna Morrh Warriors": 1077,
-          "Ankit's Team": 927,
-          "Sumit's Team": 864.5,
-          "Deepanshuu's Team": 803.5,
+          "shabad's Team": 1332.5,
+          "Jenna Morrh Warriors": 1253,
+          "Sumit's Team": 1241.5,
+          "Maat maro shota bacha hu": 1122.5,
+          "Deepanshuu's Team": 1073.5,
+          "Ankit's Team": 957,
           "GURI XI": 723,
-          "Aizen": 676
+          "Aizen": 716.5
         };
 
-        const INITIAL_RANKS = Object.keys(BASELINE_MATCH9)
-          .sort((a, b) => BASELINE_MATCH9[b] - BASELINE_MATCH9[a])
+        const INITIAL_RANKS = Object.keys(BASELINE_MATCH10)
+          .sort((a, b) => BASELINE_MATCH10[b] - BASELINE_MATCH10[a])
           .map((id, index) => ({ id, rank: index + 1 }));
 
         // Current totals come directly from the public/data.xlsx (cumulative Match 10)
         const finalStandings = parsedTeams.map(team => {
           const totalPoints = team.totalPoints;
-          const previousPoints = BASELINE_MATCH9[team.id] || 0;
+          const previousPoints = BASELINE_MATCH10[team.id] || 0;
           return {
             ...team,
             matchPoints: totalPoints - previousPoints,

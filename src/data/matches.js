@@ -9,7 +9,7 @@ export const matches = [
   { id: 8, name: "Match 8: DC vs MI", teams: ["Delhi Capitals", "Mumbai Indians"], abbrs: ["DC", "MI"], date: "Saturday, 4 April 2026", time: "3:30 PM", venue: "Arun Jaitley Stadium", isCompleted: true },
   { id: 9, name: "Match 9: GT vs RR", teams: ["Gujarat Titans", "Rajasthan Royals"], abbrs: ["GT", "RR"], date: "Saturday, 4 April 2026", time: "7:30 PM", venue: "Narendra Modi Stadium", isCompleted: true },
   { id: 10, name: "Match 10: SRH vs LSG", teams: ["Sunrisers Hyderabad", "Lucknow Super Giants"], abbrs: ["SRH", "LSG"], date: "Sunday, 5 April 2026", time: "3:30 PM", venue: "Rajiv Gandhi International Cricket Stadium", isCompleted: true },
-  { id: 11, name: "Match 11: RCB vs CSK", teams: ["Royal Challengers Bengaluru", "Chennai Super Kings"], abbrs: ["RCB", "CSK"], date: "Sunday, 5 April 2026", time: "7:30 PM", venue: "M. Chinnaswamy Stadium" },
+  { id: 11, name: "Match 11: RCB vs CSK", teams: ["Royal Challengers Bengaluru", "Chennai Super Kings"], abbrs: ["RCB", "CSK"], date: "Sunday, 5 April 2026", time: "7:30 PM", venue: "M. Chinnaswamy Stadium", isCompleted: true },
   { id: 12, name: "Match 12: KKR vs PBKS", teams: ["Kolkata Knight Riders", "Punjab Kings"], abbrs: ["KKR", "PBKS"], date: "Monday, 6 April 2026", time: "7:30 PM", venue: "Eden Gardens" },
   { id: 13, name: "Match 13: RR vs MI", teams: ["Rajasthan Royals", "Mumbai Indians"], abbrs: ["RR", "MI"], date: "Tuesday, 7 April 2026", time: "7:30 PM", venue: "ACA Stadium, Guwahati" },
   { id: 14, name: "Match 14: DC vs GT", teams: ["Delhi Capitals", "Gujarat Titans"], abbrs: ["DC", "GT"], date: "Wednesday, 8 April 2026", time: "7:30 PM", venue: "Arun Jaitley Stadium" },
