@@ -79,7 +79,7 @@ const ProgressionGraph = () => {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
           <div>
             <h2 className="text-sm font-black tracking-[0.2em] text-slate-500 uppercase mb-2">Analytics</h2>
-            <h3 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tighter">Fantasy League Progression</h3>
+            <h3 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tighter text-shiny">Fantasy League Progression</h3>
           </div>
           <motion.div 
             animate={{ 

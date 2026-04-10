@@ -36,7 +36,7 @@ const Schedule = ({ teams, hideInternalHeader }) => {
       {!hideInternalHeader && (
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
           <div>
-            <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">AuctionRoom Schedule</h2>
+            <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight text-shiny">AuctionRoom Schedule</h2>
             <p className="text-slate-600 dark:text-slate-400 font-medium mt-1">Full season fixtures and fantasy player tracking</p>
           </div>
           <div className="flex items-center gap-2 px-4 py-2 bg-black/5 dark:bg-white/5 rounded-xl border border-black/10 dark:border-white/5 text-xs font-bold text-slate-600 dark:text-slate-500 uppercase tracking-widest transition-colors">

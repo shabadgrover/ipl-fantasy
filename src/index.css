@@ -125,3 +125,75 @@
   scrollbar-width: thin;
   scrollbar-color: rgba(150, 150, 150, 0.3) transparent;
 }
+@keyframes shine-sweep {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(0, 212, 255, 0.2), inset 0 0 10px rgba(0, 212, 255, 0.1); }
+  50% { box-shadow: 0 0 30px rgba(0, 212, 255, 0.5), inset 0 0 20px rgba(0, 212, 255, 0.2); }
+}
+
+.text-shiny {
+  background: linear-gradient(
+    90deg, 
+    #0f172a 0%, 
+    #334155 45%, 
+    #0ea5e9 50%, 
+    #334155 55%, 
+    #0f172a 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 6s linear infinite;
+}
+
+.dark .text-shiny {
+  background: linear-gradient(
+    90deg, 
+    #94a3b8 0%, 
+    #fff 45%, 
+    #fff 55%, 
+    #94a3b8 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 6s linear infinite;
+}
+
+.text-shiny-primary {
+  @apply text-transparent bg-clip-text;
+  background: linear-gradient(
+    90deg, 
+    #0ea5e9 0%, 
+    #38bdf8 45%, 
+    #f0f9ff 50%, 
+    #38bdf8 55%, 
+    #0ea5e9 100%
+  );
+  background-size: 200% auto;
+  animation: shine-sweep 4s linear infinite;
+}
+
+.neon-blue-glow {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), 0 0 40px rgba(0, 212, 255, 0.1);
+}
+
+.neon-border {
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+}
+
+.hover-neon:hover {
+  @apply text-[#00f2ff] drop-shadow-[0_0_8px_rgba(0,242,255,0.8)];
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+.glass-neon {
+  @apply bg-[#001a2c]/40 backdrop-blur-2xl border border-[#00d4ff]/20;
+  box-shadow: 0 0 40px rgba(0, 212, 255, 0.1);
+}

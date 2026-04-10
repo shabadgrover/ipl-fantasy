@@ -203,7 +203,7 @@ function App() {
                 <button
                   key={tab.id}
                   onClick={() => scrollTo(tab.id)}
-                  className="text-xs font-semibold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:scale-105 transition-all duration-300 tracking-wide px-3 py-2 whitespace-nowrap"
+                  className="text-[10px] font-black tracking-[0.2em] text-slate-500 hover:text-[#00d4ff] hover:drop-shadow-[0_0_8px_rgba(0,212,255,0.8)] transition-all duration-300 px-3 py-2 whitespace-nowrap uppercase"
                 >
                   {tab.name}
                 </button>
@@ -211,7 +211,7 @@ function App() {
               
               <button
                 onClick={handleShare}
-                className="ml-2 flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:scale-105 transition-all duration-300"
+                className="ml-2 flex items-center gap-1.5 px-3 py-2 text-[10px] font-black tracking-[0.2em] uppercase text-slate-500 hover:text-[#00d4ff] hover:drop-shadow-[0_0_8px_rgba(0,212,255,0.8)] transition-all duration-300"
                 aria-label="Share League"
               >
                 <Share2 size={14} />
@@ -260,7 +260,7 @@ function App() {
             transition={{ duration: 0.8 }}
             className="max-w-5xl mx-auto px-4 mb-4 text-center"
           >
-            <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white">Track Every Point.</h2>
+            <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white text-shiny">Track Every Point.</h2>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">The live leaderboard updated in real-time. Last Refreshed: {lastUpdated}</p>
           </motion.div>
           <Leaderboard teams={teamsWithUser} hideInternalHeader={true} />
@@ -275,7 +275,7 @@ function App() {
             transition={{ duration: 0.8 }}
             className="max-w-6xl mx-auto px-4 mb-4 text-center"
           >
-            <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white">Know Your Team.</h2>
+            <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white text-shiny">Know Your Team.</h2>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">Every squad, every player, every stat beautifully organized.</p>
           </motion.div>
           <Teams teams={teamsWithUser} hideInternalHeader={true} />
@@ -289,7 +289,7 @@ function App() {
             transition={{ duration: 0.8 }}
             className="max-w-6xl mx-auto px-4 mb-4 text-center"
           >
-            <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white">Plan Ahead.</h2>
+            <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white text-shiny">Plan Ahead.</h2>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">Deep impact analysis for the next upcoming fixture.</p>
           </motion.div>
           <UpcomingMatch teams={teamsWithUser} matchInfo={upcomingMatch} hideInternalHeader={true} />
@@ -307,7 +307,7 @@ function App() {
             transition={{ duration: 0.8 }}
             className="max-w-6xl mx-auto px-4 mb-4 text-center"
           >
-            <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white">The Long Game.</h2>
+            <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white text-shiny">The Long Game.</h2>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">Full tournament schedule and fixture tracking.</p>
           </motion.div>
           <Schedule teams={teamsWithUser} hideInternalHeader={true} />

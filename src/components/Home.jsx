@@ -14,15 +14,15 @@ const Home = ({ onNavigate }) => {
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         className="text-center z-10 px-4"
       >
-        <span className="text-slate-500 dark:text-slate-500 tracking-[0.3em] text-sm uppercase font-bold">
+        <span className="text-slate-500 dark:text-slate-500 tracking-[0.3em] text-sm uppercase font-bold text-shiny">
           Season 2026
         </span>
 
         {/* BIG TITLE */}
-        <h1 className="text-[clamp(3.5rem,10vw,12rem)] font-black tracking-tight leading-[0.9] mt-6 text-slate-900 dark:text-white">
+        <h1 className="text-[clamp(3.5rem,10vw,12rem)] font-black tracking-tight leading-[0.9] mt-6 text-slate-900 dark:text-white text-shiny">
           IPL FANTASY
         </h1>
-        <h1 className="text-[clamp(3.5rem,10vw,12rem)] font-black tracking-tight leading-[0.9] text-slate-900 dark:text-white">
+        <h1 className="text-[clamp(3.5rem,10vw,12rem)] font-black tracking-tight leading-[0.9] text-slate-900 dark:text-white text-shiny">
           LEAGUE
         </h1>
 
@@ -35,7 +35,7 @@ const Home = ({ onNavigate }) => {
         <div className="mt-14">
           <button
             onClick={() => onNavigate('leaderboard')}
-            className="bg-black text-white dark:bg-white dark:text-black px-8 py-4 rounded-full text-lg font-black hover:scale-105 transition shadow-2xl shadow-primary/20 hover:shadow-primary/40"
+            className="bg-black text-white dark:bg-white dark:text-black px-8 py-4 rounded-full text-lg font-black hover:scale-105 transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,212,255,0.6)] border border-transparent hover:border-[#00d4ff]/50"
           >
             Explore the Data
           </button>

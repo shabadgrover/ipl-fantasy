@@ -49,12 +49,15 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
                     }}
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     key={team.id}
-                    className={`border-b border-black/5 dark:border-white/5 transition-colors hover:bg-black/[0.04] dark:hover:bg-white/[0.08] ${
+                    className={`border-b border-black/5 dark:border-white/5 transition-all duration-500 hover:bg-black/[0.04] dark:hover:bg-white/[0.08] relative group ${
                       isUser 
-                        ? 'bg-primary/[0.03] dark:bg-primary/[0.05] ring-1 ring-primary/20 dark:ring-primary/20 relative z-10 shadow-[0_0_15px_rgba(0,0,0,0.03)] dark:shadow-[0_0_15px_rgba(255,255,255,0.02)]' 
+                        ? 'bg-[#001a2c]/60 dark:bg-[#001a2c]/60 ring-2 ring-[#00d4ff]/40 z-10 shadow-[0_0_30px_rgba(0,212,255,0.15)] backdrop-blur-md' 
                         : ''
                     }`}
                   >
+                    {isUser && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#00d4ff]/5 via-transparent to-[#00d4ff]/5 animate-pulse pointer-events-none" />
+                    )}
                     <td className="py-4 px-6 text-center w-20">
                       <div className="flex flex-col items-center gap-1">
                         {rank === 1 ? (
@@ -99,19 +102,19 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
                     </td>
                     <td className="py-4 px-6">
                       <div className="flex items-center gap-3">
-                        <span className={`font-black text-lg ${isUser ? 'text-slate-900 dark:text-white filter drop-shadow-sm' : isTop3 ? 'text-slate-800 dark:text-slate-200' : 'text-slate-600 dark:text-slate-400'}`}>
+                        <span className={`font-black text-lg ${isUser ? 'text-[#001a2c] dark:text-[#00f2ff] drop-shadow-[0_0_10px_rgba(0,212,255,0.4)]' : isTop3 ? 'text-slate-800 dark:text-slate-200' : 'text-slate-600 dark:text-slate-400'}`}>
                           {team.teamName}
                         </span>
                         {isUser && (
-                          <span className="text-[10px] px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-black uppercase tracking-widest shadow-sm">
-                            Your Team
+                          <span className="text-[10px] px-3 py-1 rounded-full bg-[#00d4ff]/20 text-[#00f2ff] border border-[#00d4ff]/30 font-black uppercase tracking-widest shadow-[0_0_10px_rgba(0,212,255,0.3)] animate-pulse">
+                            Active Session
                           </span>
                         )}
                       </div>
                     </td>
                     <td className="py-5 px-8 text-right">
                       <div className="flex flex-col items-end">
-                        <span className={`font-black text-2xl tracking-tight ${isTop3 ? 'text-slate-900 dark:text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.1)] dark:drop-shadow-lg' : 'text-slate-800 dark:text-slate-200'}`}>
+                        <span className={`font-black text-2xl tracking-tight ${isUser ? 'text-[#001a2c] dark:text-white' : isTop3 ? 'text-slate-900 dark:text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.1)] dark:drop-shadow-lg' : 'text-slate-800 dark:text-slate-200'}`}>
                           {(team.totalPoints || 0).toLocaleString()}
                         </span>
                         {team.matchPoints > 0 && (
@@ -161,9 +164,12 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
                 }}
                 key={team.id}
                 className={`glass-premium rounded-3xl p-5 relative overflow-hidden transition-all active:scale-[0.98] ${
-                  isUser ? 'ring-2 ring-primary bg-primary/5' : ''
+                  isUser ? 'ring-2 ring-[#00d4ff] bg-[#001a2c]/80 shadow-[0_0_30px_rgba(0,212,255,0.3)]' : ''
                 }`}
               >
+                {isUser && (
+                  <div className="absolute inset-0 bg-[#00d4ff]/5 animate-pulse pointer-events-none" />
+                )}
                 <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-4">
                     {/* Rank Indicator */}
@@ -202,11 +208,11 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
 
                     <div className="flex flex-col">
                       <div className="flex items-center gap-2">
-                        <span className={`font-black text-lg tracking-tight ${isUser ? 'text-white' : 'text-slate-200'}`}>
+                        <span className={`font-black text-lg tracking-tight ${isUser ? 'text-[#001a2c] dark:text-[#00f2ff] drop-shadow-[0_0_10px_rgba(0,242,255,0.3)]' : 'text-slate-900 dark:text-white font-bold'}`}>
                           {team.teamName}
                         </span>
                         {isUser && (
-                          <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#00f2ff] shadow-[0_0_8px_#00f2ff] animate-pulse" />
                         )}
                       </div>
                       <div className="flex items-center gap-2">
@@ -218,7 +224,7 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
                   </div>
 
                   <div className="text-right">
-                    <div className="text-2xl font-black text-white tracking-tighter">
+                    <div className={`text-2xl font-black tracking-tighter ${isUser ? 'text-[#001a2c] dark:text-white' : 'text-slate-900 dark:text-white'}`}>
                       {team.totalPoints.toLocaleString()}
                     </div>
                     {team.matchPoints > 0 && (
