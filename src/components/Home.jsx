@@ -19,10 +19,10 @@ const Home = ({ onNavigate }) => {
         </span>
 
         {/* BIG TITLE */}
-        <h1 className="text-[clamp(4rem,10vw,12rem)] font-black tracking-tight leading-[0.9] mt-6">
+        <h1 className="text-[clamp(3.5rem,10vw,12rem)] font-black tracking-tight leading-[0.9] mt-6">
           IPL FANTASY
         </h1>
-        <h1 className="text-[clamp(4rem,10vw,12rem)] font-black tracking-tight leading-[0.9]">
+        <h1 className="text-[clamp(3.5rem,10vw,12rem)] font-black tracking-tight leading-[0.9]">
           LEAGUE
         </h1>
 

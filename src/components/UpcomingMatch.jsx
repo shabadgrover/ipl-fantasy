@@ -33,7 +33,7 @@ const UpcomingMatch = ({ teams, matchInfo, hideInternalHeader }) => {
     <div className="max-w-6xl mx-auto px-4 pb-20">
       {/* Match Header */}
       <div className="glass-premium rounded-[3rem] p-10 border border-primary/20 shadow-2xl shadow-primary/10 mb-10 overflow-hidden relative transition-all duration-500 hover:shadow-primary/20">
-        <div className="absolute top-0 right-0 p-8 opacity-10">
+        <div className="absolute top-0 right-0 p-8 opacity-10 hidden md:block">
           <Zap size={120} className="text-slate-900 dark:text-white/20" fill="currentColor" />
         </div>
         
@@ -46,8 +46,8 @@ const UpcomingMatch = ({ teams, matchInfo, hideInternalHeader }) => {
                 {matchInfo.date}
               </span>
             </div>
-            <h2 className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter mb-2 italic">
-              {matchInfo.abbrs[0]} <span className="text-slate-500 dark:text-slate-400 not-italic">VS</span> {matchInfo.abbrs[1]}
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter mb-2 italic">
+              {matchInfo.abbrs[0]} <span className="text-slate-500 dark:text-slate-400 not-italic text-2xl md:text-4xl">VS</span> {matchInfo.abbrs[1]}
             </h2>
             <div className="flex items-center gap-4 text-slate-600 dark:text-slate-400 font-bold uppercase text-[10px] tracking-widest">
               <span className="flex items-center gap-1.5"><MapPin size={12} className="text-primary" /> {matchInfo.venue}</span>

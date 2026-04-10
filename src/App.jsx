@@ -11,6 +11,7 @@ import { parseExcelData } from './utils/excelParser';
 import ImpactAnalysis from './components/ImpactAnalysis';
 import { matches } from './data/matches';
 import ProgressionGraph from './components/ProgressionGraph';
+import MobileNav from './components/MobileNav';
 
 function App() {
   const [teams, setTeams] = useState([]);
@@ -196,7 +197,7 @@ function App() {
             <span className="text-lg font-black tracking-tight text-slate-900 dark:text-white">IPL Fantasy</span>
           </div>
           
-          <nav className="flex gap-1 md:gap-4 overflow-x-auto items-center">
+          <nav className="hidden md:flex gap-1 md:gap-4 overflow-x-auto items-center">
             {tabs.slice(1).map((tab) => (
               <button
                 key={tab.id}
@@ -248,7 +249,7 @@ function App() {
           <Home onNavigate={scrollTo} />
         </section>
 
-        <section id="leaderboard" className="pt-32 pb-20 border-t border-black/5 dark:border-white/5">
+        <section id="leaderboard" className="pt-20 md:pt-32 pb-10 md:pb-20 border-t border-black/5 dark:border-white/5">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -263,7 +264,7 @@ function App() {
           <ProgressionGraph />
         </section>
         
-        <section id="all-teams" className="pt-32 pb-20 border-t border-black/5 dark:border-white/5">
+        <section id="all-teams" className="pt-20 md:pt-32 pb-10 md:pb-20 border-t border-black/5 dark:border-white/5">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -277,7 +278,7 @@ function App() {
           <Teams teams={teamsWithUser} hideInternalHeader={true} />
         </section>
 
-        <section id="upcoming" className="pt-32 pb-10 border-t border-black/5 dark:border-white/5">
+        <section id="upcoming" className="pt-20 md:pt-32 pb-6 md:pb-10 border-t border-black/5 dark:border-white/5">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -295,7 +296,7 @@ function App() {
           <ImpactAnalysis teams={teamsWithUser} matchInfo={upcomingMatch} hideInternalHeader={true} />
         </section>
 
-        <section id="schedule" className="pt-32 pb-32 border-t border-black/5 dark:border-white/5">
+        <section id="schedule" className="pt-20 md:pt-32 pb-20 md:pb-32 border-t border-black/5 dark:border-white/5">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -330,6 +331,7 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      <MobileNav onNavigate={scrollTo} />
     </div>
   );
 }

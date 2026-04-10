@@ -13,7 +13,7 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
         </div>
       )}
 
-      <div className="glass-premium rounded-[2rem] overflow-hidden">
+      <div className="hidden md:block glass-premium rounded-[2rem] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
@@ -132,6 +132,112 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
             </motion.tbody>
           </table>
         </div>
+      </div>
+
+      {/* Mobile Card Layout */}
+      <div className="md:hidden space-y-4">
+        <motion.div
+           initial="hidden"
+           animate="visible"
+           variants={{
+             hidden: { opacity: 0 },
+             visible: {
+               opacity: 1,
+               transition: { staggerChildren: 0.1 }
+             }
+           }}
+           className="grid grid-cols-1 gap-4"
+        >
+          {(teams || []).map((team, index) => {
+            const rank = index + 1;
+            const isTop3 = rank <= 3;
+            const isUser = team.isUser;
+
+            return (
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0 }
+                }}
+                key={team.id}
+                className={`glass-premium rounded-3xl p-5 relative overflow-hidden transition-all active:scale-[0.98] ${
+                  isUser ? 'ring-2 ring-primary bg-primary/5' : ''
+                }`}
+              >
+                <div className="flex items-center justify-between relative z-10">
+                  <div className="flex items-center gap-4">
+                    {/* Rank Indicator */}
+                    <div className="relative">
+                      {rank === 1 ? (
+                        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white shadow-lg">
+                          <Trophy size={20} />
+                        </div>
+                      ) : rank === 2 ? (
+                        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-slate-300 to-slate-500 flex items-center justify-center text-white shadow-lg">
+                          <Medal size={20} />
+                        </div>
+                      ) : rank === 3 ? (
+                        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-orange-400 to-orange-700 flex items-center justify-center text-white shadow-lg">
+                          <Medal size={20} />
+                        </div>
+                      ) : (
+                        <div className="w-10 h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 font-black text-lg">
+                          {rank}
+                        </div>
+                      )}
+                      
+                      {/* Mini Trend badge */}
+                      <div className="absolute -bottom-1 -right-1">
+                        {team.trend === 'up' ? (
+                          <div className="bg-emerald-500 rounded-full p-0.5 border-2 border-[#111]">
+                            <TrendingUp size={10} className="text-white" />
+                          </div>
+                        ) : team.trend === 'down' ? (
+                          <div className="bg-rose-500 rounded-full p-0.5 border-2 border-[#111]">
+                            <TrendingDown size={10} className="text-white" />
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col">
+                      <div className="flex items-center gap-2">
+                        <span className={`font-black text-lg tracking-tight ${isUser ? 'text-white' : 'text-slate-200'}`}>
+                          {team.teamName}
+                        </span>
+                        {isUser && (
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+                          {team.rankDiff !== 0 ? `${Math.abs(team.rankDiff)} spots ${team.trend === 'up' ? 'up' : 'down'}` : 'Position Solid'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="text-right">
+                    <div className="text-2xl font-black text-white tracking-tighter">
+                      {team.totalPoints.toLocaleString()}
+                    </div>
+                    {team.matchPoints > 0 && (
+                      <div className="flex items-center justify-end gap-1 text-emerald-400 font-bold text-xs mt-0.5">
+                        <TrendingUp size={10} />
+                        <span>+{team.matchPoints.toLocaleString()}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Subtle Background rank for flair */}
+                <div className="absolute -bottom-6 -right-4 text-8xl font-black text-white/[0.03] italic select-none pointer-events-none">
+                  #{rank}
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
     </div>
   );

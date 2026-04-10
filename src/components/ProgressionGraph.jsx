@@ -129,15 +129,16 @@ const ProgressionGraph = () => {
               <XAxis 
                 dataKey="match" 
                 stroke="rgba(255,255,255,0.3)" 
-                fontSize={12} 
+                fontSize={10} 
                 fontWeight={700}
                 tickLine={false}
                 axisLine={false}
-                dy={15}
+                dy={10}
+                interval={window.innerWidth < 768 ? 1 : 0} // Show every other match on mobile
                 label={{ 
-                  value: 'Match Number', 
+                  value: 'Match', 
                   position: 'bottom', 
-                  offset: 0,
+                  offset: -5,
                   fill: 'rgba(255,255,255,0.4)',
                   fontSize: 10,
                   fontWeight: 900,
@@ -147,12 +148,12 @@ const ProgressionGraph = () => {
               
               <YAxis 
                 stroke="rgba(255,255,255,0.3)" 
-                fontSize={12} 
+                fontSize={10} 
                 fontWeight={700}
                 tickLine={false}
                 axisLine={false}
-                dx={-10}
-                tickFormatter={(value) => value.toLocaleString()}
+                dx={-5}
+                tickFormatter={(value) => value >= 1000 ? `${(value/1000).toFixed(1)}k` : value}
               />
 
               <Tooltip 
@@ -163,11 +164,11 @@ const ProgressionGraph = () => {
               
               <Legend 
                 verticalAlign="top" 
-                height={60}
+                height={70}
                 onMouseEnter={(e) => setActiveTeam(e.dataKey)}
                 onMouseLeave={() => setActiveTeam(null)}
                 content={({ payload }) => (
-                  <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8">
+                  <div className="flex overflow-x-auto no-scrollbar pb-6 px-2 -mx-2 snap-x items-center gap-6">
                     {payload.map((entry, index) => {
                       const team = teams.find(t => t.name === entry.value);
                       const isHovered = activeTeam === team?.key;
@@ -176,9 +177,10 @@ const ProgressionGraph = () => {
                       return (
                         <div 
                           key={`item-${index}`} 
-                          className={`flex items-center gap-2 cursor-pointer transition-all duration-300 ${isOtherHovered ? 'opacity-30' : 'opacity-100'}`}
+                          className={`flex items-center gap-2 cursor-pointer transition-all duration-300 whitespace-nowrap snap-center ${isOtherHovered ? 'opacity-30' : 'opacity-100'}`}
                           onMouseEnter={() => setActiveTeam(team?.key)}
                           onMouseLeave={() => setActiveTeam(null)}
+                          onClick={() => setActiveTeam(activeTeam === team?.key ? null : team?.key)}
                         >
                           <div className={`w-2.5 h-2.5 rounded-full transition-transform ${isHovered ? 'scale-125' : 'scale-100'}`} style={{ backgroundColor: entry.color, boxShadow: isHovered ? `0 0 10px ${entry.color}` : 'none' }} />
                           <span className={`text-[10px] font-black uppercase tracking-widest ${isHovered ? 'text-white' : 'text-slate-400'}`}>{entry.value}</span>
