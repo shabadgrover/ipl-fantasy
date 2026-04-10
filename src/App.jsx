@@ -10,6 +10,7 @@ import { Home as HomeIcon, LayoutDashboard, Users, Zap, Calendar, Target, Sun, M
 import { parseExcelData } from './utils/excelParser';
 import ImpactAnalysis from './components/ImpactAnalysis';
 import { matches } from './data/matches';
+import ProgressionGraph from './components/ProgressionGraph';
 
 function App() {
   const [teams, setTeams] = useState([]);
@@ -259,6 +260,7 @@ function App() {
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">The live leaderboard updated in real-time. Last Refreshed: {lastUpdated}</p>
           </motion.div>
           <Leaderboard teams={teamsWithUser} hideInternalHeader={true} />
+          <ProgressionGraph />
         </section>
         
         <section id="all-teams" className="pt-32 pb-20 border-t border-black/5 dark:border-white/5">
