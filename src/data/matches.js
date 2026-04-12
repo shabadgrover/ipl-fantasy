@@ -18,7 +18,7 @@ export const matches = [
   { id: 17, name: "Match 17: PBKS vs SRH", teams: ["Punjab Kings", "Sunrisers Hyderabad"], abbrs: ["PBKS", "SRH"], date: "Saturday, 11 April 2026", time: "3:30 PM", venue: "New Chandigarh", isCompleted: true },
   { id: 18, name: "Match 18: CSK vs DC", teams: ["Chennai Super Kings", "Delhi Capitals"], abbrs: ["CSK", "DC"], date: "Saturday, 11 April 2026", time: "7:30 PM", venue: "M.A. Chidambaram Stadium", isCompleted: true },
   { id: 19, name: "Match 19: LSG vs GT", teams: ["Lucknow Super Giants", "Gujarat Titans"], abbrs: ["LSG", "GT"], date: "Sunday, 12 April 2026", time: "3:30 PM", venue: "Ekana Stadium", isCompleted: true },
-  { id: 20, name: "Match 20: MI vs RCB", teams: ["Mumbai Indians", "Royal Challengers Bengaluru"], abbrs: ["MI", "RCB"], date: "Sunday, 12 April 2026", time: "7:30 PM", venue: "Wankhede Stadium" },
+  { id: 20, name: "Match 20: MI vs RCB", teams: ["Mumbai Indians", "Royal Challengers Bengaluru"], abbrs: ["MI", "RCB"], date: "Sunday, 12 April 2026", time: "7:30 PM", venue: "Wankhede Stadium", isCompleted: true },
   { id: 21, name: "Match 21: SRH vs RR", teams: ["Sunrisers Hyderabad", "Rajasthan Royals"], abbrs: ["SRH", "RR"], date: "Monday, 13 April 2026", time: "7:30 PM", venue: "Rajiv Gandhi International Stadium" },
   { id: 22, name: "Match 22: CSK vs KKR", teams: ["Chennai Super Kings", "Kolkata Knight Riders"], abbrs: ["CSK", "KKR"], date: "Tuesday, 14 April 2026", time: "7:30 PM", venue: "M.A. Chidambaram Stadium" },
   { id: 23, name: "Match 23: RCB vs LSG", teams: ["Royal Challengers Bengaluru", "Lucknow Super Giants"], abbrs: ["RCB", "LSG"], date: "Wednesday, 15 April 2026", time: "7:30 PM", venue: "M. Chinnaswamy Stadium" },
