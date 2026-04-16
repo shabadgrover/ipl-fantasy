@@ -47,27 +47,27 @@ function App() {
         const now = new Date();
         setLastUpdated(now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
         
-        // --- BASELINE DATA (Match 22 Standings) ---
-        const BASELINE_MATCH22 = {
-          "shabad's Team": 3132,
-          "Sumit's Team": 2933.5,
-          "Deepanshuu's Team": 2872.5,
+        // --- BASELINE DATA (Match 23 Standings) ---
+        const BASELINE_MATCH23 = {
+          "shabad's Team": 3232,
+          "Sumit's Team": 3126.5,
+          "Deepanshuu's Team": 3074.5,
           "Piyush dhiman's Team": 2380.5,
-          "Ankit's Team": 2263.5,
+          "Ankit's Team": 2594.5,
           "Maat maro shota bacha hu": 2237.5,
-          "Jenna Morrh Warriors": 2215.5,
-          "GURI XI": 2036.5,
+          "Jenna Morrh Warriors": 2231.5,
+          "GURI XI": 2209.5,
           "Aizen": 1656.5
         };
 
-        const INITIAL_RANKS = Object.keys(BASELINE_MATCH22)
-          .sort((a, b) => BASELINE_MATCH22[b] - BASELINE_MATCH22[a])
+        const INITIAL_RANKS = Object.keys(BASELINE_MATCH23)
+          .sort((a, b) => BASELINE_MATCH23[b] - BASELINE_MATCH23[a])
           .map((id, index) => ({ id, rank: index + 1 }));
 
-        // Current totals come directly from the public/data.xlsx (cumulative Match 23)
+        // Current totals come directly from the public/data.xlsx (cumulative Match 24)
         const finalStandings = parsedTeams.map(team => {
           const totalPoints = team.totalPoints;
-          const previousPoints = BASELINE_MATCH22[team.id] || 0;
+          const previousPoints = BASELINE_MATCH23[team.id] || 0;
           return {
             ...team,
             matchPoints: totalPoints - previousPoints,
@@ -77,7 +77,7 @@ function App() {
 
         const sortedTeams = [...finalStandings].sort((a, b) => b.totalPoints - a.totalPoints);
 
-        // Use INITIAL_RANKS (Match 21) as the fixed baseline for latest match movement
+        // Use INITIAL_RANKS (Match 23) as the fixed baseline for latest match movement
         const teamsWithTrend = sortedTeams.map((team, index) => {
           const currentRank = index + 1;
           const prevEntry = INITIAL_RANKS.find(p => p.id === team.id);

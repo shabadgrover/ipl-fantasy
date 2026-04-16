@@ -22,6 +22,6 @@ export const matches = [
   { id: 21, name: "Match 21: SRH vs RR", teams: ["Sunrisers Hyderabad", "Rajasthan Royals"], abbrs: ["SRH", "RR"], date: "Monday, 13 April 2026", time: "7:30 PM", venue: "Rajiv Gandhi International Stadium", isCompleted: true },
   { id: 22, name: "Match 22: CSK vs KKR", teams: ["Chennai Super Kings", "Kolkata Knight Riders"], abbrs: ["CSK", "KKR"], date: "Tuesday, 14 April 2026", time: "7:30 PM", venue: "M.A. Chidambaram Stadium", isCompleted: true },
   { id: 23, name: "Match 23: RCB vs LSG", teams: ["Royal Challengers Bengaluru", "Lucknow Super Giants"], abbrs: ["RCB", "LSG"], date: "Wednesday, 15 April 2026", time: "7:30 PM", venue: "M. Chinnaswamy Stadium", isCompleted: true },
-  { id: 24, name: "Match 24: MI vs PBKS", teams: ["Mumbai Indians", "Punjab Kings"], abbrs: ["MI", "PBKS"], date: "Thursday, 16 April 2026", time: "7:30 PM", venue: "Wankhede Stadium" },
+  { id: 24, name: "Match 24: MI vs PBKS", teams: ["Mumbai Indians", "Punjab Kings"], abbrs: ["MI", "PBKS"], date: "Thursday, 16 April 2026", time: "7:30 PM", venue: "Wankhede Stadium", isCompleted: true },
   { id: 25, name: "Match 25: GT vs KKR", teams: ["Gujarat Titans", "Kolkata Knight Riders"], abbrs: ["GT", "KKR"], date: "Friday, 17 April 2026", time: "7:30 PM", venue: "Narendra Modi Stadium" }
 ];

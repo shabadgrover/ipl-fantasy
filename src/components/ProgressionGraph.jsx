@@ -34,6 +34,7 @@ const data = [
   { match: 21, ankit: 2215.5, piyush: 2368.5, aizen: 1592.5, jenna: 2049.5, shabad: 3077, guri: 1857.5, deepanshuu: 2648.5, maat: 2051.5, sumit: 2896.5 },
   { match: 22, ankit: 2263.5, piyush: 2380.5, aizen: 1656.5, jenna: 2215.5, shabad: 3132, guri: 2036.5, deepanshuu: 2872.5, maat: 2237.5, sumit: 2933.5 },
   { match: 23, ankit: 2594.5, piyush: 2380.5, aizen: 1656.5, jenna: 2231.5, shabad: 3232, guri: 2209.5, deepanshuu: 3074.5, maat: 2237.5, sumit: 3126.5 },
+  { match: 24, ankit: 2606.5, piyush: 2646.5, aizen: 1656.5, jenna: 2306.5, shabad: 3232, guri: 2244.5, deepanshuu: 3122.5, maat: 2713.5, sumit: 3296.5 },
 ];
 
 const teams = [
@@ -98,7 +99,7 @@ const ProgressionGraph = () => {
           >
              <div className="flex flex-col">
                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Leader</span>
-                <span className="text-sm font-black text-slate-900 dark:text-white">shabad's Team</span>
+                <span className="text-sm font-black text-slate-900 dark:text-white">Sumit's Team</span>
              </div>
           </motion.div>
         </div>
