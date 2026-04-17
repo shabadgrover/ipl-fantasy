@@ -3,7 +3,7 @@
     "match_no": 1,
     "match_id": "M1",
     "date": "2026-03-28",
-    "venue": "Bangalore",
+    "venue": "Bengaluru",
     "teams": {
       "team1": "SRH",
       "team2": "RCB"
@@ -72,7 +72,7 @@
   {
     "match_no": 6,
     "match_id": "M6",
-    "date": "2026-04-02 ",
+    "date": "2026-04-02",
     "venue": "Kolkata",
     "teams": {
       "team1": "KKR",
@@ -111,11 +111,12 @@
       "player": "Sameer Rizvi"
     }
   },
+
   {
     "match_no": 9,
-    "match_id": "M4",
+    "match_id": "M9",
     "date": "2026-04-05",
-    "venue": "Ahemdabad",
+    "venue": "Ahmedabad",
     "teams": {
       "team1": "GT",
       "team2": "RR"
@@ -125,158 +126,21 @@
       "player": "Ravi Bishnoi"
     }
   },
+
+  ...
+  
   {
-    "match_no": 10,
-    "match_id": "M10",
-    "date": "2026-04-05",
-    "venue": "Hyderabad",
-    "teams": {
-      "team1": "SRH",
-      "team2": "LSG"
-    },
-    "winner": "LSG",
-    "man_of_the_match": {
-      "player": "Mohammed Shami"
-    }
-  },
-  {
-    "match_no": 11,
-    "match_id": "M11",
-    "date": "2026-04-05",
-    "venue": "Bengaluru",
-    "teams": {
-      "team1": "RCB",
-      "team2": "CSK"
-    },
-    "winner": "RCB",
-    "man_of_the_match": {
-      "player": "Tim David"
-    }
-  },
-  {
-    "match_no": 12,
-    "match_id": "M12",
-    "date": "2026-04-06",
-    "venue": "Kolkata",
-    "teams": {
-      "team1": "KKR",
-      "team2": "PBKS"
-    },
-    "winner": "NR",
-    "man_of_the_match": {
-      "player": "NA"
-    }
-  },
-  {
-    "match_no": 13,
-    "match_id": "M13",
-    "date": "2026-04-07",
-    "venue": "Guwahati",
-    "teams": {
-      "team1": "RR",
-      "team2": "MI"
-    },
-    "winner": "RR",
-    "man_of_the_match": {
-      "player": "Yashasvi Jaiswal"
-    }
-  },
-  {
-    "match_no": 14,
-    "match_id": "M14",
-    "date": "2026-04-08",
-    "venue": "Delhi",
-    "teams": {
-      "team1": "DC",
-      "team2": "GT"
-    },
-    "winner": "GT",
-    "man_of_the_match": {
-      "player": "Rashid Khan"
-    }
-  },
-  {
-    "match_no": 15,
-    "match_id": "M15",
-    "date": "2026-04-09",
-    "venue": "Kolkata",
-    "teams": {
-      "team1": "KKR",
-      "team2": "LSG"
-    },
-    "winner": "LSG",
-    "man_of_the_match": {
-      "player": "Mukul Choudhary"
-    }
-  },
-  {
-    "match_no": 16,
-    "match_id": "M16",
-    "date": "2026-04-10",
-    "venue": "Guwahati",
-    "teams": {
-      "team1": "RR",
-      "team2": "RCB"
-    },
-    "winner": "RR",
-    "man_of_the_match": {
-      "player": "Vaibhav Sooryavanshi"
-    }
-  },
-  {
-    "match_no": 17,
-    "match_id": "M17",
-    "date": "2026-04-11",
-    "venue": "New Chandigarh",
-    "teams": {
-      "team1": "PBKS",
-      "team2": "SRH"
-    },
-    "winner": "PBKS",
-    "man_of_the_match": {
-      "player": "Shreyas Iyer"
-    }
-  },
-  {
-    "match_no": 18,
-    "match_id": "M18",
-    "date": "2026-04-11",
-    "venue": "Chennai",
-    "teams": {
-      "team1": "CSK",
-      "team2": "DC"
-    },
-    "winner": "CSK",
-    "man_of_the_match": {
-      "player": "Sanju Samson"
-    }
-  },
-  {
-    "match_no": 19,
-    "match_id": "M19",
-    "date": "2026-04-12",
+    "match_no": 70,
+    "match_id": "M70",
+    "date": "2026-06-01",
     "venue": "Lucknow",
     "teams": {
       "team1": "LSG",
-      "team2": "GT"
+      "team2": "PBKS"
     },
-    "winner": "",
+    "winner": "TBD",
     "man_of_the_match": {
-      "player": ""
-    }
-  },
-  {
-    "match_no": 20,
-    "match_id": "M20",
-    "date": "2026-04-12",
-    "venue": "Mumbai",
-    "teams": {
-      "team1": "MI",
-      "team2": "RCB"
-    },
-    "winner": "",
-    "man_of_the_match": {
-      "player": ""
+      "player": "TBD"
     }
   }
 ]
