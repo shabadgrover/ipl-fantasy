@@ -74,6 +74,7 @@ const MSTBanner = () => {
             <motion.button 
               whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(255, 255, 255, 0.05)" }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => window.open("https://forms.gle/AYhraSDPswP7y5rp9", "_blank", "noopener,noreferrer")}
               className="relative min-w-[320px] px-12 py-6 rounded-[2rem] bg-[#0a0a0a] border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.8)] group/btn overflow-hidden transition-all duration-300"
             >
               {/* Animated Premium Border */}
