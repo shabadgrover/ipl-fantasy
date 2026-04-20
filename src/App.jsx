@@ -13,6 +13,8 @@ import { matches } from './data/matches';
 import ProgressionGraph from './components/ProgressionGraph';
 import MobileNav from './components/MobileNav';
 
+
+
 function App() {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,6 +23,7 @@ function App() {
   const [session, setSession] = useState(() => JSON.parse(localStorage.getItem('userSession')) || null);
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
   const [showToast, setShowToast] = useState(false);
+
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -47,27 +50,27 @@ function App() {
         const now = new Date();
         setLastUpdated(now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
         
-        // --- BASELINE DATA (Match 27 Standings) ---
-        const BASELINE_MATCH27 = {
-          "shabad's Team": 3922,
-          "Sumit's Team": 3904,
-          "Deepanshuu's Team": 3497.5,
-          "Ankit's Team": 2996.5,
-          "Piyush dhiman's Team": 2981.5,
-          "Maat maro shota bacha hu": 2947.5,
-          "Jenna Morrh Warriors": 2528.5,
-          "GURI XI": 2475.5,
-          "Aizen": 2038.5
+        // --- BASELINE DATA (Match 29 Standings) ---
+        const BASELINE_MATCH29 = {
+          "shabad's Team": 4092.5,
+          "Sumit's Team": 4092,
+          "Deepanshuu's Team": 3951.5,
+          "Maat maro shota bacha hu": 3165,
+          "Piyush dhiman's Team": 3164.5,
+          "Ankit's Team": 3067.5,
+          "Jenna Morrh Warriors": 2970.5,
+          "GURI XI": 2558.5,
+          "Aizen": 2497.5
         };
 
-        const INITIAL_RANKS = Object.keys(BASELINE_MATCH27)
-          .sort((a, b) => BASELINE_MATCH27[b] - BASELINE_MATCH27[a])
+        const INITIAL_RANKS = Object.keys(BASELINE_MATCH29)
+          .sort((a, b) => BASELINE_MATCH29[b] - BASELINE_MATCH29[a])
           .map((id, index) => ({ id, rank: index + 1 }));
 
-        // Current totals come directly from the public/data.xlsx (cumulative Match 29)
+        // Current totals come directly from the public/data.xlsx (cumulative Match 30)
         const finalStandings = parsedTeams.map(team => {
           const totalPoints = team.totalPoints;
-          const previousPoints = BASELINE_MATCH27[team.id] || 0;
+          const previousPoints = BASELINE_MATCH29[team.id] || 0;
           return {
             ...team,
             matchPoints: totalPoints - previousPoints,
@@ -77,7 +80,7 @@ function App() {
 
         const sortedTeams = [...finalStandings].sort((a, b) => b.totalPoints - a.totalPoints);
 
-        // Use INITIAL_RANKS (Match 23) as the fixed baseline for latest match movement
+        // Use INITIAL_RANKS (Match 29) as the fixed baseline for latest match movement
         const teamsWithTrend = sortedTeams.map((team, index) => {
           const currentRank = index + 1;
           const prevEntry = INITIAL_RANKS.find(p => p.id === team.id);
@@ -186,6 +189,7 @@ function App() {
     isUser: session?.role === 'player' && team.teamName === session.team
   }));
 
+  const userTeam = teamsWithUser.find(t => t.isUser);
   const upcomingMatch = matches.find(m => !m.isCompleted) || matches[matches.length - 1];
 
   return (
@@ -252,6 +256,8 @@ function App() {
           <Home onNavigate={scrollTo} />
         </section>
 
+
+
         <section id="leaderboard" className="pt-20 md:pt-32 pb-10 md:pb-20 border-t border-black/5 dark:border-white/5">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
@@ -312,6 +318,8 @@ function App() {
           </motion.div>
           <Schedule teams={teamsWithUser} hideInternalHeader={true} />
         </section>
+
+
       </motion.main>
 
       <footer className="border-t border-black/5 dark:border-white/5 bg-[#f5f5f7] dark:bg-black py-16 transition-colors duration-300">

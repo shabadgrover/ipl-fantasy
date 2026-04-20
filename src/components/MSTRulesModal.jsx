@@ -46,8 +46,8 @@ const MSTRulesModal = ({ isOpen, onClose }) => {
             {/* Header */}
             <div className="flex items-center justify-between p-8 md:p-10 border-b border-white/5">
               <div className="flex items-center gap-5">
-                <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center border border-white/10">
-                  <BookOpen size={22} className="text-purple-400" />
+                <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-green-500/20 flex items-center justify-center border border-white/10">
+                  <BookOpen size={22} className="text-emerald-400" />
                 </div>
                 <div>
                   <h2 className="text-2xl md:text-3xl font-black tracking-tighter text-white">MST – Mid Season Transfer Rules</h2>
@@ -143,7 +143,7 @@ const MSTRulesModal = ({ isOpen, onClose }) => {
               {/* Notes Banner */}
               <div className="mt-8 p-6 md:p-8 rounded-[1.5rem] bg-gradient-to-br from-white/[0.03] to-transparent border border-white/5">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="h-1.5 w-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
+                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
                   <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Official Notes</h4>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -156,7 +156,7 @@ const MSTRulesModal = ({ isOpen, onClose }) => {
                     <span className="text-sm text-slate-400">No reversing transfers</span>
                   </div>
                   <div className="flex flex-col gap-1">
-                    <span className="text-[10px] uppercase tracking-widest text-slate-600 font-bold underline decoration-blue-500/50 underline-offset-4">Advice</span>
+                    <span className="text-[10px] uppercase tracking-widest text-slate-600 font-bold underline decoration-emerald-500/50 underline-offset-4">Advice</span>
                     <span className="text-sm text-white font-bold italic">Choose wisely</span>
                   </div>
                 </div>

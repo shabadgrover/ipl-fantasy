@@ -96,9 +96,15 @@
   animation-name: slideInFromBottom;
 }
 
+.mask-fade-right {
+  mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -168,14 +174,42 @@
   @apply text-transparent bg-clip-text;
   background: linear-gradient(
     90deg, 
-    #0ea5e9 0%, 
-    #38bdf8 45%, 
-    #f0f9ff 50%, 
-    #38bdf8 55%, 
-    #0ea5e9 100%
+    #1e293b 0%, 
+    #334155 40%, 
+    #f8fafc 50%, 
+    #334155 60%, 
+    #1e293b 100%
   );
   background-size: 200% auto;
   animation: shine-sweep 4s linear infinite;
+}
+
+.text-shiny-midnight {
+  @apply text-transparent bg-clip-text;
+  background: linear-gradient(
+    90deg, 
+    #334155 0%, 
+    #475569 40%, 
+    #94a3b8 50%, 
+    #475569 60%, 
+    #334155 100%
+  );
+  background-size: 200% auto;
+  animation: shine-sweep 5s linear infinite;
+}
+
+.text-shiny-white {
+  background: linear-gradient(
+    90deg, 
+    #94a3b8 0%, 
+    #fff 45%, 
+    #fff 55%, 
+    #94a3b8 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 6s linear infinite;
 }
 
 .neon-blue-glow {
