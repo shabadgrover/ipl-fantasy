@@ -31,7 +31,7 @@ export const matches = [
   { id: 30, name: "Match 30: GT vs MI", teams: ["Gujarat Titans", "Mumbai Indians"], abbrs: ["GT", "MI"], date: "Monday, 20 April 2026", time: "7:30 PM", venue: "Narendra Modi Stadium", isCompleted: true },
   { id: 31, name: "Match 31: SRH vs DC", teams: ["Sunrisers Hyderabad", "Delhi Capitals"], abbrs: ["SRH", "DC"], date: "Tuesday, 21 April 2026", time: "7:30 PM", venue: "Rajiv Gandhi International Cricket Stadium", isCompleted: true },
   { id: 32, name: "Match 32: LSG vs RR", teams: ["Lucknow Super Giants", "Rajasthan Royals"], abbrs: ["LSG", "RR"], date: "Wednesday, 22 April 2026", time: "7:30 PM", venue: "Ekana Stadium", isCompleted: true },
-  { id: 33, name: "Match 33: MI vs CSK", teams: ["Mumbai Indians", "Chennai Super Kings"], abbrs: ["MI", "CSK"], date: "Thursday, 23 April 2026", time: "7:30 PM", venue: "Wankhede Stadium" },
+  { id: 33, name: "Match 33: MI vs CSK", teams: ["Mumbai Indians", "Chennai Super Kings"], abbrs: ["MI", "CSK"], date: "Thursday, 23 April 2026", time: "7:30 PM", venue: "Wankhede Stadium", isCompleted: true, result: "Chennai Super Kings beat Mumbai Indians by 103 runs", score: "CSK 207/6 (20.0 ov), MI 104/10 (19.0 ov)" },
   { id: 34, name: "Match 34: RCB vs GT", teams: ["Royal Challengers Bengaluru", "Gujarat Titans"], abbrs: ["RCB", "GT"], date: "Friday, 24 April 2026", time: "7:30 PM", venue: "M. Chinnaswamy Stadium" },
   { id: 35, name: "Match 35: DC vs PBKS", teams: ["Delhi Capitals", "Punjab Kings"], abbrs: ["DC", "PBKS"], date: "Saturday, 25 April 2026", time: "3:30 PM", venue: "Arun Jaitley Stadium" }
 ];
