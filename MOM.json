@@ -446,5 +446,33 @@
     "man_of_the_match": {
       "player": "Ravindra Jadeja"
     }
+  },
+  {
+    "match_no": 33,
+    "match_id": "M33",
+    "date": "2026-04-23",
+    "venue": "Mumbai",
+    "teams": {
+      "team1": "MI",
+      "team2": "CSK"
+    },
+    "winner": "CSK",
+    "man_of_the_match": {
+      "player": "Matheesha Pathirana"
+    }
+  },
+  {
+    "match_no": 34,
+    "match_id": "M34",
+    "date": "2026-04-24",
+    "venue": "Bengaluru",
+    "teams": {
+      "team1": "RCB",
+      "team2": "GT"
+    },
+    "winner": "RCB",
+    "man_of_the_match": {
+      "player": "Virat Kohli"
+    }
   }
 ]

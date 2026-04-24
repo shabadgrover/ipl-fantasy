@@ -89,17 +89,27 @@ const MSTBanner = () => {
               className="flex items-center gap-2.5 mb-5"
             >
               <div className={`h-2 w-2 rounded-full ${isExpired ? 'bg-red-500 shadow-[0_0_12px_rgba(239,68,68,0.9)]' : 'bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.9)]'} animate-pulse`} />
-              <span className={`text-[11px] font-black tracking-[0.3em] uppercase ${isExpired ? 'text-red-400/90' : 'text-blue-400/90'}`}>
-                {isExpired ? 'MST CLOSED ❌' : 'LIVE NOW'}
+              <span className={`text-[11px] font-black tracking-[0.3em] uppercase ${isExpired ? 'text-red-500 brightness-150 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]' : 'text-blue-400/90'}`}>
+                {isExpired ? 'MST WINDOW CLOSED ❌' : 'LIVE NOW'}
               </span>
             </motion.div>
             
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white leading-[0.95]">
               MST <span className="text-slate-700 mx-1">—</span> <br className="hidden md:block" />
-              {isExpired ? 'TRANSFERS' : 'MID SEASON'} <br className="hidden md:block" />
+              MID SEASON <br className="hidden md:block" />
               <span className={`text-transparent bg-clip-text bg-gradient-to-r ${isExpired ? 'from-white via-slate-400 to-red-500' : 'from-white via-blue-400 to-purple-500'}`}>
-                {isExpired ? 'CLOSED' : 'TRANSFER'}
+                TRANSFER
               </span>
+              {isExpired && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="text-2xl md:text-3xl mt-4 text-white/90 font-bold tracking-tight"
+                >
+                  Results Coming Soon <span className="inline-block animate-bounce">⏳</span>
+                </motion.div>
+              )}
             </h2>
             
             {!isExpired && (
@@ -144,7 +154,7 @@ const MSTBanner = () => {
                     className="absolute text-2xl md:text-3xl font-black tracking-tighter uppercase whitespace-nowrap flex items-center justify-center gap-1.5"
                   >
                     {isExpired ? (
-                      <span className="text-slate-500">DEADLINE PASSED</span>
+                      <span className="text-slate-500">WINDOW CLOSED</span>
                     ) : (
                       dynamicTexts[textIndex].split(" ").map((word, i, arr) => (
                         <span 
@@ -169,8 +179,13 @@ const MSTBanner = () => {
             </motion.button>
             
             <p className="mt-5 text-base font-medium text-slate-500 tracking-tight flex items-center gap-2">
-              <Zap size={16} className={isExpired ? 'text-slate-600' : 'text-blue-600'} fill="currentColor" />
-              {isExpired ? 'Deadline passed. No more responses accepted.' : 'Revamp your strategy for the playoffs.'}
+              <Zap size={16} className={isExpired ? 'text-red-900/40' : 'text-blue-600'} fill="currentColor" />
+              {isExpired ? (
+                <span className="flex flex-col text-left">
+                  <span className="text-slate-400">Transfers locked. Processing results...</span>
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-slate-600 mt-1">MST is now closed. No further changes allowed.</span>
+                </span>
+              ) : 'Revamp your strategy for the playoffs.'}
             </p>
 
 
