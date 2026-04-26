@@ -458,7 +458,7 @@
     },
     "winner": "CSK",
     "man_of_the_match": {
-      "player": "Matheesha Pathirana"
+      "player": "Sanju Samson"
     }
   },
   {
@@ -473,6 +473,62 @@
     "winner": "RCB",
     "man_of_the_match": {
       "player": "Virat Kohli"
+    }
+  },
+  {
+    "match_no": 35,
+    "match_id": "M35",
+    "date": "2026-04-25",
+    "venue": "Delhi",
+    "teams": {
+      "team1": "DC",
+      "team2": "PBKS"
+    },
+    "winner": "PBKS",
+    "man_of_the_match": {
+      "player": "Kl Rahul"
+    }
+  },
+  {
+    "match_no": 36,
+    "match_id": "M36",
+    "date": "2026-04-25",
+    "venue": "Jaipur",
+    "teams": {
+      "team1": "RR",
+      "team2": "SRH"
+    },
+    "winner": "SRH",
+    "man_of_the_match": {
+      "player": "Ishan Kishan"
+    }
+  },
+  {
+    "match_no": 37,
+    "match_id": "M37",
+    "date": "2026-04-26",
+    "venue": "Chennai",
+    "teams": {
+      "team1": "CSK",
+      "team2": "GT"
+    },
+    "winner": "GT",
+    "man_of_the_match": {
+      "player": "Kagiso Rabada"
+    }
+  },
+  {
+    "match_no": 38,
+    "match_id": "M38",
+    "date": "2026-04-26 ",
+    "venue": "Lucknow",
+    "teams": {
+      "team1": "LSG",
+      "team2": "KKR"
+    },
+    "winner": "",
+    "man_of_the_match": {
+      "player": ""
     }
   }
 ]
