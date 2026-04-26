@@ -7,7 +7,7 @@ const ImpactAnalysis = ({ teams, matchInfo, hideInternalHeader }) => {
 
   // Calculate Impact Data
   const impactData = (teams || []).map(fTeam => {
-    const matchPlayers = (fTeam.players || []).filter(p => matchInfo.abbrs.includes(p.iplAbbr));
+    const matchPlayers = (fTeam.players || []).filter(p => matchInfo.abbrs.includes(p.iplAbbr) && !p.isOut);
     return {
       name: fTeam.teamName,
       count: matchPlayers.length,
@@ -17,7 +17,8 @@ const ImpactAnalysis = ({ teams, matchInfo, hideInternalHeader }) => {
       players: matchPlayers.map(p => ({
         name: p.name,
         isCaptain: p.isCaptain,
-        isVC: p.isVC
+        isVC: p.isVC,
+        isNew: p.isNew
       }))
     };
   }).sort((a, b) => b.count - a.count);
@@ -118,6 +119,7 @@ const ImpactAnalysis = ({ teams, matchInfo, hideInternalHeader }) => {
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/[0.03] border border-black/5 hover:bg-black/[0.06] dark:bg-white/5 dark:border-white/5 dark:hover:bg-white/10 transition-colors"
                     >
                       <span className="text-xs font-bold text-slate-700 dark:text-slate-300">{p.name}</span>
+                      {p.isNew && <span className="text-[8px] px-1 py-0.5 rounded bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 dark:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-500/30 font-black tracking-widest">NEW</span>}
                       {p.isCaptain && <span className="text-[8px] px-1 py-0.5 rounded bg-amber-500/10 text-amber-600 border border-amber-500/20 dark:bg-gold/20 dark:text-gold dark:border-gold/30 font-black">C</span>}
                       {p.isVC && <span className="text-[8px] px-1 py-0.5 rounded bg-blue-500/10 text-blue-600 border border-blue-500/20 dark:bg-blue-500/20 dark:text-blue-400 dark:border-blue-500/30 font-black">VC</span>}
                     </div>

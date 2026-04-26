@@ -1,8 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import MSTBanner from './MSTBanner';
 
-const Home = ({ onNavigate }) => {
+const Home = ({ onNavigate, snapshotData }) => {
   return (
     <div className="w-full flex flex-col relative bg-[#f5f5f7] dark:bg-[#0a0a0a] text-slate-900 dark:text-white transition-colors duration-500 overflow-hidden">
       
@@ -46,10 +45,6 @@ const Home = ({ onNavigate }) => {
         </motion.div>
       </div>
 
-      {/* MID-SEASON TRANSFER BANNER */}
-      <div className="w-full max-w-6xl mx-auto px-4 pb-20 relative z-10">
-         <MSTBanner />
-      </div>
 
     </div>
   );

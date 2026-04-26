@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import { Users, Award, ChevronDown, ChevronUp, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const TeamCard = ({ team }) => {
+const TeamCard = ({ team, snapshotData }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Sort players by finalPoints descending
-  const sortedPlayers = [...team.players].sort((a, b) => b.finalPoints - a.finalPoints);
+  // MST Logic: Separate active players from transferred out
+  const activePlayers = team.players.filter(p => !p.isOut);
+  const transferredOutPlayers = team.players.filter(p => p.isOut);
+
+  // Sort active players by finalPoints descending
+  const sortedPlayers = [...activePlayers].sort((a, b) => b.finalPoints - a.finalPoints);
   const topThree = sortedPlayers.slice(0, 3);
   const remaining = sortedPlayers.slice(3);
 
@@ -72,6 +76,11 @@ const TeamCard = ({ team }) => {
       <div className="space-y-3">
         <div className="flex justify-between items-center mb-1">
           <h4 className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Top Contributors</h4>
+          {team.roles?.captainChangeMatch && (
+            <span className="text-[8px] font-black text-amber-600 dark:text-amber-400 tracking-tighter px-1.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/20 shadow-sm" title={`Captain/VC updated from Match ${team.roles.captainChangeMatch}`}>
+              Role Update M{team.roles.captainChangeMatch}
+            </span>
+          )}
         </div>
         
         <div className="space-y-2.5">
@@ -80,7 +89,14 @@ const TeamCard = ({ team }) => {
               <div className="flex justify-between items-center text-[13px]">
                 <div className="flex items-center gap-1.5 min-w-0 flex-1">
                   {idx === 0 && <span className="text-sm">🔥</span>}
-                  <span className="text-slate-700 dark:text-slate-300 font-medium truncate">{player.name}</span>
+                  <span className={`font-medium truncate transition-all ${
+                    player.isNew 
+                      ? 'text-green-500 font-black drop-shadow-[0_0_8px_rgba(34,197,94,0.4)]' 
+                      : 'text-slate-700 dark:text-slate-300'
+                  }`}>
+                    {player.name}
+                    {player.isNew && <span className="ml-1.5 text-[8px] px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-500 border border-green-500/20 uppercase font-black tracking-widest shadow-[0_0_8px_rgba(34,197,94,0.2)]">New</span>}
+                  </span>
                   {player.isCaptain && (
                     <span className="text-[9px] px-1 rounded bg-amber-500/10 dark:bg-gold/20 text-amber-600 dark:text-gold border border-amber-500/20 dark:border-gold/30 font-black flex-shrink-0">C</span>
                   )}
@@ -89,7 +105,9 @@ const TeamCard = ({ team }) => {
                   )}
                 </div>
                 <div className="text-right ml-2 flex-shrink-0">
-                  <span className="text-slate-900 dark:text-slate-100 font-bold">{player.finalPoints}</span>
+                  <span className={`font-bold ${player.isNew ? 'text-green-500 drop-shadow-[0_0_4px_rgba(34,197,94,0.4)]' : 'text-slate-900 dark:text-slate-100'}`}>
+                    {player.finalPoints}
+                  </span>
                 </div>
               </div>
               
@@ -117,7 +135,14 @@ const TeamCard = ({ team }) => {
                   <div key={idx} className="flex flex-col group/player">
                     <div className="flex justify-between items-center text-[13px]">
                       <div className="flex items-center gap-1.5 min-w-0 flex-1">
-                        <span className="text-slate-600 dark:text-slate-400 font-medium truncate">{player.name}</span>
+                        <span className={`font-medium truncate transition-all ${
+                          player.isNew 
+                            ? 'text-green-500 font-black drop-shadow-[0_0_8px_rgba(34,197,94,0.4)]' 
+                            : 'text-slate-600 dark:text-slate-400'
+                        }`}>
+                          {player.name}
+                          {player.isNew && <span className="ml-1.5 text-[8px] px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-500 border border-green-500/20 uppercase font-black tracking-widest shadow-[0_0_8px_rgba(34,197,94,0.2)]">New</span>}
+                        </span>
                         {player.isCaptain && (
                           <span className="text-[9px] px-1 rounded bg-amber-500/10 dark:bg-gold/20 text-amber-600 dark:text-gold border border-amber-500/20 dark:border-gold/30 font-black flex-shrink-0">C</span>
                         )}
@@ -126,18 +151,48 @@ const TeamCard = ({ team }) => {
                         )}
                       </div>
                       <div className="text-right ml-2 flex-shrink-0">
-                        <span className="text-slate-800 dark:text-slate-100 font-bold">{player.finalPoints}</span>
+                        <span className={`font-bold ${player.isNew ? 'text-green-500 drop-shadow-[0_0_4px_rgba(34,197,94,0.4)]' : 'text-slate-800 dark:text-slate-100'}`}>
+                          {player.finalPoints}
+                        </span>
                       </div>
                     </div>
                   </div>
                 ))}
+
+                {/* Replaced Players (Red Strike-through) */}
+                {transferredOutPlayers.length > 0 && (
+                  <div className="pt-3 mt-3 space-y-2 border-t border-red-500/10">
+                    <h5 className="text-[9px] font-black uppercase tracking-[0.2em] text-red-500/60 mb-2 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+                      Transferred Out
+                    </h5>
+                    {transferredOutPlayers.map((player, idx) => (
+                      <div key={`replaced-${idx}`} className="flex justify-between items-center text-[12px] opacity-70 group/out hover:opacity-100 transition-opacity">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="text-red-500 font-semibold line-through decoration-red-500/50 truncate group-hover/out:decoration-red-500">{player.name}</span>
+                          <span className="text-[8px] px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-500 border border-red-500/20 uppercase font-black tracking-widest shadow-[0_0_8px_rgba(239,68,68,0.15)]">Out</span>
+                        </div>
+                        <span className="text-slate-500 dark:text-slate-400 font-bold">{player.finalPoints} <span className="text-[9px] uppercase font-medium">pts</span></span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
         </div>
       </div>
       
-      <div className="mt-4 pt-3 border-t border-black/5 dark:border-white/5 flex justify-center">
+      <div className="mt-4 pt-3 border-t border-black/5 dark:border-white/5 flex justify-between items-center">
+        <div className="flex items-center gap-1.5">
+          <span className="text-[10px] font-black uppercase tracking-[0.1em] text-yellow-600 dark:text-yellow-200/80 flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-yellow-200/80 animate-pulse shadow-[0_0_8px_rgba(254,240,138,0.5)]"></span>
+            MST Cost:
+          </span>
+          <span className="text-[11px] font-bold text-yellow-500 dark:text-yellow-200 drop-shadow-[0_0_4px_rgba(254,240,138,0.3)]">
+            {team.mstCost || 0}
+          </span>
+        </div>
         <button 
           onClick={() => setIsExpanded(!isExpanded)}
           className="text-[10px] font-bold text-primary hover:text-indigo-600 dark:text-primary/80 dark:hover:text-primary transition-all flex items-center gap-1.5 uppercase tracking-widest group/btn"

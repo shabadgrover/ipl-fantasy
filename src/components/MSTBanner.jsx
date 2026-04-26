@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, Info, Clock } from 'lucide-react';
 import MSTRulesModal from './MSTRulesModal';
+import MSTResults from './MSTResults';
 
-const MSTBanner = () => {
+const MSTBanner = ({ snapshotData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
-  const [isExpired, setIsExpired] = useState(false);
+  const [isExpired, setIsExpired] = useState(true); // Hardcoded to true for results
   const [textIndex, setTextIndex] = useState(0);
 
   // Set deadline to Today at 7:30 PM IST
@@ -100,17 +101,17 @@ const MSTBanner = () => {
               <span className={`text-transparent bg-clip-text bg-gradient-to-r ${isExpired ? 'from-white via-slate-400 to-red-500' : 'from-white via-blue-400 to-purple-500'}`}>
                 TRANSFER
               </span>
-              {isExpired && (
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
                   className="text-2xl md:text-3xl mt-4 text-white/90 font-bold tracking-tight"
                 >
-                  Results Coming Soon <span className="inline-block animate-bounce">⏳</span>
+                  Results Live <span className="inline-block animate-bounce">🔥</span>
                 </motion.div>
-              )}
             </h2>
+            
+            {isExpired && <MSTResults />}
             
             {!isExpired && (
               <div className={`mt-6 px-4 py-2 rounded-xl bg-white/5 border border-white/10 flex items-center gap-3 ${isLastMinute ? 'animate-pulse scale-105' : ''}`}>
@@ -132,11 +133,16 @@ const MSTBanner = () => {
           {/* Status Side */}
           <div className="relative z-10 flex flex-col items-center md:items-end w-full md:w-auto">
             <motion.button 
-              whileHover={!isExpired ? { scale: 1.05, boxShadow: "0 0 40px rgba(59, 130, 246, 0.1)" } : {}}
-              whileTap={!isExpired ? { scale: 0.95 } : {}}
-              onClick={() => !isExpired && window.open("https://forms.gle/AYhraSDPswP7y5rp9", "_blank", "noopener,noreferrer")}
-              disabled={isExpired}
-              className={`relative min-w-[320px] px-12 py-6 rounded-[2rem] bg-[#0a0a0a] border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.8)] group/btn overflow-hidden transition-all duration-300 ${isExpired ? 'cursor-not-allowed opacity-60' : ''}`}
+              whileHover={!isExpired ? { scale: 1.05, boxShadow: "0 0 40px rgba(59, 130, 246, 0.1)" } : { scale: 1.02 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                if (!isExpired) {
+                  window.open("https://forms.gle/AYhraSDPswP7y5rp9", "_blank", "noopener,noreferrer");
+                } else {
+                  document.getElementById('mst-results')?.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className={`relative min-w-[320px] px-12 py-6 rounded-[2rem] bg-[#0a0a0a] border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.8)] group/btn overflow-hidden transition-all duration-300`}
             >
               {/* Animated Premium Border */}
               <div className="absolute inset-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500">
@@ -154,7 +160,7 @@ const MSTBanner = () => {
                     className="absolute text-2xl md:text-3xl font-black tracking-tighter uppercase whitespace-nowrap flex items-center justify-center gap-1.5"
                   >
                     {isExpired ? (
-                      <span className="text-slate-500">WINDOW CLOSED</span>
+                      <span className="text-emerald-400 brightness-125">RESULTS LIVE 🔥</span>
                     ) : (
                       dynamicTexts[textIndex].split(" ").map((word, i, arr) => (
                         <span 

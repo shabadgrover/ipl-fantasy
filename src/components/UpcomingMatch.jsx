@@ -11,7 +11,7 @@ const UpcomingMatch = ({ teams, matchInfo, hideInternalHeader }) => {
     teams.forEach(fTeam => {
       if (fTeam.players && Array.isArray(fTeam.players)) {
         fTeam.players.forEach(p => {
-          if (p.iplTeam === iplTeamName) {
+          if (p.iplTeam === iplTeamName && !p.isOut) {
             players.push({
               ...p,
               ownedBy: fTeam.teamName,
@@ -85,6 +85,7 @@ const UpcomingMatch = ({ teams, matchInfo, hideInternalHeader }) => {
                   <div className="w-1.5 h-1.5 rounded-full bg-primary/40 group-hover:bg-primary" />
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-slate-700 dark:text-slate-200">{player.name}</span>
+                    {player.isNew && <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 dark:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-500/30 font-black tracking-widest">NEW</span>}
                     {player.isCaptain && <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 border border-amber-500/20 dark:bg-gold/20 dark:text-gold dark:border-gold/30 font-black">C</span>}
                     {player.isVC && <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-600 border border-amber-500/20 dark:bg-blue-500/20 dark:text-blue-400 dark:border-blue-500/30 font-black">VC</span>}
                   </div>
@@ -124,6 +125,7 @@ const UpcomingMatch = ({ teams, matchInfo, hideInternalHeader }) => {
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/40 group-hover:bg-emerald-500" />
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-slate-700 dark:text-slate-200">{player.name}</span>
+                    {player.isNew && <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 dark:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-500/30 font-black tracking-widest">NEW</span>}
                     {player.isCaptain && <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 border border-amber-500/20 dark:bg-gold/20 dark:text-gold dark:border-gold/30 font-black">C</span>}
                     {player.isVC && <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-600 border border-amber-500/20 dark:bg-blue-500/20 dark:text-blue-400 dark:border-blue-500/30 font-black">VC</span>}
                   </div>
