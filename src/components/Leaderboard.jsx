@@ -25,7 +25,7 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
         {/* Left Side Vertical Text */}
         <div className="hidden lg:flex w-24 items-center justify-center border-r border-white/5 bg-black/20 shrink-0">
           <span className="vertical-text-league text-4xl tracking-[0.2em] opacity-30">
-            2026 LEAGUE FORMAT
+            2026 · SEASON 1 
           </span>
         </div>
 
