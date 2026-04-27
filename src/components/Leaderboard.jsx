@@ -112,14 +112,26 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
                   <span className={`font-black text-[18px] tracking-tight ${isUser ? 'text-white' : 'text-slate-900 dark:text-white'}`}>
                     {(team.totalPoints || 0).toLocaleString()}
                   </span>
-                  {team.matchPoints > 0 && (
+                  {team.matchPoints !== 0 && (
                     <motion.div 
                       initial={{ opacity: 0, x: 10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      className="flex items-center gap-1 mt-0.5 px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/20 shadow-sm"
+                      className={`flex items-center gap-1 mt-0.5 px-2 py-0.5 rounded-md border shadow-sm ${
+                        team.matchPoints > 0 
+                          ? 'bg-emerald-500/10 border-emerald-500/20' 
+                          : 'bg-rose-500/10 border-rose-500/20'
+                      }`}
                     >
-                      <TrendingUp size={8} className="text-emerald-500" />
-                      <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400">+{team.matchPoints.toLocaleString()}</span>
+                      {team.matchPoints > 0 ? (
+                        <TrendingUp size={8} className="text-emerald-500" />
+                      ) : (
+                        <TrendingDown size={8} className="text-rose-500" />
+                      )}
+                      <span className={`text-[10px] font-black ${
+                        team.matchPoints > 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
+                      }`}>
+                        {team.matchPoints > 0 ? '+' : ''}{team.matchPoints.toLocaleString()}
+                      </span>
                     </motion.div>
                   )}
                 </div>
@@ -216,10 +228,12 @@ const Leaderboard = ({ teams, hideInternalHeader }) => {
                     <div className={`text-2xl font-black tracking-tighter ${isUser ? 'text-[#001a2c] dark:text-white' : 'text-slate-900 dark:text-white'}`}>
                       {team.totalPoints.toLocaleString()}
                     </div>
-                    {team.matchPoints > 0 && (
-                      <div className="flex items-center justify-end gap-1 text-emerald-400 font-bold text-xs mt-0.5">
-                        <TrendingUp size={10} />
-                        <span>+{team.matchPoints.toLocaleString()}</span>
+                    {team.matchPoints !== 0 && (
+                      <div className={`flex items-center justify-end gap-1 font-bold text-xs mt-0.5 ${
+                        team.matchPoints > 0 ? 'text-emerald-400' : 'text-rose-400'
+                      }`}>
+                        {team.matchPoints > 0 ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
+                        <span>{team.matchPoints > 0 ? '+' : ''}{team.matchPoints.toLocaleString()}</span>
                       </div>
                     )}
                   </div>
