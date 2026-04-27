@@ -104,18 +104,6 @@ const ProgressionGraph = () => {
             <h2 className="text-sm font-black tracking-[0.2em] text-slate-500 uppercase mb-2">Analytics</h2>
             <h3 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tighter text-shiny">Fantasy League Progression</h3>
           </div>
-          <motion.div 
-            animate={{ 
-              boxShadow: activeTeam === 'shabad' ? '0 0 20px rgba(139, 92, 246, 0.3)' : 'none',
-              borderColor: activeTeam === 'shabad' ? 'rgba(139, 92, 246, 0.5)' : 'rgba(255, 255, 255, 0.1)'
-            }}
-            className="flex items-center gap-4 bg-black/5 dark:bg-white/5 rounded-2xl p-4 border border-black/10 dark:border-white/10"
-          >
-             <div className="flex flex-col">
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Leader</span>
-                <span className="text-sm font-black text-slate-900 dark:text-white">shabad's Team</span>
-             </div>
-          </motion.div>
         </div>
 
         {/* Chart Container */}
@@ -132,13 +120,22 @@ const ProgressionGraph = () => {
               onMouseLeave={() => setActiveTeam(null)}
             >
               <defs>
+                <filter id="metallic-glow" height="300%" width="300%" x="-100%" y="-100%">
+                  <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur" />
+                  <feOffset in="blur" dx="0" dy="0" result="offsetBlur" />
+                  <feFlood floodColor="white" floodOpacity="0.5" result="glowColor" />
+                  <feComposite in="glowColor" in2="offsetBlur" operator="in" result="glow" />
+                  <feMerge>
+                    <feMergeNode in="glow" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
                 <filter id="shadow" height="200%">
                   <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
                   <feOffset dx="0" dy="0" result="offsetblur" />
                   <feFlood floodColor="currentColor" />
                   <feComposite in2="offsetblur" operator="in" />
                   <feMerge>
-                    <feMergeNode />
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
@@ -228,13 +225,17 @@ const ProgressionGraph = () => {
                     stroke={team.color}
                     strokeWidth={isHovered ? team.strokeWidth + 2 : team.strokeWidth}
                     strokeOpacity={isOtherHovered ? 0.15 : 1}
-                    dot={isHovered ? { r: 6, fill: team.color, strokeWidth: 0 } : { r: 3, strokeWidth: 2, fill: '#000', stroke: team.color, opacity: isOtherHovered ? 0.2 : 1 }}
-                    activeDot={{ r: 8, strokeWidth: 0, fill: team.color }}
+                    dot={isHovered ? { r: 4, fill: team.color, strokeWidth: 0 } : false}
+                    activeDot={{ r: 6, strokeWidth: 0, fill: team.color }}
                     animationDuration={2000}
                     animationEasing="ease-in-out"
                     style={{ 
                       transition: 'all 0.3s ease',
-                      filter: (isHovered || (team.glow && !activeTeam)) ? `drop-shadow(0 0 8px ${team.color}CC)` : 'none'
+                      filter: isHovered 
+                        ? `url(#metallic-glow) drop-shadow(0 0 12px ${team.color})` 
+                        : (team.glow && !activeTeam) 
+                          ? `url(#metallic-glow) drop-shadow(0 0 8px ${team.color}CC)` 
+                          : 'none'
                     }}
                     onMouseEnter={() => setActiveTeam(team.key)}
                   />
