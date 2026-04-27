@@ -176,10 +176,10 @@ export const parseExcelData = (arrayBuffer) => {
       
       const finalPoints = Math.round(pointsP1 + pointsP2);
       
-      // Determine CURRENT roles for display (Phase 1 for now, as only 36 matches are completed)
-      const currentIsCaptain = isP1Cap;
-      const currentIsVC = isP1VC;
-      const currentMultiplier = multP1;
+      // Determine CURRENT roles for display (Phase 2 now, as Match 37 is completed)
+      const currentIsCaptain = isP2Cap;
+      const currentIsVC = isP2VC;
+      const currentMultiplier = multP2;
       
       const iplTeamRaw = row[base.iplCol] || "";
       const iplTeam = normalizeTeamName(iplTeamRaw);
