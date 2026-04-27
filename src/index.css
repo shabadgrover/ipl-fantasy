@@ -247,6 +247,16 @@
   background: linear-gradient(135deg, #000000 0%, #020617 60%, #0c4a6e 100%);
 }
 
+.dark .bg-league-blue {
+  background: linear-gradient(135deg, #000000 0%, #020617 60%, #0c4a6e 100%);
+}
+
+/* Light mode override for bg-league-blue if not using .dark class on html */
+:root:not(.dark) .bg-league-blue {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 60%, #e0f2fe 100%);
+  @apply border-slate-200 shadow-xl;
+}
+
 .rank-box-teal {
   @apply bg-[#0d9488] text-white flex items-center justify-center font-bold;
 }
@@ -258,69 +268,61 @@
 .vertical-text-league {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  @apply uppercase font-black text-white/20 select-none;
+  @apply uppercase font-black text-black/10 dark:text-white/20 select-none;
 }
 
 .text-metallic-silver {
-  background: linear-gradient(
-    90deg,
-    #64748b 0%,
-    #cbd5e1 45%,
-    #ffffff 50%,
-    #cbd5e1 55%,
-    #64748b 100%
-  );
+  background-image: linear-gradient(90deg, #475569 0%, #94a3b8 45%, #ffffff 50%, #94a3b8 55%, #475569 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shine-sweep 5s linear infinite;
   text-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
 }
 
+.dark .text-metallic-silver {
+  background-image: linear-gradient(90deg, #64748b 0%, #cbd5e1 45%, #ffffff 50%, #cbd5e1 55%, #64748b 100%);
+}
+
 .text-metallic-gold {
-  background: linear-gradient(
-    90deg,
-    #d97706 0%,
-    #fcd34d 45%,
-    #fffdec 50%,
-    #fcd34d 55%,
-    #d97706 100%
-  );
+  background-image: linear-gradient(90deg, #b45309 0%, #fbbf24 45%, #fff9c4 50%, #fbbf24 55%, #b45309 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shine-sweep 5s linear infinite;
   text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
 }
 
+.dark .text-metallic-gold {
+  background-image: linear-gradient(90deg, #d97706 0%, #fcd34d 45%, #fffdec 50%, #fcd34d 55%, #d97706 100%);
+}
+
 .text-metallic-bronze {
-  background: linear-gradient(
-    90deg,
-    #92400e 0%,
-    #d97706 45%,
-    #fef3c7 50%,
-    #d97706 55%,
-    #92400e 100%
-  );
+  background-image: linear-gradient(90deg, #7c2d12 0%, #b45309 45%, #fcd34d 50%, #b45309 55%, #7c2d12 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shine-sweep 5s linear infinite;
   text-shadow: 0 0 12px rgba(217, 119, 6, 0.3);
 }
 
+.dark .text-metallic-bronze {
+  background-image: linear-gradient(90deg, #92400e 0%, #d97706 45%, #fef3c7 50%, #d97706 55%, #92400e 100%);
+}
+
 .text-metallic-steel {
-  background: linear-gradient(
-    90deg,
-    #475569 0%,
-    #94a3b8 45%,
-    #f8fafc 50%,
-    #94a3b8 55%,
-    #475569 100%
-  );
+  background-image: linear-gradient(90deg, #334155 0%, #64748b 45%, #94a3b8 50%, #64748b 55%, #334155 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shine-sweep 7s linear infinite;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.dark .text-metallic-steel {
+  background-image: linear-gradient(90deg, #475569 0%, #94a3b8 45%, #f8fafc 50%, #94a3b8 55%, #475569 100%);
 }
