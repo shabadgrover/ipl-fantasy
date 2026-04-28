@@ -64,12 +64,12 @@ function App() {
           "Sumit's Team": 5933,
           "Deepanshuu's Team": 5413,
           "shabad's Team": 4960,
-          "Piyush dhiman's Team": 4484,
+          "Piyush dhiman's Team": 4438,
           "Jenna Morrh Warriors": 3989,
           "Ankit's Team": 3924,
-          "Maat maro shota bacha hu": 3574,
+          "Maat maro shota bacha hu": 3536,
           "Aizen": 3402,
-          "GURI XI": 3052
+          "GURI XI": 3017
         };
 
         const INITIAL_RANKS = Object.keys(BASELINE_PREVIOUS_MATCH)
