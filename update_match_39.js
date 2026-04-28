@@ -12,7 +12,7 @@ const match39Points = {
   "Virat Kohli": 47,
   "Jacob Bethell": 46,
   "Jitesh Sharma": 40,
-  "Rasikh Salam": 38,
+  "Rasikh Dar Salam": 38,
   "Romario Shepherd": 8,
   "Rajat Patidar": 4,
   "Tim David": 4,
