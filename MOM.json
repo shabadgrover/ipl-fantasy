@@ -520,11 +520,39 @@
   {
     "match_no": 38,
     "match_id": "M38",
-    "date": "2026-04-26 ",
+    "date": "2026-04-26",
     "venue": "Lucknow",
     "teams": {
       "team1": "LSG",
       "team2": "KKR"
+    },
+    "winner": "KKR",
+    "man_of_the_match": {
+      "player": "Rinku Singh"
+    }
+  },
+  {
+    "match_no": 39,
+    "match_id": "M39",
+    "date": "2026-04-27",
+    "venue": "Delhi",
+    "teams": {
+      "team1": "DC",
+      "team2": "RCB"
+    },
+    "winner": "RCB",
+    "man_of_the_match": {
+      "player": "Josh Hazlewood"
+    }
+  },
+  {
+    "match_no": "40",
+    "match_id": "M40",
+    "date": "2026-04-28",
+    "venue": "Mullanpur",
+    "teams": {
+      "team1": "PBKS",
+      "team2": "RR"
     },
     "winner": "",
     "man_of_the_match": {
