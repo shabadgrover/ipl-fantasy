@@ -19,6 +19,10 @@
   .dark body {
     @apply bg-black text-slate-100;
   }
+
+  .font-outfit {
+    font-family: 'Outfit', sans-serif;
+  }
 }
 
 .font-script {
@@ -96,10 +100,674 @@
   animation-name: slideInFromBottom;
 }
 
+.mask-fade-right {
+  mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Theme-aware custom scrollbar class */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-black/10 dark:bg-white/10 rounded-full;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-black/20 dark:bg-white/20;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(150, 150, 150, 0.3) transparent;
+}
+@keyframes shine-sweep {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes shine-sweep-rtl {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(0, 212, 255, 0.2), inset 0 0 10px rgba(0, 212, 255, 0.1); }
+  50% { box-shadow: 0 0 30px rgba(0, 212, 255, 0.5), inset 0 0 20px rgba(0, 212, 255, 0.2); }
+}
+
+.text-shiny {
+  background: linear-gradient(
+    90deg, 
+    #0f172a 0%, 
+    #334155 45%, 
+    #0ea5e9 50%, 
+    #334155 55%, 
+    #0f172a 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 6s linear infinite;
+}
+
+.dark .text-shiny {
+  background: linear-gradient(
+    90deg, 
+    #94a3b8 0%, 
+    #fff 45%, 
+    #fff 55%, 
+    #94a3b8 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 6s linear infinite;
+}
+
+.text-shiny-primary {
+  @apply text-transparent bg-clip-text;
+  background: linear-gradient(
+    90deg, 
+    #1e293b 0%, 
+    #334155 40%, 
+    #f8fafc 50%, 
+    #334155 60%, 
+    #1e293b 100%
+  );
+  background-size: 200% auto;
+  animation: shine-sweep 4s linear infinite;
+}
+
+.text-shiny-midnight {
+  @apply text-transparent bg-clip-text;
+  background: linear-gradient(
+    90deg, 
+    #334155 0%, 
+    #475569 40%, 
+    #94a3b8 50%, 
+    #475569 60%, 
+    #334155 100%
+  );
+  background-size: 200% auto;
+  animation: shine-sweep 5s linear infinite;
+}
+
+.text-shiny-white {
+  background: linear-gradient(
+    90deg, 
+    #94a3b8 0%, 
+    #fff 45%, 
+    #fff 55%, 
+    #94a3b8 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 6s linear infinite;
+}
+
+.neon-blue-glow {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), 0 0 40px rgba(0, 212, 255, 0.1);
+}
+
+.neon-border {
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+}
+
+.hover-neon:hover {
+  @apply text-[#00f2ff] drop-shadow-[0_0_8px_rgba(0,242,255,0.8)];
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+.glass-neon {
+  @apply bg-[#001a2c]/40 backdrop-blur-2xl border border-[#00d4ff]/20;
+  box-shadow: 0 0 40px rgba(0, 212, 255, 0.1);
+}
+
+.gold-text {
+  background: linear-gradient(90deg, #FFF9C4, #FFD700, #FFB300);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.bg-league-blue {
+  background: linear-gradient(135deg, #000000 0%, #020617 60%, #0c4a6e 100%);
+}
+
+.dark .bg-league-blue {
+  background: linear-gradient(135deg, #000000 0%, #020617 60%, #0c4a6e 100%);
+}
+
+/* Light mode override for bg-league-blue if not using .dark class on html */
+:root:not(.dark) .bg-league-blue {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 60%, #e0f2fe 100%);
+  @apply border-slate-200 shadow-xl;
+}
+
+.rank-box-teal {
+  @apply bg-[#0d9488] text-white flex items-center justify-center font-bold;
+}
+
+.rank-box-red {
+  @apply bg-[#be123c] text-white flex items-center justify-center font-bold;
+}
+
+.vertical-text-league {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  @apply uppercase font-black text-black/10 dark:text-white/20 select-none;
+}
+
+.text-metallic-silver {
+  background-image: linear-gradient(90deg, #475569 0%, #94a3b8 45%, #ffffff 50%, #94a3b8 55%, #475569 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 5s linear infinite;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+.dark .text-metallic-silver {
+  background-image: linear-gradient(90deg, #64748b 0%, #cbd5e1 45%, #ffffff 50%, #cbd5e1 55%, #64748b 100%);
+}
+
+.text-metallic-gold {
+  background-image: linear-gradient(90deg, #b45309 0%, #fbbf24 45%, #fff9c4 50%, #fbbf24 55%, #b45309 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 5s linear infinite;
+  text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+}
+
+.dark .text-metallic-gold {
+  background-image: linear-gradient(90deg, #d97706 0%, #fcd34d 45%, #fffdec 50%, #fcd34d 55%, #d97706 100%);
+}
+
+.text-metallic-bronze {
+  background-image: linear-gradient(90deg, #7c2d12 0%, #b45309 45%, #fcd34d 50%, #b45309 55%, #7c2d12 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 5s linear infinite;
+  text-shadow: 0 0 12px rgba(217, 119, 6, 0.3);
+}
+
+.dark .text-metallic-bronze {
+  background-image: linear-gradient(90deg, #92400e 0%, #d97706 45%, #fef3c7 50%, #d97706 55%, #92400e 100%);
+}
+
+.text-metallic-steel {
+  background-image: linear-gradient(90deg, #334155 0%, #64748b 45%, #94a3b8 50%, #64748b 55%, #334155 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 7s linear infinite;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.dark .text-metallic-steel {
+  background-image: linear-gradient(90deg, #475569 0%, #94a3b8 45%, #f8fafc 50%, #94a3b8 55%, #475569 100%);
+}
+
+/* ==========================================================================
+   SOLARIZED THEME OVERRIDES
+   Inspired by Solarized Dark (Antigravity Aesthetic)
+   ========================================================================== */
+
+:root {
+  --sol-bg: #002b36;
+  --sol-bg-header: rgba(0, 43, 54, 0.9); /* Increased opacity for sharpness */
+  --sol-surface: #073642;
+  --sol-surface-hover: #0a4b5a;
+  --sol-text: #ffffff; /* Pure White for sharpness */
+  --sol-text-dim: #cbd5e1;
+  --sol-text-bright: #ffffff;
+  --sol-accent: #2aa198;
+  --sol-accent-blue: #268bd2;
+  --sol-border: rgba(255, 255, 255, 0.1);
+}
+
+.solarized body {
+  background-color: var(--sol-bg) !important;
+  color: var(--sol-text) !important;
+}
+
+/* Background Overrides */
+.solarized .bg-white,
+.solarized .bg-\[\#f5f5f7\],
+.solarized .dark\:bg-black,
+.solarized .bg-black {
+  background-color: var(--sol-bg) !important;
+}
+
+.solarized header,
+.solarized .dark\:bg-black\/40 {
+  background-color: var(--sol-bg-header) !important;
+  border-bottom-color: var(--sol-border) !important;
+}
+
+/* Card & Surface Overrides */
+.solarized .glass-card, 
+.solarized .glass-premium,
+.solarized .dark\:bg-\[\#111111\],
+.solarized .bg-white\/5 {
+  background-color: var(--sol-surface) !important;
+  border-color: var(--sol-border) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+.solarized .glass-card:hover,
+.solarized .dark\:bg-\[\#151515\]:hover {
+  background-color: var(--sol-surface-hover) !important;
+}
+
+/* Text & Border Color Overrides */
+.solarized .text-slate-900,
+.solarized .dark\:text-white,
+.solarized .text-white {
+  color: var(--sol-text-bright) !important;
+}
+
+.solarized .text-slate-600,
+.solarized .dark\:text-slate-500,
+.solarized .text-slate-500 {
+  color: var(--sol-text) !important;
+}
+
+.solarized .border-black\/5,
+.solarized .dark\:border-white\/5,
+.solarized .border-white\/10 {
+  border-color: var(--sol-border) !important;
+}
+
+/* Shiny Text Overrides */
+.solarized .text-shiny,
+.solarized .text-shiny-primary,
+.solarized .text-shiny-midnight,
+.solarized .text-shiny-white {
+  background: linear-gradient(
+    90deg, 
+    #2aa198 0%, 
+    #93e9be 45%, 
+    #ffffff 50%, 
+    #93e9be 55%, 
+    #2aa198 100%
+  ) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: shine-sweep-rtl 5s linear infinite !important;
+}
+
+/* Button & Interactive */
+.solarized .btn-minimal {
+  background-color: rgba(42, 161, 152, 0.1) !important;
+  border-color: rgba(42, 161, 152, 0.3) !important;
+  color: var(--sol-accent) !important;
+}
+
+.solarized .btn-minimal:hover {
+  background-color: rgba(42, 161, 152, 0.2) !important;
+  box-shadow: 0 0 15px rgba(42, 161, 152, 0.1) !important;
+}
+
+.solarized .text-\[\#00d4ff\],
+.solarized .hover\:text-\[\#00d4ff\]:hover {
+  color: var(--sol-accent) !important;
+  text-shadow: 0 0 8px rgba(42, 161, 152, 0.5) !important;
+}
+
+/* Custom Scrollbar for Solarized */
+.solarized .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(42, 161, 152, 0.3) !important;
+}
+
+.solarized .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(42, 161, 152, 0.5) !important;
+}
+
+/* Table Row Highlights */
+.solarized tr.bg-white\/5 {
+  background-color: rgba(7, 54, 66, 0.5) !important;
+}
+
+.solarized tr:hover {
+  background-color: rgba(10, 75, 90, 0.4) !important;
+}
+
+/* League Blue Override */
+.solarized .bg-league-blue {
+  background: linear-gradient(135deg, #002b36 0%, #073642 60%, #002b36 100%) !important;
+  border-color: var(--sol-border) !important;
+}
+
+/* Home Hero Button Override */
+.solarized .bg-black.text-white,
+.solarized .dark\:bg-white.dark\:text-black {
+  background-color: var(--sol-accent) !important;
+  color: var(--sol-bg) !important;
+}
+
+.solarized .bg-black.text-white:hover,
+.solarized .dark\:bg-white.dark\:text-black:hover {
+  background-color: var(--sol-accent-blue) !important;
+  box-shadow: 0 0 30px rgba(42, 161, 152, 0.4) !important;
+}
+
+/* General Slate & Gray Background Overrides */
+.solarized .bg-slate-50,
+.solarized .bg-slate-100,
+.solarized .bg-slate-200,
+.solarized .bg-slate-500\/5,
+.solarized .bg-black\/5,
+.solarized .dark\:bg-white\/5 {
+  background-color: rgba(7, 54, 66, 0.4) !important;
+}
+
+/* Icons and Accents */
+.solarized .text-primary,
+.solarized .dark\:text-primary {
+  color: var(--sol-accent) !important;
+}
+
+.solarized .border-primary\/30,
+.solarized .dark\:border-primary\/40 {
+  border-color: rgba(42, 161, 152, 0.4) !important;
+}
+
+.solarized .ring-primary\/30,
+.solarized .dark-ring-primary\/40 {
+  --tw-ring-color: rgba(42, 161, 152, 0.4) !important;
+}
+
+/* ==========================================================================
+   SOLARIZED HIGH-CONTRAST (WHITE TEXT) OVERRIDES
+   ========================================================================== */
+
+/* Section Headers (h1, h2) in Centered Containers */
+.solarized .text-center h1, 
+.solarized .text-center h2, 
+.solarized .text-shiny-hero {
+  display: block !important;
+  width: fit-content !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+/* Default Heading Alignment (Left) */
+.solarized h1, .solarized h2, .solarized h3, .solarized h4, .solarized h5 {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  text-align: left !important;
+}
+
+/* All Headings - Style but allow default alignment */
+.solarized h1, .solarized h2, .solarized h3, .solarized h4, .solarized h5,
+.solarized [class*="text-3xl"], .solarized [class*="text-4xl"], .solarized [class*="text-5xl"],
+.solarized .text-shiny {
+  background: linear-gradient(
+    90deg, 
+    #2aa198 0%, 
+    #93e9be 30%, 
+    #d9f99d 50%, /* Greenish Yellow Shimmer */
+    #93e9be 70%, 
+    #2aa198 100%
+  ) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: shine-sweep-rtl 4s linear infinite !important;
+  font-weight: 900 !important;
+  display: inline-block; /* Changed from block to inline-block to prevent line breaks inside headers */
+  width: fit-content;
+}
+
+/* Component Headings (h3, h4, h5) - Left Aligned */
+.solarized h3, .solarized h4, .solarized h5 {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  text-align: left !important;
+}
+
+/* Hero Specific Centering for Spans and Paragraphs */
+.solarized #home .text-center span,
+.solarized #home .text-center p {
+  display: block !important;
+  width: fit-content !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+.solarized .text-slate-900, .solarized .dark\:text-white, .solarized .text-white,
+.solarized .text-slate-800, .solarized .dark\:text-slate-200, .solarized .dark\:text-slate-100,
+.solarized .font-black, .solarized .font-bold, .solarized .font-semibold {
+  color: #ffffff !important; /* Pure White */
+  text-shadow: none !important; /* Remove blur */
+}
+
+/* Primary body text to Pure White */
+.solarized .text-slate-700, .solarized .dark\:text-slate-300,
+.solarized .text-slate-600, .solarized .dark\:text-slate-400, .solarized .dark\:text-slate-500,
+.solarized .text-slate-500,
+.solarized span.font-medium, .solarized span.font-bold {
+  color: #ffffff !important;
+}
+
+/* Specific Section Fixes for visibility */
+/* Player Names in TeamCard, UpcomingMatch, ImpactAnalysis */
+.solarized .glass-card span.font-medium,
+.solarized .glass-premium span.font-medium,
+.solarized .glass-card span.font-bold,
+.solarized .glass-premium span.font-bold {
+  color: #ffffff !important;
+}
+
+/* Schedule section team names and match details */
+.solarized .lg\:col-span-5 h3,
+.solarized .lg\:col-span-7 h3,
+.solarized .lg\:col-span-7 h4,
+.solarized .lg\:col-span-12 h3 {
+  color: #ffffff !important;
+}
+
+/* Subtitles and Dimmer Text - Pure White */
+.solarized .text-slate-500,
+.solarized .dark\:text-slate-500,
+.solarized .text-slate-600,
+.solarized .dark\:text-slate-400 {
+  color: #ffffff !important;
+}
+
+/* Graph Labels Override (SVG) */
+.solarized .recharts-cartesian-axis-tick text,
+.solarized .recharts-text.recharts-label,
+.solarized .recharts-legend-item-text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* Tooltip text in Solarized */
+.solarized .recharts-tooltip-wrapper .glass-premium span {
+  color: #ffffff !important;
+}
+
+/* Ensure Team and Player labels in lists are bright */
+.solarized .truncate,
+.solarized .whitespace-nowrap {
+  color: #ffffff !important;
+}
+
+/* Luxury Solarized Leaderboard Overhaul */
+.solarized .text-metallic-gold {
+  background: linear-gradient(135deg, #fbbf24 0%, #fff9c4 50%, #f59e0b 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-weight: 900 !important;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)) !important;
+}
+
+.solarized .text-metallic-silver {
+  background: linear-gradient(135deg, #e2e8f0 0%, #ffffff 50%, #94a3b8 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-weight: 900 !important;
+}
+
+.solarized .text-metallic-bronze {
+  background: linear-gradient(135deg, #fb923c 0%, #ffedd5 50%, #b45309 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-weight: 900 !important;
+}
+
+/* Premium Row Styling */
+.solarized .bg-league-blue {
+  background: radial-gradient(circle at top left, #073642 0%, #002b36 100%) !important;
+  border: 1px solid rgba(147, 233, 190, 0.1) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+}
+
+.solarized .bg-white\/10.ring-1.ring-white\/20 {
+  background: linear-gradient(90deg, rgba(42, 161, 152, 0.15) 0%, rgba(42, 161, 152, 0.05) 100%) !important;
+  border: 1px solid rgba(42, 161, 152, 0.3) !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: inset 0 0 20px rgba(42, 161, 152, 0.1) !important;
+  border-radius: 1rem !important;
+}
+
+.solarized .hover\:bg-white\/5:hover {
+  background: rgba(255, 255, 255, 0.03) !important;
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.02) !important;
+}
+
+/* Sharp Text and Accents */
+.solarized .text-metallic-steel {
+  background: linear-gradient(90deg, #2aa198 0%, #93e9be 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  letter-spacing: -0.02em !important;
+  font-weight: 800 !important;
+  opacity: 1 !important;
+}
+
+.solarized .text-emerald-400 {
+  color: #2aa198 !important; /* Use Cyan for a more 'pro' look than standard green */
+  font-weight: 800 !important;
+}
+
+.solarized .text-rose-400 {
+  color: #dc322f !important;
+  font-weight: 800 !important;
+}
+
+.solarized .group:hover .text-metallic-steel,
+.solarized .group:hover h3 {
+  background: linear-gradient(
+    90deg, 
+    #94a3b8 0%, 
+    #ffffff 45%, 
+    #ffffff 55%, 
+    #94a3b8 100%
+  ) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: shine-sweep-rtl 3s linear infinite !important;
+  opacity: 1 !important;
+}
+
+/* Solarized Specific: Your Team Section - MST Player Colors */
+/* New Players - Bright Neon Green */
+.solarized .text-green-500 {
+  color: #22c55e !important; /* Bright Neon Green */
+  text-shadow: 0 0 12px rgba(34, 197, 94, 0.5) !important;
+}
+
+.solarized .bg-green-500\/10 {
+  background-color: rgba(34, 197, 94, 0.2) !important;
+}
+
+.solarized .border-green-500\/20 {
+  border-color: rgba(34, 197, 94, 0.5) !important;
+}
+
+/* Transferred Out Players - Neon Red */
+.solarized .text-red-500,
+.solarized .decoration-red-500\/50,
+.solarized .group\/out:hover .decoration-red-500,
+.solarized .line-through.decoration-red-500\/50 {
+  color: #ff3131 !important; /* Neon Red */
+  text-decoration-color: #ff3131 !important;
+  text-shadow: 0 0 10px rgba(255, 49, 49, 0.4) !important;
+}
+
+.solarized .bg-red-500\/10 {
+  background-color: rgba(255, 49, 49, 0.2) !important;
+}
+
+.solarized .border-red-500\/20 {
+  border-color: rgba(255, 49, 49, 0.5) !important;
+}
+
+.solarized .text-red-500\/60 {
+  color: rgba(255, 49, 49, 0.7) !important;
+}
+
+.solarized .bg-red-500 {
+  background-color: #ff3131 !important;
+}
+
+.solarized .border-red-500\/10 {
+  border-color: rgba(255, 49, 49, 0.3) !important;
+}
+
+/* Small labels (Match IDs, Date, Venue) */
+.solarized .text-[10px], .solarized .text-xs {
+  color: #2aa198 !important;
+}
+
+/* Mobile Nav Bar Fix */
+.solarized .fixed.bottom-0.inset-x-0 > div {
+  background-color: rgba(7, 54, 66, 0.8) !important;
+  backdrop-filter: blur(20px) !important;
+  border-color: rgba(147, 233, 190, 0.15) !important;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4) !important;
+}
+
+.solarized .fixed.bottom-0.inset-x-0 button svg {
+  color: #2aa198 !important;
+}
+
+.solarized .fixed.bottom-0.inset-x-0 button span {
+  color: #93e9be !important;
+}
+
+.solarized .fixed.bottom-0.inset-x-0 button:hover svg {
+  color: #ffffff !important;
 }

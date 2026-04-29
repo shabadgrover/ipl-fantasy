@@ -1,13 +1,16 @@
 import React, { useState, useMemo } from 'react';
-import { Calendar, ChevronRight, Info, Zap } from 'lucide-react';
+import { Calendar, ChevronRight, Info, Zap, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { matches } from '../data/matches';
 
 const Schedule = ({ teams, hideInternalHeader }) => {
   const [selectedMatch, setSelectedMatch] = useState(null);
+  const [showOnlyActive, setShowOnlyActive] = useState(true);
 
   const matchDetails = useMemo(() => {
     if (!selectedMatch) return null;
+    
+    const isPhase1 = selectedMatch.id <= 35;
     
     const playersByTeam = {};
     selectedMatch.abbrs.forEach(abbr => {
@@ -17,9 +20,26 @@ const Schedule = ({ teams, hideInternalHeader }) => {
     (teams || []).forEach(fTeam => {
       (fTeam.players || []).forEach(player => {
         if (selectedMatch.abbrs.includes(player.iplAbbr)) {
+          // If Phase 1: Hide new players
+          if (isPhase1 && player.isNew) return;
+          
+          // In Phase 1: Old players were active, so they shouldn't be marked as "Out" visually
+          const effectiveIsOut = isPhase1 ? false : player.isOut;
+          
+          // Determine dynamic captaincy based on match timeline
+          const matchPhase = selectedMatch.id <= 36 ? 'phase1' : 'phase2';
+          const isMatchCaptain = matchPhase === 'phase1' ? player.phase1Captain : player.phase2Captain;
+          const isMatchVC = matchPhase === 'phase1' ? player.phase1ViceCaptain : player.phase2ViceCaptain;
+
           playersByTeam[player.iplAbbr].push({
             ...player,
-            ownedBy: fTeam.teamName
+            effectiveIsOut,
+            isMatchCaptain,
+            isMatchVC,
+            ownedBy: fTeam.teamName,
+            ownerTrend: fTeam.trend,
+            ownerRank: fTeam.rank,
+            ownerRankDiff: fTeam.rankDiff
           });
         }
       });
@@ -33,7 +53,7 @@ const Schedule = ({ teams, hideInternalHeader }) => {
       {!hideInternalHeader && (
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
           <div>
-            <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">AuctionRoom Schedule</h2>
+            <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight text-shiny">AuctionRoom Schedule</h2>
             <p className="text-slate-600 dark:text-slate-400 font-medium mt-1">Full season fixtures and fantasy player tracking</p>
           </div>
           <div className="flex items-center gap-2 px-4 py-2 bg-black/5 dark:bg-white/5 rounded-xl border border-black/10 dark:border-white/5 text-xs font-bold text-slate-600 dark:text-slate-500 uppercase tracking-widest transition-colors">
@@ -44,7 +64,7 @@ const Schedule = ({ teams, hideInternalHeader }) => {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-        <div className="lg:col-span-5 space-y-4">
+        <div className="lg:col-span-5 space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
           {matches.map((match) => (
             <motion.button
               key={match.id}
@@ -105,9 +125,27 @@ const Schedule = ({ teams, hideInternalHeader }) => {
                   <div className="w-14 h-14 bg-black/5 border-black/10 dark:bg-white/10 rounded-2xl flex items-center justify-center text-slate-900 dark:text-white border dark:border-white/20 shadow-sm">
                     <Zap size={28} fill="currentColor" />
                   </div>
-                  <div>
-                    <h3 className="text-2xl font-black text-slate-900 dark:text-white">{selectedMatch.name}</h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-500 font-medium">{selectedMatch.time} • Local Time Delivery</p>
+                  <div className="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                      <h3 className="text-2xl font-black text-slate-900 dark:text-white">{selectedMatch.name}</h3>
+                      <p className="text-sm text-slate-600 dark:text-slate-500 font-medium flex items-center gap-2">
+                        <span>{selectedMatch.time} • Local Time Delivery</span>
+                        <span className="opacity-50">•</span>
+                        <span className="text-[10px] uppercase font-black tracking-widest text-primary px-2 py-0.5 rounded bg-primary/10 border border-primary/20">
+                          {selectedMatch.id <= 35 ? "Phase 1 Squad" : "Phase 2 Squad"}
+                        </span>
+                      </p>
+                    </div>
+                    <button 
+                      onClick={() => setShowOnlyActive(!showOnlyActive)}
+                      className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all shadow-sm ${
+                        showOnlyActive 
+                          ? 'bg-primary/10 text-primary border-primary/20 dark:bg-primary/20 dark:text-primary dark:border-primary/30' 
+                          : 'bg-black/5 text-slate-500 border-black/10 dark:bg-white/5 dark:text-slate-400 dark:border-white/10'
+                      }`}
+                    >
+                      {showOnlyActive ? 'Active Only: ON' : 'Active Only: OFF'}
+                    </button>
                   </div>
                 </div>
 
@@ -122,25 +160,49 @@ const Schedule = ({ teams, hideInternalHeader }) => {
                       </div>
                       
                       <div className="space-y-3">
-                        {matchDetails[abbr].length > 0 ? (
-                          matchDetails[abbr].map((player, idx) => (
+                        {matchDetails[abbr].filter(p => !showOnlyActive || !p.effectiveIsOut).length > 0 ? (
+                          matchDetails[abbr].filter(p => !showOnlyActive || !p.effectiveIsOut).map((player, idx) => (
                             <motion.div 
                               key={idx}
                               initial={{ opacity: 0, x: -10 }}
                               animate={{ opacity: 1, x: 0 }}
                               transition={{ delay: idx * 0.05 }}
-                              className="p-4 rounded-2xl bg-black/[0.02] border border-black/5 dark:bg-white/[0.03] dark:border-white/5 flex flex-col gap-1 group hover:bg-black/[0.04] hover:border-black/10 dark:hover:bg-white/[0.06] dark:hover:border-white/10 transition-all"
+                              className={`p-4 rounded-2xl flex flex-col gap-1 transition-all ${
+                                player.effectiveIsOut 
+                                  ? 'bg-black/[0.01] border-black/5 dark:bg-white/[0.01] dark:border-white/5 opacity-50 grayscale'
+                                  : 'bg-black/[0.02] border-black/5 dark:bg-white/[0.03] dark:border-white/5 group hover:bg-black/[0.04] hover:border-black/10 dark:hover:bg-white/[0.06] dark:hover:border-white/10'
+                              } border`}
                             >
                               <div className="flex items-center justify-between">
-                                <span className="font-bold text-slate-800 dark:text-slate-200">{player.name}</span>
-                                {player.isCaptain && <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 border border-amber-500/20 dark:bg-gold/20 dark:text-gold dark:border-gold/30 font-black">C</span>}
-                                {player.isVC && <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-600 border border-blue-500/20 dark:bg-blue-500/20 dark:text-blue-400 dark:border-blue-500/30 font-black">VC</span>}
+                                <div className="flex items-center gap-2">
+                                  <span className={`font-bold ${player.effectiveIsOut ? 'text-slate-500' : 'text-slate-800 dark:text-slate-200'}`}>
+                                    {player.name} {player.effectiveIsOut ? '(Out)' : ''}
+                                  </span>
+                                  {player.isNew && !player.effectiveIsOut && <span className="text-[8px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 dark:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-500/30 font-black tracking-widest">NEW</span>}
+                                  {player.isMatchCaptain && !player.effectiveIsOut && <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 border border-amber-500/20 dark:bg-gold/20 dark:text-gold dark:border-gold/30 font-black">C</span>}
+                                  {player.isMatchVC && !player.effectiveIsOut && <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-600 border border-blue-500/20 dark:bg-blue-500/20 dark:text-blue-400 dark:border-blue-500/30 font-black">VC</span>}
+                                </div>
                               </div>
                               <div className="flex items-center justify-between mt-1">
-                                <span className="text-[10px] uppercase font-bold text-slate-500">Owned By</span>
-                                <span className="text-[10px] font-black text-primary hover:text-indigo-500 dark:group-hover:text-blue-400 transition-colors">
-                                  {player.ownedBy}
+                                <span className="text-[10px] uppercase font-bold text-slate-500">
+                                  {player.effectiveIsOut ? "Previously" : "Owned By"}
                                 </span>
+                                <div className="flex items-center gap-1.5 transition-colors">
+                                  {!player.effectiveIsOut && (
+                                    player.ownerTrend === 'up' ? (
+                                      <TrendingUp size={10} className="text-emerald-500" strokeWidth={3} />
+                                    ) : player.ownerTrend === 'down' ? (
+                                      <TrendingDown size={10} className="text-rose-500" strokeWidth={3} />
+                                    ) : (
+                                      <Minus size={10} className="text-slate-400" strokeWidth={3} />
+                                    )
+                                  )}
+                                  <span className={`text-[10px] font-black transition-colors ${
+                                    player.effectiveIsOut ? 'text-slate-500' : 'text-primary hover:text-indigo-500 dark:group-hover:text-blue-400'
+                                  }`}>
+                                    {player.ownedBy}
+                                  </span>
+                                </div>
                               </div>
                             </motion.div>
                           ))
