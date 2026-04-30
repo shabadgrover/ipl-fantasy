@@ -174,7 +174,7 @@ export const parseExcelData = (arrayBuffer) => {
       const pointsP1 = Math.min(basePoints, p1Baseline) * multP1;
       const pointsP2 = Math.max(0, basePoints - p1Baseline) * multP2;
       
-      const finalPoints = Math.round(pointsP1 + pointsP2);
+      const finalPoints = pointsP1 + pointsP2;
       
       // Determine CURRENT roles for display (Phase 2 now, as Match 37 is completed)
       const currentIsCaptain = isP2Cap;
