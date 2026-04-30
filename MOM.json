@@ -554,9 +554,23 @@
       "team1": "PBKS",
       "team2": "RR"
     },
-    "winner": "",
+    "winner": "RR",
     "man_of_the_match": {
-      "player": ""
+      "player": "Marcus Stoinis"
+    }
+  },
+  {
+    "match_no": "41",
+    "match_id": "M41",
+    "date": "2026-04-29",
+    "venue": "Mumbai",
+    "teams": {
+      "team1": "MI",
+      "team2": "SRH"
+    },
+    "winner": "SRH",
+    "man_of_the_match": {
+      "player": "Travis Head"
     }
   }
 ]
