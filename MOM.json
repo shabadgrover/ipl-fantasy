@@ -572,5 +572,19 @@
     "man_of_the_match": {
       "player": "Travis Head"
     }
+  },
+  {
+    "match_no": "42",
+    "match_id": "M42",
+    "date": "2026-04-30",
+    "venue": "Ahmedabad",
+    "teams": {
+      "team1": "GT",
+      "team2": "RCB"
+    },
+    "winner": "GT",
+    "man_of_the_match": {
+      "player": "Jason Holder"
+    }
   }
 ]
