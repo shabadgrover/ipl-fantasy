@@ -586,5 +586,19 @@
     "man_of_the_match": {
       "player": "Jason Holder"
     }
+  },
+  {
+    "match_no": "43",
+    "match_id": "M43",
+    "date": "2026-05-01",
+    "venue": "Jaipur",
+    "teams": {
+      "team1": "RR",
+      "team2": "DC"
+    },
+    "winner": "DC",
+    "man_of_the_match": {
+      "player": "KL Rahul"
+    }
   }
 ]
