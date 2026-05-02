@@ -35,7 +35,7 @@ const Leaderboard = ({ teams, hideInternalHeader, upcomingMatch }) => {
           <div className="flex justify-between items-end mb-8 border-b border-white/10 pb-6">
             <div>
               <h3 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic text-shiny pr-4">
-                AFTERMATCH43 
+                AFTERMATCH44 
               </h3>
             </div>
             <div className="flex flex-col md:flex-row md:items-center gap-4 text-[10px] md:text-xs font-bold text-white/60 uppercase tracking-widest">
