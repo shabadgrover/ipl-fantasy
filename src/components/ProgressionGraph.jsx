@@ -93,7 +93,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 const ProgressionGraph = () => {
   const [activeTeam, setActiveTeam] = React.useState(null);
-  const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('solarized');
+  const isDark = document.documentElement.classList.contains('dark');
 
   return (
     <div className="w-full max-w-6xl mx-auto py-12 px-4">

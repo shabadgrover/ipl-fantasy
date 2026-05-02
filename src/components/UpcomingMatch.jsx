@@ -2,7 +2,7 @@ import React from 'react';
 import { Calendar, MapPin, Zap, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
 const UpcomingMatch = ({ teams, matchInfo, hideInternalHeader }) => {
-  const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('solarized');
+  const isDark = document.documentElement.classList.contains('dark');
   if (!matchInfo) return null;
 
   const getMatchPlayers = (iplTeamName) => {

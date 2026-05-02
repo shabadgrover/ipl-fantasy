@@ -6,7 +6,7 @@ import Teams from './components/Teams';
 import UpcomingMatch from './components/UpcomingMatch';
 import Home from './components/Home';
 import Schedule from './components/Schedule';
-import { Home as HomeIcon, LayoutDashboard, Users, Zap, Calendar, Target, Sun, Moon, Palette, Share2, CheckCircle2, LogOut } from 'lucide-react';
+import { Home as HomeIcon, LayoutDashboard, Users, Zap, Calendar, Target, Sun, Moon, Share2, CheckCircle2, LogOut } from 'lucide-react';
 import { parseExcelData } from './utils/excelParser';
 import PlanAhead from './components/PlanAhead';
 import ImpactAnalysis from './components/ImpactAnalysis';
@@ -31,21 +31,15 @@ function App() {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.classList.remove('dark', 'solarized');
+    root.classList.remove('dark');
     if (theme === 'dark') {
       root.classList.add('dark');
-    } else if (theme === 'solarized') {
-      root.classList.add('solarized');
     }
     localStorage.setItem('theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(t => {
-      if (t === 'light') return 'dark';
-      if (t === 'dark') return 'solarized';
-      return 'light';
-    });
+    setTheme(t => t === 'light' ? 'dark' : 'light');
   };
 
   useEffect(() => {
@@ -253,9 +247,7 @@ function App() {
                 className="px-3 py-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:scale-105 transition-all duration-300"
                 aria-label="Toggle Theme"
               >
-                {theme === 'light' ? <Moon size={18} /> : 
-                 theme === 'dark' ? <Palette size={18} /> : 
-                 <Sun size={18} />}
+                {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
               </button>
 
               {session && (

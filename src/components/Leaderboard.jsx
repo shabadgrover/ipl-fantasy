@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
 const Leaderboard = ({ teams, hideInternalHeader, upcomingMatch }) => {
-  const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('solarized');
+  const isDark = document.documentElement.classList.contains('dark');
   const getRankClass = (rank) => {
     if (rank === 1) return 'text-metallic-gold';
     if (rank === 2) return 'text-metallic-silver';

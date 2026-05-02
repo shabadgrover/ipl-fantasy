@@ -7,7 +7,7 @@ const Schedule = ({ teams, hideInternalHeader }) => {
   const [selectedMatch, setSelectedMatch] = useState(null);
   const [showOnlyActive, setShowOnlyActive] = useState(true);
 
-  const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('solarized');
+  const isDark = document.documentElement.classList.contains('dark');
   
   const matchDetails = useMemo(() => {
     if (!selectedMatch) return null;

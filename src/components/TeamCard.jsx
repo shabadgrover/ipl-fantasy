@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const TeamCard = ({ team, snapshotData }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('solarized');
+  const isDark = document.documentElement.classList.contains('dark');
 
   // MST Logic: Separate active players from transferred out
   const activePlayers = team.players.filter(p => !p.isOut);

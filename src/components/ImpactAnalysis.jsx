@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Target, TrendingUp, TrendingDown, Minus, Users } from 'lucide-react';
 
 const ImpactAnalysis = ({ teams, matchInfo, hideInternalHeader }) => {
-  const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('solarized');
+  const isDark = document.documentElement.classList.contains('dark');
   if (!matchInfo) return null;
 
   // Calculate Impact Data
