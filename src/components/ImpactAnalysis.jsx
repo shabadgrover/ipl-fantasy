@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Target, TrendingUp, TrendingDown, Minus, Users } from 'lucide-react';
 
 const ImpactAnalysis = ({ teams, matchInfo, hideInternalHeader }) => {
+  const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('solarized');
   if (!matchInfo) return null;
 
   // Calculate Impact Data
@@ -18,7 +19,8 @@ const ImpactAnalysis = ({ teams, matchInfo, hideInternalHeader }) => {
         name: p.name,
         isCaptain: p.isCaptain,
         isVC: p.isVC,
-        isNew: p.isNew
+        isNew: p.isNew,
+        iplAbbr: p.iplAbbr
       }))
     };
   }).sort((a, b) => b.count - a.count);
@@ -118,6 +120,7 @@ const ImpactAnalysis = ({ teams, matchInfo, hideInternalHeader }) => {
                       key={pIdx}
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/[0.03] border border-black/5 hover:bg-black/[0.06] dark:bg-white/5 dark:border-white/5 dark:hover:bg-white/10 transition-colors"
                     >
+                      <img src={`/Logos/dark/${p.iplAbbr.toLowerCase()}.png`} alt={p.iplAbbr} className="w-3.5 h-3.5 object-contain opacity-80" />
                       <span className="text-xs font-bold text-slate-700 dark:text-slate-300">{p.name}</span>
                       {p.isNew && <span className="text-[8px] px-1 py-0.5 rounded bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 dark:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-500/30 font-black tracking-widest">NEW</span>}
                       {p.isCaptain && <span className="text-[8px] px-1 py-0.5 rounded bg-amber-500/10 text-amber-600 border border-amber-500/20 dark:bg-gold/20 dark:text-gold dark:border-gold/30 font-black">C</span>}

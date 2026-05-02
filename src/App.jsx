@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Schedule from './components/Schedule';
 import { Home as HomeIcon, LayoutDashboard, Users, Zap, Calendar, Target, Sun, Moon, Palette, Share2, CheckCircle2, LogOut } from 'lucide-react';
 import { parseExcelData } from './utils/excelParser';
+import PlanAhead from './components/PlanAhead';
 import ImpactAnalysis from './components/ImpactAnalysis';
 import { matches } from './data/matches';
 import ProgressionGraph from './components/ProgressionGraph';
@@ -59,17 +60,17 @@ function App() {
         const now = new Date();
         setLastUpdated(now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
         
-        // --- BASELINE DATA (Match 39 Standings) ---
+        // --- BASELINE DATA (Match 43 Standings) ---
         const BASELINE_PREVIOUS_MATCH = {
-          "Sumit's Team": 6279.5,
-          "Deepanshuu's Team": 5815.5,
-          "shabad's Team": 5458,
-          "Piyush dhiman's Team": 4964.5,
-          "Ankit's Team": 4443,
-          "Jenna Morrh Warriors": 4462,
-          "Maat maro shota bacha hu": 4081,
-          "Aizen": 3875,
-          "GURI XI": 3358.5
+          "Sumit's Team": 6430.5,
+          "Deepanshuu's Team": 5893.5,
+          "shabad's Team": 5546,
+          "Piyush dhiman's Team": 5015.5,
+          "Ankit's Team": 4455,
+          "Jenna Morrh Warriors": 4502,
+          "Maat maro shota bacha hu": 4303,
+          "Aizen": 4021,
+          "GURI XI": 3554.5
         };
 
         const INITIAL_RANKS = Object.keys(BASELINE_PREVIOUS_MATCH)
@@ -206,6 +207,7 @@ function App() {
 
   const userTeam = teamsWithUser.find(t => t.isUser);
   const upcomingMatch = matches.find(m => !m.isCompleted) || matches[matches.length - 1];
+  const nextMatches = matches.filter(m => !m.isCompleted).slice(0, 3);
 
   return (
     <div className="min-h-screen bg-[#f5f5f7] dark:bg-black transition-colors duration-300">
@@ -214,6 +216,13 @@ function App() {
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => scrollTo('home')}>
             <Zap size={18} className="text-black dark:text-white" fill="currentColor" />
             <span className="text-lg font-black tracking-tight text-slate-900 dark:text-white">IPL Fantasy</span>
+            {upcomingMatch && (
+              <div className="hidden lg:flex items-center gap-2 ml-4 px-3 py-1 bg-black/5 dark:bg-white/10 rounded-full border border-black/5 dark:border-white/5 animate-in fade-in slide-in-from-bottom-4">
+                <img src={`/Logos/dark/${upcomingMatch.abbrs[0].toLowerCase()}.png`} alt="" className="w-4 h-4 object-contain" />
+                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{upcomingMatch.abbrs[0]} v {upcomingMatch.abbrs[1]}</span>
+                <img src={`/Logos/dark/${upcomingMatch.abbrs[1].toLowerCase()}.png`} alt="" className="w-4 h-4 object-contain" />
+              </div>
+            )}
           </div>
           
           <div className="flex items-center gap-1 md:gap-4">
@@ -297,7 +306,7 @@ function App() {
             <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white text-shiny">Track Every Point.</h2>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">The live leaderboard updated in real-time. Last Refreshed: {lastUpdated}</p>
           </motion.div>
-          <Leaderboard teams={teamsWithUser} hideInternalHeader={true} />
+          <Leaderboard teams={teamsWithUser} hideInternalHeader={true} upcomingMatch={upcomingMatch} />
           <ProgressionGraph />
         </section>
         
@@ -324,8 +333,16 @@ function App() {
             className="max-w-6xl mx-auto px-4 mb-4 text-center"
           >
             <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white text-shiny">Plan Ahead.</h2>
-            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">Deep impact analysis for the next upcoming fixture.</p>
+            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">Strategy and squad depth for the next {nextMatches.length} fixtures.</p>
           </motion.div>
+          <PlanAhead matches={nextMatches} />
+          <div className="max-w-6xl mx-auto px-4 mb-8">
+            <h3 className="text-sm font-black text-slate-400 dark:text-slate-600 uppercase tracking-[0.3em] flex items-center gap-4">
+               <div className="h-px flex-1 bg-black/5 dark:bg-white/5" />
+               Detailed Analysis for Next Match
+               <div className="h-px flex-1 bg-black/5 dark:bg-white/5" />
+            </h3>
+          </div>
           <UpcomingMatch teams={teamsWithUser} matchInfo={upcomingMatch} hideInternalHeader={true} />
         </section>
 

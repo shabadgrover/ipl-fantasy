@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const TeamCard = ({ team, snapshotData }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('solarized');
 
   // MST Logic: Separate active players from transferred out
   const activePlayers = team.players.filter(p => !p.isOut);
@@ -112,7 +113,8 @@ const TeamCard = ({ team, snapshotData }) => {
               </div>
               
               <div className="flex justify-between items-center mt-0.5 opacity-0 group-hover/player:opacity-100 transition-opacity">
-                <span className="text-[9px] text-slate-400 dark:text-slate-500 italic uppercase tracking-tighter">
+                <span className="text-[9px] text-slate-400 dark:text-slate-500 italic uppercase tracking-tighter flex items-center gap-1">
+                  <img src={`/Logos/dark/${player.iplAbbr.toLowerCase()}.png`} alt={player.iplAbbr} className="w-3 h-3 object-contain opacity-60 group-hover/player:opacity-100 transition-opacity" />
                   {player.iplAbbr} 
                 </span>
                 <span className="text-[9px] text-slate-400 dark:text-slate-500 font-mono">

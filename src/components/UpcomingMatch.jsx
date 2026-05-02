@@ -2,6 +2,7 @@ import React from 'react';
 import { Calendar, MapPin, Zap, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
 const UpcomingMatch = ({ teams, matchInfo, hideInternalHeader }) => {
+  const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('solarized');
   if (!matchInfo) return null;
 
   const getMatchPlayers = (iplTeamName) => {
@@ -46,8 +47,10 @@ const UpcomingMatch = ({ teams, matchInfo, hideInternalHeader }) => {
                 {matchInfo.date}
               </span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter mb-2 italic text-shiny">
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter mb-2 italic text-shiny flex items-center gap-4">
+              <img src={`/Logos/dark/${matchInfo.abbrs[0].toLowerCase()}.png`} alt={matchInfo.abbrs[0]} className="w-10 h-10 md:w-16 md:h-16 object-contain" />
               {matchInfo.abbrs[0]} <span className="text-slate-500 dark:text-slate-400 not-italic text-2xl md:text-4xl text-shiny">VS</span> {matchInfo.abbrs[1]}
+              <img src={`/Logos/dark/${matchInfo.abbrs[1].toLowerCase()}.png`} alt={matchInfo.abbrs[1]} className="w-10 h-10 md:w-16 md:h-16 object-contain" />
             </h2>
             <div className="flex items-center gap-4 text-slate-600 dark:text-slate-400 font-bold uppercase text-[10px] tracking-widest">
               <span className="flex items-center gap-1.5"><MapPin size={12} className="text-primary" /> {matchInfo.venue}</span>
@@ -71,7 +74,9 @@ const UpcomingMatch = ({ teams, matchInfo, hideInternalHeader }) => {
         {/* Team 1 Squad */}
         <div className="glass-card rounded-[2.5rem] p-8 border border-black/5 dark:border-white/5 transition-colors duration-300">
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-xl bg-black/5 border border-black/10 dark:bg-white/10 dark:border-white/20 shadow-sm flex items-center justify-center text-slate-900 dark:text-white font-black text-sm">{matchInfo.abbrs[0]}</div>
+            <div className="w-12 h-12 rounded-xl bg-white/10 border border-black/10 dark:bg-white/10 dark:border-white/20 shadow-sm flex items-center justify-center p-1.5 overflow-hidden">
+              <img src={`/Logos/dark/${matchInfo.abbrs[0].toLowerCase()}.png`} alt={matchInfo.abbrs[0]} className="w-full h-full object-contain" />
+            </div>
             <div>
               <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">{matchInfo.teams[0]} Squad</h3>
               <p className="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">Match Day Tracking</p>
@@ -111,7 +116,9 @@ const UpcomingMatch = ({ teams, matchInfo, hideInternalHeader }) => {
         {/* Team 2 Squad */}
         <div className="glass-card rounded-[2.5rem] p-8 border border-black/5 dark:border-white/5 transition-colors duration-300">
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-xl bg-black/5 border border-black/10 dark:bg-white/10 dark:border-white/20 shadow-sm flex items-center justify-center text-slate-900 dark:text-white font-black text-sm">{matchInfo.abbrs[1]}</div>
+            <div className="w-12 h-12 rounded-xl bg-white/10 border border-black/10 dark:bg-white/10 dark:border-white/20 shadow-sm flex items-center justify-center p-1.5 overflow-hidden">
+              <img src={`/Logos/dark/${matchInfo.abbrs[1].toLowerCase()}.png`} alt={matchInfo.abbrs[1]} className="w-full h-full object-contain" />
+            </div>
             <div>
               <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">{matchInfo.teams[1]} Squad</h3>
               <p className="text-xs text-slate-500 font-bold uppercase tracking-[0.2em]">Match Day Tracking</p>

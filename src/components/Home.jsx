@@ -45,7 +45,6 @@ const Home = ({ onNavigate, snapshotData }) => {
         </motion.div>
       </div>
 
-
     </div>
   );
 };

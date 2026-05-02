@@ -67,15 +67,17 @@ const MSTBanner = ({ snapshotData }) => {
         <div className="relative bg-[#0a0a0a] backdrop-blur-3xl rounded-[2rem] p-8 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8 overflow-hidden">
 
           
-          {/* Background Texture Overlay */}
-          <div 
-            className="absolute inset-0 opacity-[0.15] mix-blend-screen pointer-events-none transition-transform duration-1000 group-hover:scale-110"
-            style={{ 
-              backgroundImage: `url('/mst-banner-bg.png')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }}
-          />
+          {/* Background Texture Overlay & Logo Collage */}
+          <div className="absolute inset-0 opacity-[0.05] pointer-events-none grid grid-cols-5 md:grid-cols-10 gap-4 p-4 grayscale group-hover:grayscale-0 group-hover:opacity-10 transition-all duration-1000">
+            {['CSK', 'DC', 'GT', 'KKR', 'LSG', 'MI', 'PBKS', 'RCB', 'RR', 'SRH'].map((abbr) => (
+              <img 
+                key={abbr} 
+                src={`/Logos/dark/${abbr.toLowerCase()}.png`} 
+                alt="" 
+                className="w-full h-auto object-contain opacity-40" 
+              />
+            ))}
+          </div>
 
           {/* Atmospheric Glows */}
           <div className={`absolute -top-20 -right-20 w-80 h-80 ${isExpired ? 'bg-red-600/10' : 'bg-blue-600/10'} rounded-full blur-[100px] pointer-events-none`} />
