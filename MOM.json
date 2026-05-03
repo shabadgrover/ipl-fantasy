@@ -610,9 +610,9 @@
       "team1": "CSK",
       "team2": "MI"
     },
-    "winner": "",
+    "winner": "CSK",
     "man_of_the_match": {
-      "player": ""
+      "player": "Ruturaj Gaikwad"
     }
   },
   {
@@ -624,9 +624,9 @@
       "team1": "SRH",
       "team2": "KKR"
     },
-    "winner": "",
+    "winner": "KKR",
     "man_of_the_match": {
-      "player": ""
+      "player": "Varun Chakaravarthy"
     }
   },
   {
