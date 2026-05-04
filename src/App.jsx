@@ -54,16 +54,16 @@ function App() {
         const now = new Date();
         setLastUpdated(now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
         
-        // --- BASELINE DATA (Match 44 Standings) ---
+        // --- BASELINE DATA (Match 45 Standings) ---
         const BASELINE_PREVIOUS_MATCH = {
-          "Sumit's Team": 6434.5,
-          "Deepanshuu's Team": 6076,
-          "shabad's Team": 5546,
+          "Sumit's Team": 6499,
+          "Deepanshuu's Team": 6133,
+          "shabad's Team": 5711,
           "Piyush dhiman's Team": 5180.5,
-          "Ankit's Team": 4591,
-          "Jenna Morrh Warriors": 4876,
-          "Maat maro shota bacha hu": 4303,
-          "Aizen": 4026,
+          "Ankit's Team": 4680,
+          "Jenna Morrh Warriors": 5022,
+          "Maat maro shota bacha hu": 4522,
+          "Aizen": 4407,
           "GURI XI": 3757.5
         };
 
