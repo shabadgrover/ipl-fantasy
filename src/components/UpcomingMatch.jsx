@@ -48,9 +48,11 @@ const UpcomingMatch = ({ teams, matchInfo, hideInternalHeader }) => {
               </span>
             </div>
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter mb-2 italic text-shiny flex items-center gap-4">
-              <img src={`/Logos/dark/${matchInfo.abbrs[0].toLowerCase()}.png`} alt={matchInfo.abbrs[0]} className="w-10 h-10 md:w-16 md:h-16 object-contain" />
+              <img src={`/Logos/light/${matchInfo.abbrs[0].toLowerCase()}.png`} alt={matchInfo.abbrs[0]} className="w-10 h-10 md:w-16 md:h-16 object-contain dark:hidden" />
+              <img src={`/Logos/dark/${matchInfo.abbrs[0].toLowerCase()}.png`} alt={matchInfo.abbrs[0]} className="w-10 h-10 md:w-16 md:h-16 object-contain hidden dark:block" />
               {matchInfo.abbrs[0]} <span className="text-slate-500 dark:text-slate-400 not-italic text-2xl md:text-4xl text-shiny">VS</span> {matchInfo.abbrs[1]}
-              <img src={`/Logos/dark/${matchInfo.abbrs[1].toLowerCase()}.png`} alt={matchInfo.abbrs[1]} className="w-10 h-10 md:w-16 md:h-16 object-contain" />
+              <img src={`/Logos/light/${matchInfo.abbrs[1].toLowerCase()}.png`} alt={matchInfo.abbrs[1]} className="w-10 h-10 md:w-16 md:h-16 object-contain dark:hidden" />
+              <img src={`/Logos/dark/${matchInfo.abbrs[1].toLowerCase()}.png`} alt={matchInfo.abbrs[1]} className="w-10 h-10 md:w-16 md:h-16 object-contain hidden dark:block" />
             </h2>
             <div className="flex items-center gap-4 text-slate-600 dark:text-slate-400 font-bold uppercase text-[10px] tracking-widest">
               <span className="flex items-center gap-1.5"><MapPin size={12} className="text-primary" /> {matchInfo.venue}</span>
@@ -75,7 +77,8 @@ const UpcomingMatch = ({ teams, matchInfo, hideInternalHeader }) => {
         <div className="glass-card rounded-[2.5rem] p-8 border border-black/5 dark:border-white/5 transition-colors duration-300">
           <div className="flex items-center gap-3 mb-8">
             <div className="w-12 h-12 rounded-xl bg-white/10 border border-black/10 dark:bg-white/10 dark:border-white/20 shadow-sm flex items-center justify-center p-1.5 overflow-hidden">
-              <img src={`/Logos/dark/${matchInfo.abbrs[0].toLowerCase()}.png`} alt={matchInfo.abbrs[0]} className="w-full h-full object-contain" />
+              <img src={`/Logos/light/${matchInfo.abbrs[0].toLowerCase()}.png`} alt={matchInfo.abbrs[0]} className="w-full h-full object-contain dark:hidden" />
+              <img src={`/Logos/dark/${matchInfo.abbrs[0].toLowerCase()}.png`} alt={matchInfo.abbrs[0]} className="w-full h-full object-contain hidden dark:block" />
             </div>
             <div>
               <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">{matchInfo.teams[0]} Squad</h3>
@@ -117,7 +120,8 @@ const UpcomingMatch = ({ teams, matchInfo, hideInternalHeader }) => {
         <div className="glass-card rounded-[2.5rem] p-8 border border-black/5 dark:border-white/5 transition-colors duration-300">
           <div className="flex items-center gap-3 mb-8">
             <div className="w-12 h-12 rounded-xl bg-white/10 border border-black/10 dark:bg-white/10 dark:border-white/20 shadow-sm flex items-center justify-center p-1.5 overflow-hidden">
-              <img src={`/Logos/dark/${matchInfo.abbrs[1].toLowerCase()}.png`} alt={matchInfo.abbrs[1]} className="w-full h-full object-contain" />
+              <img src={`/Logos/light/${matchInfo.abbrs[1].toLowerCase()}.png`} alt={matchInfo.abbrs[1]} className="w-full h-full object-contain dark:hidden" />
+              <img src={`/Logos/dark/${matchInfo.abbrs[1].toLowerCase()}.png`} alt={matchInfo.abbrs[1]} className="w-full h-full object-contain hidden dark:block" />
             </div>
             <div>
               <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">{matchInfo.teams[1]} Squad</h3>

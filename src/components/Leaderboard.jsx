@@ -43,11 +43,13 @@ const Leaderboard = ({ teams, hideInternalHeader, upcomingMatch }) => {
                 <div className="flex items-center gap-3 bg-white/5 px-3 py-1.5 rounded-xl border border-white/10">
                   <span className="opacity-40">Next:</span>
                   <div className="flex items-center gap-2">
-                    <img src={`/Logos/dark/${upcomingMatch.abbrs[0].toLowerCase()}.png`} alt={upcomingMatch.abbrs[0]} className="w-4 h-4 object-contain" />
+                    <img src={`/Logos/light/${upcomingMatch.abbrs[0].toLowerCase()}.png`} alt={upcomingMatch.abbrs[0]} className="w-4 h-4 object-contain dark:hidden" />
+                    <img src={`/Logos/dark/${upcomingMatch.abbrs[0].toLowerCase()}.png`} alt={upcomingMatch.abbrs[0]} className="w-4 h-4 object-contain hidden dark:block" />
                     <span className="text-white/80">{upcomingMatch.abbrs[0]}</span>
                     <span className="opacity-20">v</span>
                     <span className="text-white/80">{upcomingMatch.abbrs[1]}</span>
-                    <img src={`/Logos/dark/${upcomingMatch.abbrs[1].toLowerCase()}.png`} alt={upcomingMatch.abbrs[1]} className="w-4 h-4 object-contain" />
+                    <img src={`/Logos/light/${upcomingMatch.abbrs[1].toLowerCase()}.png`} alt={upcomingMatch.abbrs[1]} className="w-4 h-4 object-contain dark:hidden" />
+                    <img src={`/Logos/dark/${upcomingMatch.abbrs[1].toLowerCase()}.png`} alt={upcomingMatch.abbrs[1]} className="w-4 h-4 object-contain hidden dark:block" />
                   </div>
                 </div>
               )}

@@ -31,7 +31,8 @@ const PlanAhead = ({ matches }) => {
           >
             {/* Background Logo Watermark */}
             <div className="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
-               <img src={`/Logos/dark/${match.abbrs[1].toLowerCase()}.png`} alt="" className="w-24 h-24 object-contain" />
+               <img src={`/Logos/light/${match.abbrs[1].toLowerCase()}.png`} alt="" className="w-24 h-24 object-contain dark:hidden" />
+               <img src={`/Logos/dark/${match.abbrs[1].toLowerCase()}.png`} alt="" className="w-24 h-24 object-contain hidden dark:block" />
             </div>
 
             <div className="flex justify-between items-start mb-6">
@@ -46,7 +47,8 @@ const PlanAhead = ({ matches }) => {
             <div className="flex items-center justify-between gap-4 mb-6">
               <div className="flex flex-col items-center gap-2 flex-1">
                 <div className="w-14 h-14 rounded-2xl bg-white/50 dark:bg-white/5 border border-black/5 dark:border-white/10 shadow-sm p-2 flex items-center justify-center transition-transform group-hover:scale-110">
-                  <img src={`/Logos/dark/${match.abbrs[0].toLowerCase()}.png`} alt={match.abbrs[0]} className="w-full h-full object-contain" />
+                  <img src={`/Logos/light/${match.abbrs[0].toLowerCase()}.png`} alt={match.abbrs[0]} className="w-full h-full object-contain dark:hidden" />
+                  <img src={`/Logos/dark/${match.abbrs[0].toLowerCase()}.png`} alt={match.abbrs[0]} className="w-full h-full object-contain hidden dark:block" />
                 </div>
                 <span className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tighter">{match.abbrs[0]}</span>
               </div>
@@ -57,7 +59,8 @@ const PlanAhead = ({ matches }) => {
 
               <div className="flex flex-col items-center gap-2 flex-1">
                 <div className="w-14 h-14 rounded-2xl bg-white/50 dark:bg-white/5 border border-black/5 dark:border-white/10 shadow-sm p-2 flex items-center justify-center transition-transform group-hover:scale-110">
-                  <img src={`/Logos/dark/${match.abbrs[1].toLowerCase()}.png`} alt={match.abbrs[1]} className="w-full h-full object-contain" />
+                  <img src={`/Logos/light/${match.abbrs[1].toLowerCase()}.png`} alt={match.abbrs[1]} className="w-full h-full object-contain dark:hidden" />
+                  <img src={`/Logos/dark/${match.abbrs[1].toLowerCase()}.png`} alt={match.abbrs[1]} className="w-full h-full object-contain hidden dark:block" />
                 </div>
                 <span className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tighter">{match.abbrs[1]}</span>
               </div>

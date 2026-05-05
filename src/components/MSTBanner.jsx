@@ -70,12 +70,18 @@ const MSTBanner = ({ snapshotData }) => {
           {/* Background Texture Overlay & Logo Collage */}
           <div className="absolute inset-0 opacity-[0.05] pointer-events-none grid grid-cols-5 md:grid-cols-10 gap-4 p-4 grayscale group-hover:grayscale-0 group-hover:opacity-10 transition-all duration-1000">
             {['CSK', 'DC', 'GT', 'KKR', 'LSG', 'MI', 'PBKS', 'RCB', 'RR', 'SRH'].map((abbr) => (
-              <img 
-                key={abbr} 
-                src={`/Logos/dark/${abbr.toLowerCase()}.png`} 
-                alt="" 
-                className="w-full h-auto object-contain opacity-40" 
-              />
+              <React.Fragment key={abbr}>
+                <img 
+                  src={`/Logos/light/${abbr.toLowerCase()}.png`} 
+                  alt="" 
+                  className="w-full h-auto object-contain opacity-40 dark:hidden" 
+                />
+                <img 
+                  src={`/Logos/dark/${abbr.toLowerCase()}.png`} 
+                  alt="" 
+                  className="w-full h-auto object-contain opacity-40 hidden dark:block" 
+                />
+              </React.Fragment>
             ))}
           </div>
 
