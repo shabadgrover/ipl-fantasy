@@ -120,7 +120,7 @@ const ImpactAnalysis = ({ teams, matchInfo, hideInternalHeader }) => {
                       key={pIdx}
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/[0.03] border border-black/5 hover:bg-black/[0.06] dark:bg-white/5 dark:border-white/5 dark:hover:bg-white/10 transition-colors"
                     >
-                      <img src={`/Logos/light/${p.iplAbbr.toLowerCase()}.png`} alt={p.iplAbbr} className="w-3.5 h-3.5 object-contain opacity-80 dark:hidden" />
+                      <img src={`/Logos/${p.iplAbbr.toUpperCase()}.png`} alt={p.iplAbbr} className="w-3.5 h-3.5 object-contain opacity-80 dark:hidden" />
                       <img src={`/Logos/dark/${p.iplAbbr.toLowerCase()}.png`} alt={p.iplAbbr} className="w-3.5 h-3.5 object-contain opacity-80 hidden dark:block" />
                       <span className="text-xs font-bold text-slate-700 dark:text-slate-300">{p.name}</span>
                       {p.isNew && <span className="text-[8px] px-1 py-0.5 rounded bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 dark:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-500/30 font-black tracking-widest">NEW</span>}

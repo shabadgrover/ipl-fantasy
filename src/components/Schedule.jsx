@@ -96,10 +96,10 @@ const Schedule = ({ teams, hideInternalHeader }) => {
                     <h3 className={`text-xl font-black leading-tight flex items-center gap-3 ${
                       selectedMatch?.id === match.id ? 'text-slate-900 dark:text-white' : 'text-slate-800 dark:text-slate-200'
                     }`}>
-                      <img src={`/Logos/light/${match.abbrs[0].toLowerCase()}.png`} alt={match.abbrs[0]} className="w-6 h-6 object-contain dark:hidden" />
+                      <img src={`/Logos/${match.abbrs[0].toUpperCase()}.png`} alt={match.abbrs[0]} className="w-6 h-6 object-contain dark:hidden" />
                       <img src={`/Logos/dark/${match.abbrs[0].toLowerCase()}.png`} alt={match.abbrs[0]} className="w-6 h-6 object-contain hidden dark:block" />
                       {match.abbrs[0]} <span className="opacity-40 mx-1 text-sm text-slate-500">VS</span> {match.abbrs[1]}
-                      <img src={`/Logos/light/${match.abbrs[1].toLowerCase()}.png`} alt={match.abbrs[1]} className="w-6 h-6 object-contain dark:hidden" />
+                      <img src={`/Logos/${match.abbrs[1].toUpperCase()}.png`} alt={match.abbrs[1]} className="w-6 h-6 object-contain dark:hidden" />
                       <img src={`/Logos/dark/${match.abbrs[1].toLowerCase()}.png`} alt={match.abbrs[1]} className="w-6 h-6 object-contain hidden dark:block" />
                     </h3>
                     <p className={`text-xs mt-1 font-medium ${
@@ -160,7 +160,7 @@ const Schedule = ({ teams, hideInternalHeader }) => {
                     <div key={abbr} className="space-y-6">
                       <div className="flex items-center gap-3 pb-3 border-b border-black/5 dark:border-white/5">
                         <div className="w-10 h-10 rounded-lg bg-white/5 dark:bg-white/10 flex items-center justify-center border border-black/5 dark:border-white/5 shadow-sm overflow-hidden p-1.5">
-                          <img src={`/Logos/light/${abbr.toLowerCase()}.png`} alt={abbr} className="w-full h-full object-contain dark:hidden" />
+                          <img src={`/Logos/${abbr.toUpperCase()}.png`} alt={abbr} className="w-full h-full object-contain dark:hidden" />
                           <img src={`/Logos/dark/${abbr.toLowerCase()}.png`} alt={abbr} className="w-full h-full object-contain hidden dark:block" />
                         </div>
                         <h4 className="text-sm font-black text-slate-700 dark:text-slate-300 uppercase tracking-widest">{abbr} Squad</h4>

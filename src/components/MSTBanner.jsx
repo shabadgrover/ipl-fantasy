@@ -72,7 +72,7 @@ const MSTBanner = ({ snapshotData }) => {
             {['CSK', 'DC', 'GT', 'KKR', 'LSG', 'MI', 'PBKS', 'RCB', 'RR', 'SRH'].map((abbr) => (
               <React.Fragment key={abbr}>
                 <img 
-                  src={`/Logos/light/${abbr.toLowerCase()}.png`} 
+                  src={`/Logos/${abbr.toUpperCase()}.png`} 
                   alt="" 
                   className="w-full h-auto object-contain opacity-40 dark:hidden" 
                 />
