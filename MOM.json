@@ -638,9 +638,9 @@
       "team1": "GT",
       "team2": "PBKS"
     },
-    "winner": "",
+    "winner": "GT",
     "man_of_the_match": {
-      "player": ""
+      "player": "Jason Holder"
     }
   },
   {
@@ -652,9 +652,9 @@
       "team1": "MI",
       "team2": "LSG"
     },
-    "winner": "",
+    "winner": "MI",
     "man_of_the_match": {
-      "player": ""
+      "player": "Ryan Rickelton"
     }
   },
   {
