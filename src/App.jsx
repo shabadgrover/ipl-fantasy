@@ -212,10 +212,10 @@ function App() {
             <span className="text-lg font-black tracking-tight text-slate-900 dark:text-white">IPL Fantasy</span>
             {upcomingMatch && (
               <div className="hidden lg:flex items-center gap-2 ml-4 px-3 py-1 bg-black/5 dark:bg-white/10 rounded-full border border-black/5 dark:border-white/5 animate-in fade-in slide-in-from-bottom-4">
-                <img src={`/Logos/light/${upcomingMatch.abbrs[0].toLowerCase()}.png`} alt="" className="w-4 h-4 object-contain dark:hidden" />
+                <img src={`/Logos/dark/${upcomingMatch.abbrs[0].toLowerCase()}.png`} alt="" className="w-4 h-4 object-contain dark:hidden" />
                 <img src={`/Logos/dark/${upcomingMatch.abbrs[0].toLowerCase()}.png`} alt="" className="w-4 h-4 object-contain hidden dark:block" />
                 <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{upcomingMatch.abbrs[0]} v {upcomingMatch.abbrs[1]}</span>
-                <img src={`/Logos/light/${upcomingMatch.abbrs[1].toLowerCase()}.png`} alt="" className="w-4 h-4 object-contain dark:hidden" />
+                <img src={`/Logos/dark/${upcomingMatch.abbrs[1].toLowerCase()}.png`} alt="" className="w-4 h-4 object-contain dark:hidden" />
                 <img src={`/Logos/dark/${upcomingMatch.abbrs[1].toLowerCase()}.png`} alt="" className="w-4 h-4 object-contain hidden dark:block" />
               </div>
             )}
