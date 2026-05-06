@@ -35,7 +35,7 @@ const Leaderboard = ({ teams, hideInternalHeader, upcomingMatch }) => {
           <div className="flex justify-between items-end mb-8 border-b border-white/10 pb-6">
             <div>
               <h3 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic text-shiny pr-4">
-                AFTERMATCH46 
+                AFTERMATCH48 
               </h3>
             </div>
             <div className="flex flex-col md:flex-row md:items-center gap-4 text-[10px] md:text-xs font-bold text-white/60 uppercase tracking-widest">
@@ -43,12 +43,12 @@ const Leaderboard = ({ teams, hideInternalHeader, upcomingMatch }) => {
                 <div className="flex items-center gap-3 bg-white/5 px-3 py-1.5 rounded-xl border border-white/10">
                   <span className="opacity-40">Next:</span>
                   <div className="flex items-center gap-2">
-                    <img src={`/Logos/${upcomingMatch.abbrs[0].toUpperCase()}.png`} alt={upcomingMatch.abbrs[0]} className="w-4 h-4 object-contain dark:hidden" />
+                    <img src={`/Logos/light/${upcomingMatch.abbrs[0].toLowerCase()}.png`} alt={upcomingMatch.abbrs[0]} className="w-4 h-4 object-contain dark:hidden" />
                     <img src={`/Logos/dark/${upcomingMatch.abbrs[0].toLowerCase()}.png`} alt={upcomingMatch.abbrs[0]} className="w-4 h-4 object-contain hidden dark:block" />
                     <span className="text-white/80">{upcomingMatch.abbrs[0]}</span>
                     <span className="opacity-20">v</span>
                     <span className="text-white/80">{upcomingMatch.abbrs[1]}</span>
-                    <img src={`/Logos/${upcomingMatch.abbrs[1].toUpperCase()}.png`} alt={upcomingMatch.abbrs[1]} className="w-4 h-4 object-contain dark:hidden" />
+                    <img src={`/Logos/light/${upcomingMatch.abbrs[1].toLowerCase()}.png`} alt={upcomingMatch.abbrs[1]} className="w-4 h-4 object-contain dark:hidden" />
                     <img src={`/Logos/dark/${upcomingMatch.abbrs[1].toLowerCase()}.png`} alt={upcomingMatch.abbrs[1]} className="w-4 h-4 object-contain hidden dark:block" />
                   </div>
                 </div>

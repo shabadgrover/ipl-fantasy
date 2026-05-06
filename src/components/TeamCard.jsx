@@ -114,7 +114,7 @@ const TeamCard = ({ team, snapshotData }) => {
               
               <div className="flex justify-between items-center mt-0.5 opacity-0 group-hover/player:opacity-100 transition-opacity">
                 <span className="text-[9px] text-slate-400 dark:text-slate-500 italic uppercase tracking-tighter flex items-center gap-1">
-                  <img src={`/Logos/${player.iplAbbr.toUpperCase()}.png`} alt={player.iplAbbr} className="w-3 h-3 object-contain opacity-60 group-hover/player:opacity-100 transition-opacity dark:hidden" />
+                  <img src={`/Logos/light/${player.iplAbbr.toLowerCase()}.png`} alt={player.iplAbbr} className="w-3 h-3 object-contain opacity-60 group-hover/player:opacity-100 transition-opacity dark:hidden" />
                   <img src={`/Logos/dark/${player.iplAbbr.toLowerCase()}.png`} alt={player.iplAbbr} className="w-3 h-3 object-contain opacity-60 group-hover/player:opacity-100 transition-opacity hidden dark:block" />
                   {player.iplAbbr} 
                 </span>

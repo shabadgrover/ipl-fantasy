@@ -8,13 +8,13 @@ files.forEach(file => {
   const filePath = path.join(componentsDir, file);
   let content = fs.readFileSync(filePath, 'utf8');
   
-  // Replace /Logos/light/${var.toLowerCase()}.png with /Logos/${var}.png
-  // Regex: \/Logos\/light\/\$\{(.*?)\.toLowerCase\(\)\}\.png
-  const regex = /\/Logos\/light\/\$\{(.*?)\.toLowerCase\(\)\}\.png/g;
+  // Replace /Logos/${var.toUpperCase()}.png with /Logos/dark/${var.toLowerCase()}.png
+  // Regex: \/Logos\/\$\{(.*?)\.toUpperCase\(\)\}\.png
+  const regex = /\/Logos\/\$\{(.*?)\.toUpperCase\(\)\}\.png/g;
   
   if (regex.test(content)) {
     console.log(`Fixing ${file}`);
-    content = content.replace(regex, '/Logos/${$1.toUpperCase()}.png');
+    content = content.replace(regex, '/Logos/dark/${$1.toLowerCase()}.png');
     fs.writeFileSync(filePath, content, 'utf8');
   }
 });
