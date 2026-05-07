@@ -666,9 +666,9 @@
       "team1": "DC",
       "team2": "CSK"
     },
-    "winner": "",
+    "winner": "CSK",
     "man_of_the_match": {
-      "player": ""
+      "player": "Sanju Samson"
     }
   },
   {
@@ -682,7 +682,7 @@
     },
     "winner": "SRH",
     "man_of_the_match": {
-      "player": "Heinrich Klaasen"
+      "player": "Pat Cummins"
     }
   },
   {
