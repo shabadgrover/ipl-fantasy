@@ -59,6 +59,7 @@ const data = [
   { match: 46, ankit: 4829.5, piyush: 5644.5, aizen: 4407, jenna: 5028, shabad: 5753, guri: 3825.5, deepanshuu: 6289, maat: 4828, sumit: 6740 },
   { match: 47, ankit: 4847.5, piyush: 5933.5, aizen: 4455, jenna: 5271, shabad: 5896, guri: 3900.5, deepanshuu: 6438, maat: 4828, sumit: 6806 },
   { match: 48, ankit: 4859.5, piyush: 5993.5, aizen: 4496, jenna: 5325, shabad: 6052, guri: 3951.5, deepanshuu: 6808.5, maat: 4974, sumit: 6840 },
+  { match: 49, ankit: 4905.5, piyush: 6061.5, aizen: 4765.5, jenna: 5330, shabad: 6217, guri: 4160.5, deepanshuu: 7005.5, maat: 5222.5, sumit: 6983.5 },
 ];
 
 const teams = [
