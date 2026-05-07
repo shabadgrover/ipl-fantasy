@@ -1,20 +1,26 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Target, TrendingUp, Users } from 'lucide-react';
+import { Target, TrendingUp, TrendingDown, Minus, Users } from 'lucide-react';
 
 const ImpactAnalysis = ({ teams, matchInfo, hideInternalHeader }) => {
+  const isDark = document.documentElement.classList.contains('dark');
   if (!matchInfo) return null;
 
   // Calculate Impact Data
   const impactData = (teams || []).map(fTeam => {
-    const matchPlayers = (fTeam.players || []).filter(p => matchInfo.abbrs.includes(p.iplAbbr));
+    const matchPlayers = (fTeam.players || []).filter(p => matchInfo.abbrs.includes(p.iplAbbr) && !p.isOut);
     return {
       name: fTeam.teamName,
       count: matchPlayers.length,
+      rank: fTeam.rank,
+      trend: fTeam.trend,
+      rankDiff: fTeam.rankDiff,
       players: matchPlayers.map(p => ({
         name: p.name,
         isCaptain: p.isCaptain,
-        isVC: p.isVC
+        isVC: p.isVC,
+        isNew: p.isNew,
+        iplAbbr: p.iplAbbr
       }))
     };
   }).sort((a, b) => b.count - a.count);
@@ -66,12 +72,32 @@ const ImpactAnalysis = ({ teams, matchInfo, hideInternalHeader }) => {
           >
             <div className="flex justify-between items-start mb-4">
               <div className="flex flex-col gap-1">
-                <h3 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-primary transition-colors">{team.name}</h3>
-                {team.count >= 4 && (
-                  <span className="text-[10px] w-fit px-2 py-0.5 bg-primary/10 text-primary border border-primary/20 dark:bg-white/10 dark:text-white dark:border-white/20 shadow-sm rounded-md font-black uppercase tracking-wider animate-pulse">
-                    High Impact 🔥
-                  </span>
-                )}
+                <div className="flex items-center gap-2">
+                  <h3 className="text-lg font-black text-slate-900 dark:text-white group-hover:text-primary transition-colors">{team.name}</h3>
+                  {team.trend === 'up' ? (
+                    <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                      <TrendingUp size={10} className="text-emerald-500" strokeWidth={3} />
+                      <span className="text-[9px] font-black text-emerald-600 dark:text-emerald-400">{Math.abs(team.rankDiff || 0)}</span>
+                    </div>
+                  ) : team.trend === 'down' ? (
+                    <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20">
+                      <TrendingDown size={10} className="text-rose-500" strokeWidth={3} />
+                      <span className="text-[9px] font-black text-rose-600 dark:text-rose-400">{Math.abs(team.rankDiff || 0)}</span>
+                    </div>
+                  ) : (
+                    <div className="px-1 py-0.5 rounded-full bg-slate-100 dark:bg-white/5 border border-black/5 dark:border-white/5 opacity-40">
+                      <Minus size={10} className="text-slate-400 dark:text-slate-600" strokeWidth={3} />
+                    </div>
+                  )}
+                </div>
+                <div className="flex gap-2 items-center">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Rank {team.rank}</span>
+                  {team.count >= 4 && (
+                    <span className="text-[10px] w-fit px-2 py-0.5 bg-primary/10 text-primary border border-primary/20 dark:bg-white/10 dark:text-white dark:border-white/20 shadow-sm rounded-md font-black uppercase tracking-wider animate-pulse">
+                      High Impact 🔥
+                    </span>
+                  )}
+                </div>
               </div>
               <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-black text-xl shadow-sm border ${
                 team.count >= 4 
@@ -94,7 +120,10 @@ const ImpactAnalysis = ({ teams, matchInfo, hideInternalHeader }) => {
                       key={pIdx}
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/[0.03] border border-black/5 hover:bg-black/[0.06] dark:bg-white/5 dark:border-white/5 dark:hover:bg-white/10 transition-colors"
                     >
+                      <img src={`/Logos/dark/${p.iplAbbr.toLowerCase()}.png`} alt={p.iplAbbr} className="w-3.5 h-3.5 object-contain opacity-80 dark:hidden" />
+                      <img src={`/Logos/dark/${p.iplAbbr.toLowerCase()}.png`} alt={p.iplAbbr} className="w-3.5 h-3.5 object-contain opacity-80 hidden dark:block" />
                       <span className="text-xs font-bold text-slate-700 dark:text-slate-300">{p.name}</span>
+                      {p.isNew && <span className="text-[8px] px-1 py-0.5 rounded bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 dark:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-500/30 font-black tracking-widest">NEW</span>}
                       {p.isCaptain && <span className="text-[8px] px-1 py-0.5 rounded bg-amber-500/10 text-amber-600 border border-amber-500/20 dark:bg-gold/20 dark:text-gold dark:border-gold/30 font-black">C</span>}
                       {p.isVC && <span className="text-[8px] px-1 py-0.5 rounded bg-blue-500/10 text-blue-600 border border-blue-500/20 dark:bg-blue-500/20 dark:text-blue-400 dark:border-blue-500/30 font-black">VC</span>}
                     </div>
