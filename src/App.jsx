@@ -56,15 +56,15 @@ function App() {
         
         // --- BASELINE DATA (Match 49 Standings) ---
         const BASELINE_PREVIOUS_MATCH = {
-          "Deepanshuu's Team": 7005.5,
-          "Sumit's Team": 6983.5,
-          "shabad's Team": 6217,
+          "Sumit's Team": 7277.5,
+          "Deepanshuu's Team": 7247.5,
+          "shabad's Team": 6440,
           "Piyush dhiman's Team": 6061.5,
-          "Jenna Morrh Warriors": 5330,
-          "Maat maro shota bacha hu": 5222.5,
-          "Ankit's Team": 4905.5,
-          "Aizen": 4765.5,
-          "GURI XI": 4160.5
+          "Jenna Morrh Warriors": 5390,
+          "Maat maro shota bacha hu": 5275.5,
+          "Ankit's Team": 5109.5,
+          "Aizen": 4833.5,
+          "GURI XI": 4296.5
         };
 
         const INITIAL_RANKS = Object.keys(BASELINE_PREVIOUS_MATCH)
