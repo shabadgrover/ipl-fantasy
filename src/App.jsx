@@ -54,24 +54,24 @@ function App() {
         const now = new Date();
         setLastUpdated(now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
         
-        // --- BASELINE DATA (Match 51 Standings) ---
+        // --- BASELINE DATA (Match 52 Standings) ---
         const BASELINE_PREVIOUS_MATCH = {
-          "Sumit's Team": 7324.5,
-          "Deepanshuu's Team": 7247.5,
-          "shabad's Team": 6541,
-          "Piyush dhiman's Team": 6084.5,
+          "Sumit's Team": 7471.5,
+          "Deepanshuu's Team": 7435.5,
+          "shabad's Team": 6903.5,
+          "Piyush dhiman's Team": 6372.5,
           "Jenna Morrh Warriors": 5472,
           "Maat maro shota bacha hu": 5385.5,
-          "Ankit's Team": 5144.5,
-          "Aizen": 5074.5,
-          "GURI XI": 4310.5
+          "Ankit's Team": 5319,
+          "Aizen": 5238.5,
+          "GURI XI": 4589.5
         };
 
         const INITIAL_RANKS = Object.keys(BASELINE_PREVIOUS_MATCH)
           .sort((a, b) => BASELINE_PREVIOUS_MATCH[b] - BASELINE_PREVIOUS_MATCH[a])
           .map((id, index) => ({ id, rank: index + 1 }));
 
-        // Current totals come directly from the public/data.xlsx (cumulative Match 35)
+        // Current totals come directly from the public/data.xlsx (cumulative Match 54)
         const finalStandings = parsedTeams.map(team => {
           const totalPoints = team.totalPoints;
           const previousPoints = BASELINE_PREVIOUS_MATCH[team.id] || 0;
@@ -84,7 +84,7 @@ function App() {
 
         const sortedTeams = [...finalStandings].sort((a, b) => b.totalPoints - a.totalPoints);
 
-        // Use INITIAL_RANKS (Match 49) as the fixed baseline for latest match movement
+        // Use INITIAL_RANKS (Match 52) as the fixed baseline for latest match movement
         const teamsWithTrend = sortedTeams.map((team, index) => {
           const currentRank = index + 1;
           const prevEntry = INITIAL_RANKS.find(p => p.id === team.id);
@@ -298,7 +298,7 @@ function App() {
             className="max-w-5xl mx-auto px-4 mb-4 text-center"
           >
             <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white text-shiny">Track Every Point.</h2>
-            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">The live leaderboard updated in real-time. Last Refreshed: {lastUpdated}</p>
+            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">The live leaderboard updated after Match 54. Last Refreshed: {lastUpdated}</p>
           </motion.div>
           <Leaderboard teams={teamsWithUser} hideInternalHeader={true} upcomingMatch={upcomingMatch} />
           <ProgressionGraph />

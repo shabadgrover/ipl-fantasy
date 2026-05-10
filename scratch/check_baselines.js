@@ -11,40 +11,37 @@ const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 const headers = rows[0];
 const labels = rows[1];
 
-const playersToCheck = [
-  "Vaibhav Sooryavanshi",
-  "Varun Chakravarthy",
-  "Trent Boult",
-  "Sai Sudharsan",
-  "Sanju Samson",
-  "Mitchell Marsh",
-  "Dhruv Jurel",
-  "Jasprit Bumrah"
-];
-
-const results = {};
-
+const discoveredTeams = [];
 for (let i = 0; i < headers.length; i++) {
-  if (labels[i] === "Player Name") {
+  const header = headers[i];
+  if (header && typeof header === 'string' && header.trim() !== "" && labels[i] === "Player Name") {
     let pointsIdx = -1;
     for (let j = i; j < labels.length && (j === i || !headers[j]); j++) {
       if (labels[j] === "Points") pointsIdx = j;
     }
     if (pointsIdx !== -1) {
-      for (let r = 2; r < rows.length; r++) {
-        const rawName = rows[r][i];
-        if (!rawName) continue;
-        const cleanName = rawName.replace(/\s*\(\s*(C|VC|New|Out)\s*\)\s*/gi, "").trim();
-        if (playersToCheck.includes(cleanName)) {
-          if (!results[cleanName]) results[cleanName] = [];
-          results[cleanName].push({
-            team: headers[i],
-            points: rows[r][pointsIdx]
-          });
-        }
-      }
+      discoveredTeams.push({
+        name: header.trim(),
+        playerCol: i,
+        pointsCol: pointsIdx
+      });
     }
   }
 }
 
-console.log(JSON.stringify(results, null, 2));
+const match52Totals = {};
+discoveredTeams.forEach(team => {
+    let totalRowIdx = -1;
+    for (let r = 2; r < rows.length; r++) {
+        if (rows[r][team.playerCol] === "TOTAL") {
+            totalRowIdx = r;
+            break;
+        }
+    }
+    if (totalRowIdx !== -1) {
+        match52Totals[team.name] = rows[totalRowIdx][team.pointsCol];
+    }
+});
+
+console.log("Match 52 Standings (Baseline for Match 53/54):");
+console.log(JSON.stringify(match52Totals, null, 2));
