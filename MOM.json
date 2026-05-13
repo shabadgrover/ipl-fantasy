@@ -768,5 +768,19 @@
     "man_of_the_match": {
       "player": "Madhav Tiwari"
     }
+  },
+  {
+    "match_no": "56",
+    "match_id": "M56",
+    "date": "2026-05-12",
+    "venue": "Ahmedabad",
+    "teams": {
+      "team1": "GT",
+      "team2": "SRH"
+    },
+    "winner": "GT",
+    "man_of_the_match": {
+      "player": "Kagiso Rabada"
+    }
   }
 ]
