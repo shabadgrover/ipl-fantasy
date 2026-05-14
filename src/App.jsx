@@ -56,15 +56,15 @@ function App() {
         
         // --- BASELINE DATA (Match 55 Standings) ---
         const BASELINE_PREVIOUS_MATCH = {
-          "Sumit's Team": 7810.5,
-          "Deepanshuu's Team": 7779,
-          "shabad's Team": 7162.5,
-          "Piyush dhiman's Team": 6642.5,
-          "Maat maro shota bacha hu": 5863.5,
+          "Sumit's Team": 8116.5,
+          "Deepanshuu's Team": 7945,
+          "shabad's Team": 7306.5,
+          "Piyush dhiman's Team": 7001.5,
+          "Ankit's Team": 5866.5,
+          "Maat maro shota bacha hu": 5865.5,
           "Jenna Morrh Warriors": 5788,
-          "Ankit's Team": 5706,
-          "Aizen": 5409.5,
-          "GURI XI": 4926.5
+          "Aizen": 5572,
+          "GURI XI": 4966.5
         };
 
         const INITIAL_RANKS = Object.keys(BASELINE_PREVIOUS_MATCH)
@@ -298,7 +298,7 @@ function App() {
             className="max-w-5xl mx-auto px-4 mb-4 text-center"
           >
             <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white text-shiny">Track Every Point.</h2>
-            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">The live leaderboard updated after Match 56. Last Refreshed: {lastUpdated}</p>
+            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">The live leaderboard updated after Match 57. Last Refreshed: {lastUpdated}</p>
           </motion.div>
           <Leaderboard teams={teamsWithUser} hideInternalHeader={true} upcomingMatch={upcomingMatch} />
           <ProgressionGraph />
