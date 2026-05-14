@@ -54,7 +54,7 @@ function App() {
         const now = new Date();
         setLastUpdated(now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
         
-        // --- BASELINE DATA (Match 55 Standings) ---
+        // --- BASELINE DATA (Match 56 Standings) ---
         const BASELINE_PREVIOUS_MATCH = {
           "Sumit's Team": 8116.5,
           "Deepanshuu's Team": 7945,
