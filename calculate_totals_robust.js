@@ -14,16 +14,17 @@ const iplTeamMap = {
 };
 
 const teamRoles = {
-  "Ankit's Team": { captain: "Virat Kohli", viceCaptain: "Trent Boult" },
+  "Ankit's Team": { captain: "Virat Kohli", viceCaptain: "Sai Sudharsan" },
   "shabad's Team": { captain: "Shubman Gill", viceCaptain: "Yashasvi Jaiswal" },
-  "Aizen": { captain: "Varun Chakravarthy", viceCaptain: "Ishan Kishan" },
+  "Aizen": { captain: "Vaibhav Sooryavanshi", viceCaptain: "Ishan Kishan" },
   "Jenna Morrh Warriors": { captain: "Ruturaj Gaikwad", viceCaptain: "Hardik Pandya" },
   "Piyush dhiman's Team": { captain: "Suryakumar Yadav", viceCaptain: "Kagiso Rabada" },
   "Maat maro shota bacha hu": { captain: "Shreyas Iyer", viceCaptain: "Marco Jansen" },
-  "GURI XI": { captain: "Dewald Brevis", viceCaptain: "Jasprit Bumrah" },
-  "Deepanshuu's Team": { captain: "Jos Buttler", viceCaptain: "Mitchell Marsh" },
+  "GURI XI": { captain: "Dewald Brevis", viceCaptain: "Dhruv Jurel" },
+  "Deepanshuu's Team": { captain: "Jos Buttler", viceCaptain: "Sanju Samson" },
   "Sumit's Team": { captain: "Rishabh Pant", viceCaptain: "Abhishek Sharma" }
 };
+
 
 const data = JSON.parse(fs.readFileSync('excel-data.json', 'utf8'));
 const rows = data.Teams;
