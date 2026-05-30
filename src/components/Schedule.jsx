@@ -74,8 +74,8 @@ const Schedule = ({ teams, hideInternalHeader }) => {
               onClick={() => setSelectedMatch(match)}
               className={`w-full text-left p-6 rounded-[2rem] border transition-all duration-300 relative overflow-hidden group ${
                 selectedMatch?.id === match.id
-                ? 'bg-primary/5 dark:bg-white/10 border-primary/30 dark:border-white/20 shadow-xl shadow-[#0ea5e9]/10 dark:shadow-[#0ea5e9]/20'
-                : 'bg-white dark:bg-white/5 border-black/5 dark:border-white/5 hover:border-black/10 dark:hover:border-white/10 shadow-sm dark:shadow-none'
+                ? (match.id === 74 ? 'bg-amber-500/10 border-amber-500/40 shadow-xl shadow-amber-500/20' : 'bg-primary/5 dark:bg-white/10 border-primary/30 dark:border-white/20 shadow-xl shadow-[#0ea5e9]/10 dark:shadow-[#0ea5e9]/20')
+                : (match.id === 74 ? 'bg-amber-500/5 border-amber-500/20 hover:border-amber-500/40' : 'bg-white dark:bg-white/5 border-black/5 dark:border-white/5 hover:border-black/10 dark:hover:border-white/10 shadow-sm dark:shadow-none')
               }`}
             >
               <div className="flex justify-between items-start">
@@ -83,12 +83,14 @@ const Schedule = ({ teams, hideInternalHeader }) => {
                   <div className="flex items-center gap-2">
                     <span className={`text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-lg ${
                       selectedMatch?.id === match.id 
-                      ? 'bg-black/10 text-slate-900 dark:bg-white/20 dark:text-white' 
-                      : match.isCompleted 
-                        ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' 
-                        : 'bg-primary/10 text-primary border border-primary/20'
+                      ? (match.id === 74 ? 'bg-amber-500 text-black shadow-amber-500/50' : 'bg-black/10 text-slate-900 dark:bg-white/20 dark:text-white') 
+                      : match.id === 74
+                        ? 'bg-gradient-to-r from-amber-400 to-yellow-500 text-black'
+                        : match.isCompleted 
+                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' 
+                          : 'bg-primary/10 text-primary border border-primary/20'
                     }`}>
-                      {match.isCompleted ? 'Completed' : `Match ${match.id}`}
+                      {match.id === 74 ? '🏆 FINAL' : (match.isCompleted ? 'Completed' : `Match ${match.id}`)}
                     </span>
                     {match.isCompleted && <Zap size={10} className="text-emerald-500 dark:text-emerald-400" fill="currentColor" />}
                   </div>
@@ -125,7 +127,9 @@ const Schedule = ({ teams, hideInternalHeader }) => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="glass-premium rounded-[2.5rem] p-8 border border-black/5 dark:border-white/5 transition-colors duration-300 h-full"
+                className={`glass-premium rounded-[2.5rem] p-8 border transition-colors duration-300 h-full ${
+                  selectedMatch.id === 74 ? 'border-amber-500/40 shadow-2xl shadow-amber-500/10 bg-amber-500/[0.02]' : 'border-black/5 dark:border-white/5'
+                }`}
               >
                 <div className="flex items-center gap-4 mb-10">
                   <div className="w-14 h-14 bg-black/5 border-black/10 dark:bg-white/10 rounded-2xl flex items-center justify-center text-slate-900 dark:text-white border dark:border-white/20 shadow-sm">

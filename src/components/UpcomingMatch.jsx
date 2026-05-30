@@ -30,18 +30,22 @@ const UpcomingMatch = ({ teams, matchInfo, hideInternalHeader }) => {
   const team1Players = getMatchPlayers(matchInfo.teams[0]);
   const team2Players = getMatchPlayers(matchInfo.teams[1]);
 
+  const isFinal = matchInfo.id === 74 || matchInfo.name.toLowerCase().includes('final');
+
   return (
     <div className="max-w-6xl mx-auto px-4 pb-20">
       {/* Match Header */}
-      <div className="glass-premium rounded-[3rem] p-10 border border-primary/20 shadow-2xl shadow-primary/10 mb-10 overflow-hidden relative transition-all duration-500 hover:shadow-primary/20">
+      <div className={`glass-premium rounded-[3rem] p-10 border shadow-2xl mb-10 overflow-hidden relative transition-all duration-500 ${isFinal ? 'border-amber-500/40 shadow-amber-500/20 hover:shadow-amber-500/30 bg-amber-500/[0.03]' : 'border-primary/20 shadow-primary/10 hover:shadow-primary/20'}`}>
         <div className="absolute top-0 right-0 p-8 opacity-10 hidden md:block">
-          <Zap size={120} className="text-slate-900 dark:text-white/20" fill="currentColor" />
+          <Zap size={120} className={isFinal ? 'text-amber-500' : 'text-slate-900 dark:text-white/20'} fill="currentColor" />
         </div>
         
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <span className="px-3 py-1 rounded-full bg-black/5 text-slate-800 dark:bg-white/10 dark:text-white text-[10px] font-black uppercase tracking-widest shadow-sm border border-black/10 dark:border-white/20">Featured Match</span>
+              <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm border ${isFinal ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black border-amber-400 shadow-amber-500/50 animate-pulse' : 'bg-black/5 text-slate-800 dark:bg-white/10 dark:text-white border-black/10 dark:border-white/20'}`}>
+                {isFinal ? '🏆 THE GRAND FINALE 🏆' : 'Featured Match'}
+              </span>
               <span className="text-slate-600 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest flex items-center gap-1">
                 <Calendar size={12} />
                 {matchInfo.date}
