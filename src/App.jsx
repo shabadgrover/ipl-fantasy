@@ -54,17 +54,17 @@ function App() {
         const now = new Date();
         setLastUpdated(now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
         
-        // --- BASELINE DATA (Match 63 Standings) ---
+        // --- BASELINE DATA (Match 72 Standings) ---
         const BASELINE_PREVIOUS_MATCH = {
-          "Sumit's Team": 8681.5,
-          "Deepanshuu's Team": 8905.5,
-          "shabad's Team": 8390.5,
-          "Piyush dhiman's Team": 7509.5,
-          "Ankit's Team": 7230,
-          "Maat maro shota bacha hu": 6381.5,
-          "Jenna Morrh Warriors": 6330,
-          "Aizen": 6654,
-          "GURI XI": 5802
+          "Sumit's Team": 10091.5,
+          "Deepanshuu's Team": 10132.5,
+          "shabad's Team": 9951,
+          "Piyush dhiman's Team": 8976,
+          "Ankit's Team": 8429,
+          "Maat maro shota bacha hu": 7311.5,
+          "Jenna Morrh Warriors": 7036,
+          "Aizen": 8628,
+          "GURI XI": 6702
         };
 
         const INITIAL_RANKS = Object.keys(BASELINE_PREVIOUS_MATCH)
@@ -298,7 +298,7 @@ function App() {
             className="max-w-5xl mx-auto px-4 mb-4 text-center"
           >
             <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white text-shiny">Track Every Point.</h2>
-            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">The live leaderboard updated after Match 64. Last Refreshed: {lastUpdated}</p>
+            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">The live leaderboard updated after Match 69. Last Refreshed: {lastUpdated}</p>
           </motion.div>
           <Leaderboard teams={teamsWithUser} hideInternalHeader={true} upcomingMatch={upcomingMatch} />
           <ProgressionGraph />

@@ -75,6 +75,15 @@ const data = [
   { match: 62, ankit: 7188, piyush: 7509.5, aizen: 6311, jenna: 6296, shabad: 8208.5, guri: 5626, deepanshuu: 8571, maat: 6367.5, sumit: 8549.5 },
   { match: 63, ankit: 7230, piyush: 7509.5, aizen: 6654, jenna: 6330, shabad: 8390.5, guri: 5802, deepanshuu: 8905.5, maat: 6381.5, sumit: 8681.5 },
   { match: 64, ankit: 7250, piyush: 7576.5, aizen: 7064, jenna: 6342, shabad: 8600, guri: 5955, deepanshuu: 9107.5, maat: 6381.5, sumit: 8831.5 },
+  { match: 65, ankit: 7291, piyush: 7761.5, aizen: 7301, jenna: 6576, shabad: 8612, guri: 6025, deepanshuu: 9107.5, maat: 6465.5, sumit: 8831.5 },
+  { match: 66, ankit: 7598, piyush: 7974.5, aizen: 7301, jenna: 6668, shabad: 8904, guri: 6159, deepanshuu: 9391.5, maat: 6465.5, sumit: 9113.5 },
+  { match: 67, ankit: 7664, piyush: 7974.5, aizen: 7628.5, jenna: 6668, shabad: 9127, guri: 6196, deepanshuu: 9584.5, maat: 6559.5, sumit: 9427.5 },
+  { match: 68, ankit: 7756, piyush: 7978.5, aizen: 7628.5, jenna: 6839, shabad: 9133, guri: 6240, deepanshuu: 9725.5, maat: 7142.5, sumit: 9666.5 },
+  { match: 69, ankit: 7866, piyush: 8471.5, aizen: 7779.5, jenna: 6976, shabad: 9224.5, guri: 6402, deepanshuu: 9766.5, maat: 7174.5, sumit: 9666.5 },
+  { match: 70, ankit: 7993, piyush: 8603.5, aizen: 7985.5, jenna: 7036, shabad: 9491.5, guri: 6402, deepanshuu: 9766.5, maat: 7206.5, sumit: 9790.5 },
+  { match: 71, ankit: 8336, piyush: 8820, aizen: 8047.5, jenna: 7036, shabad: 9718.5, guri: 6528, deepanshuu: 9928.5, maat: 7214.5, sumit: 10046.5 },
+  { match: 72, ankit: 8429, piyush: 8976, aizen: 8628, jenna: 7036, shabad: 9951, guri: 6702, deepanshuu: 10132.5, maat: 7311.5, sumit: 10091.5 },
+  { match: 73, ankit: 8648, piyush: 9273, aizen: 9016, jenna: 7036, shabad: 10394.5, guri: 6724.5, deepanshuu: 10263.5, maat: 7336.5, sumit: 10237.5 },
 ];
 
 const teams = [
