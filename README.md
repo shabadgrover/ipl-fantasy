@@ -141,5 +141,5 @@ Contributions, issues, and feature requests are always welcome!
 
 <hr />
 <p align="center">
-  Built with love for thw game:).
+  Built with love for the game:).
 </p>
