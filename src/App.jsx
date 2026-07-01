@@ -54,17 +54,17 @@ function App() {
         const now = new Date();
         setLastUpdated(now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
         
-        // --- BASELINE DATA (Match 72 Standings) ---
+        // --- BASELINE DATA (Match 73 Standings) ---
         const BASELINE_PREVIOUS_MATCH = {
-          "Sumit's Team": 10091.5,
-          "Deepanshuu's Team": 10132.5,
-          "shabad's Team": 9951,
-          "Piyush dhiman's Team": 8976,
-          "Ankit's Team": 8429,
-          "Maat maro shota bacha hu": 7311.5,
+          "Sumit's Team": 10237.5,
+          "Deepanshuu's Team": 10263.5,
+          "shabad's Team": 10394.5,
+          "Piyush dhiman's Team": 9273,
+          "Ankit's Team": 8648,
+          "Maat maro shota bacha hu": 7336.5,
           "Jenna Morrh Warriors": 7036,
-          "Aizen": 8628,
-          "GURI XI": 6702
+          "Aizen": 9016,
+          "GURI XI": 6724.5
         };
 
         const INITIAL_RANKS = Object.keys(BASELINE_PREVIOUS_MATCH)
@@ -318,31 +318,27 @@ function App() {
           <Teams teams={teamsWithUser} hideInternalHeader={true} snapshotData={snapshotData} />
         </section>
 
-        <section id="upcoming" className="pt-20 md:pt-32 pb-6 md:pb-10 border-t border-black/5 dark:border-white/5">
+        <section id="upcoming" className="pt-20 md:pt-32 pb-16 md:pb-24 border-t border-black/5 dark:border-white/5">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="max-w-6xl mx-auto px-4 mb-4 text-center"
+            className="max-w-4xl mx-auto px-4 mb-4 text-center"
           >
-            <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white text-shiny">Plan Ahead.</h2>
-            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">Strategy and squad depth for the next {nextMatches.length} fixtures.</p>
+            <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white text-shiny">Season Concluded.</h2>
+            <div className="mt-12 p-10 md:p-14 rounded-[3rem] bg-gradient-to-br from-white/10 to-white/5 border border-white/10 backdrop-blur-md shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px]" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px]" />
+              <p className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 relative z-10 tracking-tight">Comeback Next Season.</p>
+              <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 tracking-tight leading-relaxed font-medium relative z-10">
+                You really impressed me with your ball knowledge! What a fantastic season it has been. Rest up, analyze your strategies, and get ready for the next one.
+              </p>
+            </div>
           </motion.div>
-          <PlanAhead matches={nextMatches} />
-          <div className="max-w-6xl mx-auto px-4 mb-8">
-            <h3 className="text-sm font-black text-slate-400 dark:text-slate-600 uppercase tracking-[0.3em] flex items-center gap-4">
-               <div className="h-px flex-1 bg-black/5 dark:bg-white/5" />
-               Detailed Analysis for Next Match
-               <div className="h-px flex-1 bg-black/5 dark:bg-white/5" />
-            </h3>
-          </div>
-          <UpcomingMatch teams={teamsWithUser} matchInfo={upcomingMatch} hideInternalHeader={true} />
         </section>
 
-        <section id="impact" className="pb-20 pt-10">
-          <ImpactAnalysis teams={teamsWithUser} matchInfo={upcomingMatch} hideInternalHeader={true} />
-        </section>
+        {/* ImpactAnalysis section removed as season is over */}
 
         <section id="schedule" className="pt-20 md:pt-32 pb-20 md:pb-32 border-t border-black/5 dark:border-white/5">
           <motion.div 
