@@ -1,14 +1,14 @@
 <div align="center">
-  <img src="public/Logos/CSK.png" alt="CSK" width="50" height="50" style="margin: 0 5px;" />
-  <img src="public/Logos/DC.png" alt="DC" width="50" height="50" style="margin: 0 5px;" />
-  <img src="public/Logos/GT.png" alt="GT" width="50" height="50" style="margin: 0 5px;" />
-  <img src="public/Logos/KKR.png" alt="KKR" width="50" height="50" style="margin: 0 5px;" />
-  <img src="public/Logos/LSG.png" alt="LSG" width="50" height="50" style="margin: 0 5px;" />
-  <img src="public/Logos/MI.png" alt="MI" width="50" height="50" style="margin: 0 5px;" />
-  <img src="public/Logos/PBKS.png" alt="PBKS" width="50" height="50" style="margin: 0 5px;" />
-  <img src="public/Logos/RCB.png" alt="RCB" width="50" height="50" style="margin: 0 5px;" />
-  <img src="public/Logos/RR.png" alt="RR" width="50" height="50" style="margin: 0 5px;" />
-  <img src="public/Logos/SRH.png" alt="SRH" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/dark/csk.png" alt="CSK" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/dark/dc.png" alt="DC" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/dark/gt.png" alt="GT" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/dark/kkr.png" alt="KKR" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/dark/lsg.png" alt="LSG" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/dark/mi.png" alt="MI" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/dark/pbks.png" alt="PBKS" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/dark/rcb.png" alt="RCB" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/dark/rr.png" alt="RR" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/dark/srh.png" alt="SRH" width="50" height="50" style="margin: 0 5px;" />
   
   <h1 align="center">🏏 IPL Fantasy League 2026</h1>
   
