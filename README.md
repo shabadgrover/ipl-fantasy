@@ -1,128 +1,130 @@
-# 🏏 IPL Fantasy App
+<div align="center">
+  <img src="public/Logos/dark/rcb.png" alt="IPL Logo" width="100" height="100" />
+  
+  <h1 align="center">🏏 IPL Fantasy League 2026</h1>
+  
+  <p align="center">
+    <strong>The Ultimate Fantasy Cricket Experience for the Indian Premier League</strong>
+  </p>
 
-A full-stack web application that allows users to create and manage their fantasy cricket teams for the Indian Premier League (IPL). The platform enables users to select players, track performance, and compete based on real match outcomes.
+  <p align="center">
+    <a href="https://reactjs.org/"><img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" /></a>
+    <a href="https://vitejs.dev/"><img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" /></a>
+    <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" /></a>
+    <a href="https://www.framer.com/motion/"><img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion" /></a>
+  </p>
+</div>
 
----
+<hr />
 
-## 🚀 Features
+## 📖 Overview
 
-- 🧠 Fantasy Team Creation
-  - Select players within constraints (budget / team rules)
-  - Build your dream XI
+A visually stunning, dynamic web application that allows users to track their custom fantasy cricket teams for the Indian Premier League. Built with modern web technologies, this platform delivers real-time leaderboard updates, comprehensive squad performance analytics, and a beautiful UI/UX designed specifically for the ultimate cricket enthusiast.
 
-- 📊 Live Performance Tracking
-  - Points based on real IPL match performances
-  - Dynamic leaderboard updates
+## 🌟 Key Features
 
-- ⚖️ Smart Team Management
-  - Player selection strategies
-  - Captain & Vice-Captain multipliers
+- **🏆 Dynamic Leaderboard System**
+  - Live tracking of fantasy team points.
+  - Trend indicators (⬆️ ⬇️) visualizing rank progression between matches.
+  - Detailed point breakdown by individual player.
 
-- 🔍 Player Insights
-  - Stats-based decision making
-  - Performance analysis
+- **📊 Squad Insights & Progression**
+  - Comprehensive team management views.
+  - Visual tracking of point accumulation throughout the season.
+  - Strategy analysis for upcoming fixtures and potential impact players.
 
-- 🏆 Leaderboard System
-  - Compete with friends or global users
-  - Ranking based on total points
+- **📅 Automated Schedule & Match Tracking**
+  - Full tournament fixture tracking from Match 1 to the Final.
+  - Real-time status differentiation for completed vs. upcoming matches.
 
----
+- **✨ Stunning Modern UI/UX**
+  - Built with **Framer Motion** for smooth, buttery animations and micro-interactions.
+  - Glassmorphism design elements and highly responsive layouts.
+  - Seamless **Dark / Light Mode** adaptation.
 
-## 🛠️ Tech Stack
+## 🛠️ Technology Stack
 
-Frontend:
-- React.js / HTML / CSS / JavaScript
+| Category | Technologies |
+| :--- | :--- |
+| **Frontend Framework** | React.js, Vite |
+| **Styling & Layout** | Tailwind CSS, PostCSS |
+| **Animations** | Framer Motion |
+| **Icons** | Lucide React |
+| **Data Processing** | Node.js (Scripts), `xlsx` (Excel Parsing) |
 
-Backend:
-- Node.js / Express.js
+## 📂 Project Architecture
 
-Database:
-- MongoDB / Firebase
-
-Other Tools:
-- REST APIs
-- Git & GitHub
-
----
-
-## 📂 Project Structure
-
+```text
 ipl-fantasy/
-│── client/        # Frontend code
-│── server/        # Backend code
-│── models/        # Database schemas
-│── routes/        # API routes
-│── public/        # Static assets
-│── package.json
-│── README.md
+├── public/                 # Static assets (Logos, Excel data files)
+├── src/                    # Main Frontend Source Code
+│   ├── components/         # React Components (Leaderboard, Teams, Schedule, etc.)
+│   ├── data/               # Static application data (matches.js)
+│   ├── utils/              # Helper functions (excelParser.js, etc.)
+│   ├── App.jsx             # Root React component
+│   └── index.css           # Global Tailwind styles
+├── scripts/                # Node.js scripts for match calculation & data ingestion
+├── data_dumps/             # Historical data backups and JSON state dumps
+├── README.md               # Project documentation
+├── package.json            # Node dependencies and scripts
+├── tailwind.config.js      # Tailwind theme and plugin configuration
+└── vite.config.js          # Vite bundler configuration
+```
 
----
+## 🚀 Getting Started
 
-## ⚙️ Installation & Setup
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
-1. Clone the repository
-git clone https://github.com/Ankit2729/ipl-fantasy.git
-cd ipl-fantasy
+### Prerequisites
 
-2. Install dependencies
-npm install
+- [Node.js](https://nodejs.org/en/) (v16.x or higher recommended)
+- npm or yarn package manager
 
-3. Run the project
-npm start
+### Installation
 
-4. Open in browser
-http://localhost:3000
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/shabadgrover/ipl-fantasy.git
+   cd ipl-fantasy
+   ```
 
----
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-## 🎯 How It Works
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
 
-- Users create a fantasy team before matches
-- Points are awarded based on real match performance  
-- Strategic selection (captain, budget, players) determines ranking  
-- Continuous updates keep gameplay competitive
-- Created a file MOM.json for Man of The Match Player of each match.
+4. **View the application**
+   Open your browser and navigate to `http://localhost:5173`
 
+## ⚙️ How Data is Processed
 
----
-
-## 🔮 Future Enhancements
-
-- 🤖 AI-based team suggestions (ML integration)
-- 📱 Mobile-responsive UI / App version
-- 🔔 Real-time notifications
-- 📈 Advanced analytics dashboard
-- 🏆 Private leagues with friends
-
----
+This application relies on a modular data ingestion pipeline:
+1. **Data Ingestion:** Match points are generated via modular Node.js scripts located in the `scripts/` directory after every real-world IPL match.
+2. **State Updates:** Computed points are pushed to `public/data.xlsx` and parsed dynamically on the client side using the `xlsx` utility.
+3. **Rank Processing:** `App.jsx` handles ranking differences and passes trending data to the `Leaderboard` component to generate visual UI shifts and arrows.
 
 ## 🤝 Contributing
 
-Contributions are welcome!
+Contributions, issues, and feature requests are always welcome! 
 
-1. Fork the repo  
-2. Create a new branch  
-3. Commit changes  
-4. Open a Pull Request  
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
----
+## 👨‍💻 Authors
 
-## 📜 License
+**Shabad Grover & Ankit Kumar**  
+- GitHub: [@shabadgrover](https://github.com/shabadgrover/)
+- GitHub: [@Ankit2729](https://github.com/Ankit2729)
 
-This project is licensed under the MIT License.
-
----
-
-## 👨‍💻 Author
-
-Ankit Kumar  
-GitHub: https://github.com/Ankit2729  
-Shabad Grover & Ankit Kumar  
-GitHub: https://github.com/shabadgrover/
-https://github.com/Ankit2729  
-
----
-
-## ⭐ Show Your Support
-
-If you like this project, give it a ⭐ on GitHub!
+<hr />
+<p align="center">
+  Built with ❤️ for cricket fans worldwide.
+</p>
