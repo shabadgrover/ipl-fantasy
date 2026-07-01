@@ -141,5 +141,5 @@ Contributions, issues, and feature requests are always welcome!
 
 <hr />
 <p align="center">
-  Built with ❤️ for cricket fans worldwide.
+  Built with love for thw game:).
 </p>
