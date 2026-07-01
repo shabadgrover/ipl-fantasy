@@ -1,10 +1,25 @@
 <div align="center">
-  <img src="public/Logos/dark/rcb.png" alt="IPL Logo" width="100" height="100" />
+  <img src="public/Logos/CSK.png" alt="CSK" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/DC.png" alt="DC" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/GT.png" alt="GT" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/KKR.png" alt="KKR" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/LSG.png" alt="LSG" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/MI.png" alt="MI" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/PBKS.png" alt="PBKS" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/RCB.png" alt="RCB" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/RR.png" alt="RR" width="50" height="50" style="margin: 0 5px;" />
+  <img src="public/Logos/SRH.png" alt="SRH" width="50" height="50" style="margin: 0 5px;" />
   
   <h1 align="center">🏏 IPL Fantasy League 2026</h1>
   
   <p align="center">
     <strong>The Ultimate Fantasy Cricket Experience for the Indian Premier League</strong>
+  </p>
+
+  <p align="center">
+    <a href="https://ipl-fantasy-swart.vercel.app/" target="_blank">
+      <img src="https://img.shields.io/badge/Live_Website-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Website" />
+    </a>
   </p>
 
   <p align="center">
