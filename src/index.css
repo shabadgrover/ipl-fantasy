@@ -19,6 +19,10 @@
   .dark body {
     @apply bg-black text-slate-100;
   }
+
+  .font-outfit {
+    font-family: 'Outfit', sans-serif;
+  }
 }
 
 .font-script {
@@ -96,10 +100,236 @@
   animation-name: slideInFromBottom;
 }
 
+.mask-fade-right {
+  mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Theme-aware custom scrollbar class */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-black/10 dark:bg-white/10 rounded-full;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-black/20 dark:bg-white/20;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(150, 150, 150, 0.3) transparent;
+}
+@keyframes shine-sweep {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes shine-sweep-rtl {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(0, 212, 255, 0.2), inset 0 0 10px rgba(0, 212, 255, 0.1); }
+  50% { box-shadow: 0 0 30px rgba(0, 212, 255, 0.5), inset 0 0 20px rgba(0, 212, 255, 0.2); }
+}
+
+.text-shiny {
+  background: linear-gradient(
+    90deg, 
+    #0f172a 0%, 
+    #334155 45%, 
+    #0ea5e9 50%, 
+    #334155 55%, 
+    #0f172a 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 6s linear infinite;
+}
+
+.dark .text-shiny {
+  background: linear-gradient(
+    90deg, 
+    #94a3b8 0%, 
+    #fff 45%, 
+    #fff 55%, 
+    #94a3b8 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 6s linear infinite;
+}
+
+.text-shiny-primary {
+  @apply text-transparent bg-clip-text;
+  background: linear-gradient(
+    90deg, 
+    #1e293b 0%, 
+    #334155 40%, 
+    #f8fafc 50%, 
+    #334155 60%, 
+    #1e293b 100%
+  );
+  background-size: 200% auto;
+  animation: shine-sweep 4s linear infinite;
+}
+
+.text-shiny-midnight {
+  @apply text-transparent bg-clip-text;
+  background: linear-gradient(
+    90deg, 
+    #334155 0%, 
+    #475569 40%, 
+    #94a3b8 50%, 
+    #475569 60%, 
+    #334155 100%
+  );
+  background-size: 200% auto;
+  animation: shine-sweep 5s linear infinite;
+}
+
+.text-shiny-white {
+  background: linear-gradient(
+    90deg, 
+    #94a3b8 0%, 
+    #fff 45%, 
+    #fff 55%, 
+    #94a3b8 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 6s linear infinite;
+}
+
+.neon-blue-glow {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), 0 0 40px rgba(0, 212, 255, 0.1);
+}
+
+.neon-border {
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+}
+
+.hover-neon:hover {
+  @apply text-[#00f2ff] drop-shadow-[0_0_8px_rgba(0,242,255,0.8)];
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+.glass-neon {
+  @apply bg-[#001a2c]/40 backdrop-blur-2xl border border-[#00d4ff]/20;
+  box-shadow: 0 0 40px rgba(0, 212, 255, 0.1);
+}
+
+.gold-text {
+  background: linear-gradient(90deg, #FFF9C4, #FFD700, #FFB300);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.bg-league-blue {
+  background: linear-gradient(135deg, #000000 0%, #020617 60%, #0c4a6e 100%);
+}
+
+.dark .bg-league-blue {
+  background: linear-gradient(135deg, #000000 0%, #020617 60%, #0c4a6e 100%);
+}
+
+/* Light mode override for bg-league-blue if not using .dark class on html */
+:root:not(.dark) .bg-league-blue {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 60%, #e0f2fe 100%);
+  @apply border-slate-200 shadow-xl;
+}
+
+.rank-box-teal {
+  @apply bg-[#0d9488] text-white flex items-center justify-center font-bold;
+}
+
+.rank-box-red {
+  @apply bg-[#be123c] text-white flex items-center justify-center font-bold;
+}
+
+.vertical-text-league {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  @apply uppercase font-black text-black/10 dark:text-white/20 select-none;
+}
+
+.text-metallic-silver {
+  background-image: linear-gradient(90deg, #475569 0%, #94a3b8 45%, #ffffff 50%, #94a3b8 55%, #475569 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 5s linear infinite;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+.dark .text-metallic-silver {
+  background-image: linear-gradient(90deg, #64748b 0%, #cbd5e1 45%, #ffffff 50%, #cbd5e1 55%, #64748b 100%);
+}
+
+.text-metallic-gold {
+  background-image: linear-gradient(90deg, #b45309 0%, #fbbf24 45%, #fff9c4 50%, #fbbf24 55%, #b45309 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 5s linear infinite;
+  text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+}
+
+.dark .text-metallic-gold {
+  background-image: linear-gradient(90deg, #d97706 0%, #fcd34d 45%, #fffdec 50%, #fcd34d 55%, #d97706 100%);
+}
+
+.text-metallic-bronze {
+  background-image: linear-gradient(90deg, #7c2d12 0%, #b45309 45%, #fcd34d 50%, #b45309 55%, #7c2d12 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 5s linear infinite;
+  text-shadow: 0 0 12px rgba(217, 119, 6, 0.3);
+}
+
+.dark .text-metallic-bronze {
+  background-image: linear-gradient(90deg, #92400e 0%, #d97706 45%, #fef3c7 50%, #d97706 55%, #92400e 100%);
+}
+
+.text-metallic-steel {
+  background-image: linear-gradient(90deg, #334155 0%, #64748b 45%, #94a3b8 50%, #64748b 55%, #334155 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 7s linear infinite;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.dark .text-metallic-steel {
+  background-image: linear-gradient(90deg, #475569 0%, #94a3b8 45%, #f8fafc 50%, #94a3b8 55%, #475569 100%);
+}
+
+
