@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  ownedLeagues League[]       @relation("LeagueOwner")
+  memberships  LeagueMember[]
+}
+
+enum LeaguePrivacy {
+  PRIVATE
+  PUBLIC
+}
+
+enum LeagueStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+model League {
+  id         String        @id @default(cuid())
+  name       String
+  ownerId    String
+  inviteCode String        @unique
+  privacy    LeaguePrivacy @default(PRIVATE)
+  status     LeagueStatus  @default(ACTIVE)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  owner   User           @relation("LeagueOwner", fields: [ownerId], references: [id], onDelete: Restrict)
+  members LeagueMember[]
+  seasons Season[]
+
+  @@index([ownerId])
+  @@index([status])
+}
+
+enum MemberRole {
+  OWNER
+  MEMBER
+}
+
+model LeagueMember {
+  id       String     @id @default(cuid())
+  leagueId String
+  userId   String
+  role     MemberRole @default(MEMBER)
+  joinedAt DateTime   @default(now())
+
+  league League @relation(fields: [leagueId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([leagueId, userId])
+  @@index([userId])
+}
+
+enum SeasonStatus {
+  UPCOMING
+  ACTIVE
+  COMPLETED
+}
+
+model Season {
+  id        String       @id @default(cuid())
+  leagueId  String
+  year      Int
+  status    SeasonStatus @default(UPCOMING)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  league League @relation(fields: [leagueId], references: [id], onDelete: Cascade)
+
+  @@unique([leagueId, year])
+  @@index([leagueId])
+  @@index([status])
+}

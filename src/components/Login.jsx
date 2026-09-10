@@ -1,18 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, ChevronRight, User } from 'lucide-react';
-
-const playerCodes = {
-  "SHABAD123": { name: "Shabad", team: "shabad's Team" },
-  "NITESH123": { name: "Nitesh", team: "Aizen" },
-  "GURSHARAN123": { name: "Gursharan", team: "GURI XI" },
-  "PIYUSH123": { name: "Piyush", team: "Piyush dhiman's Team" },
-  "SUMIT123": { name: "Sumit", team: "Sumit's Team" },
-  "ANKIT123": { name: "Ankit", team: "Ankit's Team" },
-  "BHATTI123": { name: "Deepanshu", team: "Deepanshuu's Team" },
-  "HARSH123": { name: "Harsh", team: "Maat maro shota bacha hu" },
-  "SAHIL123": { name: "Sahil", team: "Jenna Morrh Warriors" }
-};
+import { PLAYER_ACCESS_CODES } from '../config/season2026';
 
 const Login = ({ onLogin }) => {
   const [showInput, setShowInput] = useState(false);
@@ -26,9 +15,9 @@ const Login = ({ onLogin }) => {
   const handlePlayerSubmit = (e) => {
     e.preventDefault();
     const upperCode = code.toUpperCase().trim();
-    if (playerCodes[upperCode]) {
+    if (PLAYER_ACCESS_CODES[upperCode]) {
       onLogin({
-        ...playerCodes[upperCode],
+        ...PLAYER_ACCESS_CODES[upperCode],
         role: 'player'
       });
     } else {

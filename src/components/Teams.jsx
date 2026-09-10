@@ -1,7 +1,7 @@
 import React from 'react';
 import TeamCard from './TeamCard';
 
-const Teams = ({ teams, hideInternalHeader }) => {
+const Teams = ({ teams, hideInternalHeader, snapshotData }) => {
   // Sort to bring user's team to the top
   const sortedTeams = [...teams].sort((a, b) => (b.isUser ? 1 : 0) - (a.isUser ? 1 : 0));
 
@@ -17,7 +17,7 @@ const Teams = ({ teams, hideInternalHeader }) => {
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
         {sortedTeams.map((team) => (
-          <TeamCard key={team.id} team={team} />
+          <TeamCard key={team.id} team={team} snapshotData={snapshotData} />
         ))}
       </div>
     </div>
