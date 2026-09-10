@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Calendar, ChevronRight, Info, Zap, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { matches } from '../data/matches';
+import { shouldHideNewPlayers, getPlayerStateForMatch } from '../domain/matches/phase';
 
 const Schedule = ({ teams, hideInternalHeader }) => {
   const [selectedMatch, setSelectedMatch] = useState(null);
@@ -12,8 +13,6 @@ const Schedule = ({ teams, hideInternalHeader }) => {
   const matchDetails = useMemo(() => {
     if (!selectedMatch) return null;
     
-    const isPhase1 = selectedMatch.id <= 35;
-    
     const playersByTeam = {};
     selectedMatch.abbrs.forEach(abbr => {
       playersByTeam[abbr] = [];
@@ -22,16 +21,12 @@ const Schedule = ({ teams, hideInternalHeader }) => {
     (teams || []).forEach(fTeam => {
       (fTeam.players || []).forEach(player => {
         if (selectedMatch.abbrs.includes(player.iplAbbr)) {
-          // If Phase 1: Hide new players
-          if (isPhase1 && player.isNew) return;
-          
-          // In Phase 1: Old players were active, so they shouldn't be marked as "Out" visually
-          const effectiveIsOut = isPhase1 ? false : player.isOut;
-          
-          // Determine dynamic captaincy based on match timeline
-          const matchPhase = selectedMatch.id <= 36 ? 'phase1' : 'phase2';
-          const isMatchCaptain = matchPhase === 'phase1' ? player.phase1Captain : player.phase2Captain;
-          const isMatchVC = matchPhase === 'phase1' ? player.phase1ViceCaptain : player.phase2ViceCaptain;
+          if (shouldHideNewPlayers(selectedMatch.id) && player.isNew) return;
+
+          const { effectiveIsOut, isMatchCaptain, isMatchVC } = getPlayerStateForMatch(
+            player,
+            selectedMatch.id
+          );
 
           playersByTeam[player.iplAbbr].push({
             ...player,

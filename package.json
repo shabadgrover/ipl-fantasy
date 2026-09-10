@@ -8,10 +8,19 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:backend": "npm test --prefix backend",
+    "backend:dev": "npm run dev --prefix backend",
+    "backend:start": "npm start --prefix backend",
+    "db:generate": "npm run db:generate --prefix backend",
+    "db:migrate": "npm run db:migrate --prefix backend",
+    "db:migrate:deploy": "npm run db:migrate:deploy --prefix backend",
     "update-data": "node analyze-excel.js",
     "inject-roles": "node inject-roles.js"
   },
   "dependencies": {
+    "@prisma/client": "^6.19.3",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.8",
     "lucide-react": "^0.344.0",
@@ -31,7 +40,9 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "postcss": "^8.4.35",
+    "prisma": "^6.19.3",
     "tailwindcss": "^3.4.1",
-    "vite": "^5.2.0"
+    "vite": "^5.2.0",
+    "vitest": "^3.2.7"
   }
 }

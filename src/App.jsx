@@ -14,6 +14,8 @@ import { matches } from './data/matches';
 import ProgressionGraph from './components/ProgressionGraph';
 import MobileNav from './components/MobileNav';
 import { saveCurrentStateSnapshot, getSavedSnapshots } from './utils/snapshot';
+import { BASELINE_PREVIOUS_MATCH } from './config/season2026';
+import { buildLeaderboard, toRankingsStorage } from './domain/leaderboard/standings';
 
 
 
@@ -47,69 +49,25 @@ function App() {
       try {
         const response = await fetch('/data.xlsx?t=' + Date.now());
         if (!response.ok) throw new Error('Failed to load excel data from /data.xlsx');
-        
+
         const arrayBuffer = await response.arrayBuffer();
         const parsedTeams = parseExcelData(arrayBuffer);
-        
+
         const now = new Date();
         setLastUpdated(now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-        
-        // --- BASELINE DATA (Match 73 Standings) ---
-        const BASELINE_PREVIOUS_MATCH = {
-          "Sumit's Team": 10237.5,
-          "Deepanshuu's Team": 10263.5,
-          "shabad's Team": 10394.5,
-          "Piyush dhiman's Team": 9273,
-          "Ankit's Team": 8648,
-          "Maat maro shota bacha hu": 7336.5,
-          "Jenna Morrh Warriors": 7036,
-          "Aizen": 9016,
-          "GURI XI": 6724.5
-        };
 
-        const INITIAL_RANKS = Object.keys(BASELINE_PREVIOUS_MATCH)
-          .sort((a, b) => BASELINE_PREVIOUS_MATCH[b] - BASELINE_PREVIOUS_MATCH[a])
-          .map((id, index) => ({ id, rank: index + 1 }));
+        const teamsWithTrend = buildLeaderboard(parsedTeams, BASELINE_PREVIOUS_MATCH);
 
-        // Current totals come directly from the public/data.xlsx (cumulative Match 55)
-        const finalStandings = parsedTeams.map(team => {
-          const totalPoints = team.totalPoints;
-          const previousPoints = BASELINE_PREVIOUS_MATCH[team.id] || 0;
-          return {
-            ...team,
-            matchPoints: totalPoints - previousPoints,
-            totalPoints: totalPoints
-          };
-        });
-
-        const sortedTeams = [...finalStandings].sort((a, b) => b.totalPoints - a.totalPoints);
-
-        // Use INITIAL_RANKS (Match 52) as the fixed baseline for latest match movement
-        const teamsWithTrend = sortedTeams.map((team, index) => {
-          const currentRank = index + 1;
-          const prevEntry = INITIAL_RANKS.find(p => p.id === team.id);
-          let trend = 'same';
-          let rankDiff = 0;
-          
-          if (prevEntry) {
-            rankDiff = prevEntry.rank - currentRank;
-            if (currentRank < prevEntry.rank) trend = 'up';
-            else if (currentRank > prevEntry.rank) trend = 'down';
-          }
-          return { ...team, trend, rankDiff, rank: currentRank };
-        });
-        
         setTeams(teamsWithTrend);
 
         // Take a one-time snapshot of the current state
         saveCurrentStateSnapshot(teamsWithTrend);
-        
+
         // Load snapshot data for the optional viewer
         setSnapshotData(getSavedSnapshots());
 
         // Store current rankings for next comparison
-        const rankingsToStore = teamsWithTrend.map((t, idx) => ({ id: t.id, rank: idx + 1 }));
-        localStorage.setItem('previousLeaderboard', JSON.stringify(rankingsToStore));
+        localStorage.setItem('previousLeaderboard', JSON.stringify(toRankingsStorage(teamsWithTrend)));
         // ----------------------------
 
         setLoading(false);
@@ -150,14 +108,14 @@ function App() {
     return (
       <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black transition-colors duration-500">
         <div className="text-center flex flex-col items-center">
-          <motion.div 
+          <motion.div
             animate={{ scale: [1, 1.05, 1], opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center mb-6 backdrop-blur-sm border border-white/20"
           >
             <Zap className="w-8 h-8 text-white" fill="currentColor" />
           </motion.div>
-          <motion.h2 
+          <motion.h2
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="text-2xl md:text-3xl font-black text-white tracking-tighter"
@@ -179,7 +137,7 @@ function App() {
       </div>
     );
   }
-  
+
   const handleLogin = (userData) => {
     localStorage.setItem('userSession', JSON.stringify(userData));
     setSession(userData);
@@ -220,7 +178,7 @@ function App() {
               </div>
             )}
           </div>
-          
+
           <div className="flex items-center gap-1 md:gap-4">
             <nav className="hidden md:flex gap-1 md:gap-4 overflow-x-auto items-center">
               {tabs.slice(1).map((tab) => (
@@ -232,7 +190,7 @@ function App() {
                   {tab.name}
                 </button>
               ))}
-              
+
               <button
                 onClick={handleShare}
                 className="ml-2 flex items-center gap-1.5 px-3 py-2 text-[10px] font-black tracking-[0.2em] uppercase text-slate-500 hover:text-[#00d4ff] hover:drop-shadow-[0_0_8px_rgba(0,212,255,0.8)] transition-all duration-300"
@@ -253,7 +211,7 @@ function App() {
               </button>
 
               {session && (
-                <button 
+                <button
                   onClick={() => setShowSnapshot(!showSnapshot)}
                   className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-[#00d4ff] transition-all px-3 py-1.5 border border-black/10 dark:border-white/10 rounded-lg"
                 >
@@ -263,8 +221,8 @@ function App() {
               )}
 
               {session && (
-                <button 
-                  onClick={handleLogout} 
+                <button
+                  onClick={handleLogout}
                   className="ml-1 md:ml-2 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all px-3 py-1.5 border border-black/10 dark:border-white/10 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 active:scale-95"
                 >
                   <LogOut size={16} />
@@ -276,10 +234,10 @@ function App() {
         </div>
       </header>
 
-      <motion.main 
-        initial={{ opacity: 0 }} 
-        animate={{ opacity: 1 }} 
-        transition={{ duration: 0.8 }} 
+      <motion.main
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
         className="flex flex-col"
       >
         <section id="home">
@@ -290,7 +248,7 @@ function App() {
 
 
         <section id="leaderboard" className="pt-20 md:pt-32 pb-10 md:pb-20 border-t border-black/5 dark:border-white/5">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -303,9 +261,9 @@ function App() {
           <Leaderboard teams={teamsWithUser} hideInternalHeader={true} upcomingMatch={upcomingMatch} />
           <ProgressionGraph />
         </section>
-        
+
         <section id="all-teams" className="pt-20 md:pt-32 pb-10 md:pb-20 border-t border-black/5 dark:border-white/5">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -319,7 +277,7 @@ function App() {
         </section>
 
         <section id="upcoming" className="pt-20 md:pt-32 pb-16 md:pb-24 border-t border-black/5 dark:border-white/5">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -341,7 +299,7 @@ function App() {
         {/* ImpactAnalysis section removed as season is over */}
 
         <section id="schedule" className="pt-20 md:pt-32 pb-20 md:pb-32 border-t border-black/5 dark:border-white/5">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -400,14 +358,14 @@ function App() {
                   <h2 className="text-sm font-black tracking-[0.2em] text-slate-500 uppercase mb-2">System Backup</h2>
                   <h3 className="text-2xl font-black text-white tracking-tighter">Phase 1 Data Snapshot</h3>
                 </div>
-                <button 
+                <button
                   onClick={() => setShowSnapshot(false)}
                   className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
                 >
                   <CheckCircle2 size={20} />
                 </button>
               </div>
-              
+
               <div className="flex-1 overflow-y-auto p-8 space-y-8 no-scrollbar">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {/* Leaderboard Section */}

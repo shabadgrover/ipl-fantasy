@@ -71,18 +71,19 @@ A visually stunning, dynamic web application that allows users to track their cu
 
 ```text
 ipl-fantasy/
+├── backend/                # Node.js / Express API (Phase 2+)
+│   └── src/                # routes, controllers, services, middleware
+├── prisma/                 # Database schema and migrations
 ├── public/                 # Static assets (Logos, Excel data files)
-├── src/                    # Main Frontend Source Code
-│   ├── components/         # React Components (Leaderboard, Teams, Schedule, etc.)
+├── src/                    # React frontend source code
+│   ├── config/             # Season-specific configuration (season2026.js)
+│   ├── domain/             # Pure fantasy/domain logic (Phase 1)
+│   ├── components/         # React components
 │   ├── data/               # Static application data (matches.js)
-│   ├── utils/              # Helper functions (excelParser.js, etc.)
-│   ├── App.jsx             # Root React component
-│   └── index.css           # Global Tailwind styles
+│   └── utils/              # Excel parser, snapshot helpers
 ├── scripts/                # Node.js scripts for match calculation & data ingestion
 ├── data_dumps/             # Historical data backups and JSON state dumps
-├── README.md               # Project documentation
-├── package.json            # Node dependencies and scripts
-├── tailwind.config.js      # Tailwind theme and plugin configuration
+├── package.json            # Frontend dependencies and root scripts
 └── vite.config.js          # Vite bundler configuration
 ```
 
@@ -115,6 +116,128 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 4. **View the application**
    Open your browser and navigate to `http://localhost:5173`
+
+## 🗄️ Backend Setup (Phase 2)
+
+The backend is a separate Express API in `backend/` using Prisma and PostgreSQL. The existing React frontend continues to use `public/data.xlsx` independently.
+
+### Prerequisites
+
+- **Node.js** v18.x or higher (v20+ recommended)
+- **PostgreSQL** 14+ running locally or remotely
+
+### Environment variables
+
+Copy the example file and edit your local values:
+
+```bash
+cp .env.example .env
+```
+
+Required variables:
+
+| Variable | Description |
+| :--- | :--- |
+| `DATABASE_URL` | PostgreSQL connection string, e.g. `postgresql://postgres:password@localhost:5432/ipl_fantasy?schema=public` |
+| `PORT` | Backend port (default `3001`) |
+| `JWT_SECRET` | Secret key for signing authentication tokens |
+| `JWT_EXPIRES_IN` | Token lifetime (default `7d`) |
+
+### Install and migrate
+
+```bash
+# Frontend dependencies (root)
+npm install
+
+# Backend dependencies
+cd backend && npm install && cd ..
+
+# Generate Prisma Client
+npm run db:generate
+
+# Apply database migrations
+npm run db:migrate:deploy
+```
+
+For local development with migration creation:
+
+```bash
+npm run db:migrate
+```
+
+### Start the backend
+
+```bash
+npm run backend:dev
+```
+
+The API listens on `http://localhost:3001` by default.
+
+### Test the health endpoint
+
+```bash
+curl http://localhost:3001/api/health
+```
+
+Expected response when the database is connected:
+
+```json
+{
+  "status": "ok",
+  "message": "IPL Fantasy API is running",
+  "database": "connected",
+  "timestamp": "..."
+}
+```
+
+### Run backend tests
+
+Requires PostgreSQL configured in `.env`:
+
+```bash
+npm run test:backend
+```
+
+### Current database tables
+
+| Table | Purpose |
+| :--- | :--- |
+| `User` | Platform users (id, name, email) |
+| `League` | Fantasy leagues (name, owner, invite code, privacy, status) |
+| `LeagueMember` | User membership in a league (role: OWNER / MEMBER) |
+| `Season` | Seasons within a league (year, status) |
+
+### Authentication API (Phase 3)
+
+```bash
+# Register
+curl -X POST http://localhost:3001/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Shabad", "email": "shabad@example.com", "password": "securepass123"}'
+
+# Login
+curl -X POST http://localhost:3001/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email": "shabad@example.com", "password": "securepass123"}'
+
+# Current user (requires Bearer token from register/login)
+curl http://localhost:3001/api/auth/me \
+  -H "Authorization: Bearer <token>"
+```
+
+The React frontend still uses the 2026 access-code login independently. Backend auth will be connected in a later phase.
+
+### League API (Phase 2)
+
+```bash
+# Create a league (owner must exist in User table first)
+curl -X POST http://localhost:3001/api/leagues \
+  -H "Content-Type: application/json" \
+  -d '{"name": "My IPL League", "ownerId": "<user-id>"}'
+
+# Retrieve a league
+curl http://localhost:3001/api/leagues/<league-id>
+```
 
 ## ⚙️ How Data is Processed
 
