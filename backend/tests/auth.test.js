@@ -64,13 +64,67 @@ describe('Auth API', () => {
       expect(response.body.message).toBe('Name is required');
     });
 
-    it('rejects invalid email', async () => {
+    it('rejects non-string name', async () => {
+      const response = await request(app)
+        .post('/api/auth/register')
+        .send({ name: 12345, email: 'badname@example.com', password: testPassword });
+
+      expect(response.status).toBe(400);
+      expect(response.body.message).toBe('Name is required');
+    });
+
+    it('rejects whitespace-only name', async () => {
+      const response = await request(app)
+        .post('/api/auth/register')
+        .send({ name: '    ', email: 'whitespace@example.com', password: testPassword });
+
+      expect(response.status).toBe(400);
+      expect(response.body.message).toBe('Name is required');
+    });
+
+    it('rejects name exceeding maximum length (100 chars)', async () => {
+      const response = await request(app)
+        .post('/api/auth/register')
+        .send({ name: 'A'.repeat(101), email: 'toolongname@example.com', password: testPassword });
+
+      expect(response.status).toBe(400);
+      expect(response.body.message).toBe('Name cannot exceed 100 characters');
+    });
+
+    it('rejects non-string email', async () => {
+      const response = await request(app)
+        .post('/api/auth/register')
+        .send({ name: 'Valid Name', email: 99999, password: testPassword });
+
+      expect(response.status).toBe(400);
+      expect(response.body.message).toBe('Email is required');
+    });
+
+    it('rejects email exceeding maximum length (255 chars)', async () => {
+      const response = await request(app)
+        .post('/api/auth/register')
+        .send({ name: 'Valid Name', email: `${'a'.repeat(250)}@example.com`, password: testPassword });
+
+      expect(response.status).toBe(400);
+      expect(response.body.message).toBe('Email cannot exceed 255 characters');
+    });
+
+    it('rejects invalid email format', async () => {
       const response = await request(app)
         .post('/api/auth/register')
         .send({ name: 'Bad Email', email: 'not-an-email', password: testPassword });
 
       expect(response.status).toBe(400);
       expect(response.body.message).toBe('Invalid email address');
+    });
+
+    it('rejects non-string password', async () => {
+      const response = await request(app)
+        .post('/api/auth/register')
+        .send({ name: 'Valid Name', email: 'nonstringpass@example.com', password: 12345678 });
+
+      expect(response.status).toBe(400);
+      expect(response.body.message).toBe('Password is required');
     });
 
     it('rejects weak password', async () => {
@@ -80,6 +134,24 @@ describe('Auth API', () => {
 
       expect(response.status).toBe(400);
       expect(response.body.message).toBe('Password must be at least 8 characters');
+    });
+
+    it('rejects password exceeding maximum length (72 chars)', async () => {
+      const response = await request(app)
+        .post('/api/auth/register')
+        .send({ name: 'Long Pass', email: 'longpass@example.com', password: 'A'.repeat(73) });
+
+      expect(response.status).toBe(400);
+      expect(response.body.message).toBe('Password cannot exceed 72 characters');
+    });
+
+    it('rejects non-object or empty payload', async () => {
+      const response = await request(app)
+        .post('/api/auth/register')
+        .send({});
+
+      expect(response.status).toBe(400);
+      expect(response.body.message).toBe('Name is required');
     });
   });
 

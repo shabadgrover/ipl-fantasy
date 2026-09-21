@@ -7,36 +7,70 @@ import { toPublicUser } from '../utils/user.js';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_PASSWORD_LENGTH = 8;
+const MAX_PASSWORD_LENGTH = 72;
+const MAX_NAME_LENGTH = 100;
+const MAX_EMAIL_LENGTH = 255;
 const BCRYPT_ROUNDS = 12;
 
-const validateRegistrationInput = ({ name, email, password }) => {
-  const trimmedName = name?.trim();
-  const trimmedEmail = email?.trim().toLowerCase();
+const validateRegistrationInput = (input) => {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) {
+    throw new AppError('Invalid request payload', 400);
+  }
 
+  const { name, email, password } = input;
+
+  if (typeof name !== 'string') {
+    throw new AppError('Name is required', 400);
+  }
+  const trimmedName = name.trim();
   if (!trimmedName) {
     throw new AppError('Name is required', 400);
   }
+  if (trimmedName.length > MAX_NAME_LENGTH) {
+    throw new AppError(`Name cannot exceed ${MAX_NAME_LENGTH} characters`, 400);
+  }
+
+  if (typeof email !== 'string') {
+    throw new AppError('Email is required', 400);
+  }
+  const trimmedEmail = email.trim().toLowerCase();
   if (!trimmedEmail) {
     throw new AppError('Email is required', 400);
+  }
+  if (trimmedEmail.length > MAX_EMAIL_LENGTH) {
+    throw new AppError(`Email cannot exceed ${MAX_EMAIL_LENGTH} characters`, 400);
   }
   if (!EMAIL_REGEX.test(trimmedEmail)) {
     throw new AppError('Invalid email address', 400);
   }
-  if (!password || typeof password !== 'string') {
+
+  if (typeof password !== 'string' || !password) {
     throw new AppError('Password is required', 400);
   }
   if (password.length < MIN_PASSWORD_LENGTH) {
     throw new AppError(`Password must be at least ${MIN_PASSWORD_LENGTH} characters`, 400);
   }
+  if (password.length > MAX_PASSWORD_LENGTH) {
+    throw new AppError(`Password cannot exceed ${MAX_PASSWORD_LENGTH} characters`, 400);
+  }
 
   return { name: trimmedName, email: trimmedEmail, password };
 };
 
-const validateLoginInput = ({ email, password }) => {
-  const trimmedEmail = email?.trim().toLowerCase();
+const validateLoginInput = (input) => {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) {
+    throw new AppError('Invalid request payload', 400);
+  }
 
-  if (!trimmedEmail || !password) {
+  const { email, password } = input;
+
+  if (typeof email !== 'string' || !email.trim() || typeof password !== 'string' || !password) {
     throw new AppError('Email and password are required', 400);
+  }
+
+  const trimmedEmail = email.trim().toLowerCase();
+  if (trimmedEmail.length > MAX_EMAIL_LENGTH || password.length > MAX_PASSWORD_LENGTH) {
+    throw new AppError('Invalid email or password', 401);
   }
 
   return { email: trimmedEmail, password };
@@ -45,8 +79,8 @@ const validateLoginInput = ({ email, password }) => {
 const signToken = (userId) =>
   jwt.sign({ userId }, env.jwtSecret, { expiresIn: env.jwtExpiresIn });
 
-export const registerUser = async ({ name, email, password }) => {
-  const validated = validateRegistrationInput({ name, email, password });
+export const registerUser = async (input) => {
+  const validated = validateRegistrationInput(input);
   const passwordHash = await bcrypt.hash(validated.password, BCRYPT_ROUNDS);
 
   try {
@@ -68,8 +102,8 @@ export const registerUser = async ({ name, email, password }) => {
   }
 };
 
-export const loginUser = async ({ email, password }) => {
-  const validated = validateLoginInput({ email, password });
+export const loginUser = async (input) => {
+  const validated = validateLoginInput(input);
 
   const user = await prisma.user.findUnique({
     where: { email: validated.email },
@@ -89,6 +123,10 @@ export const loginUser = async ({ email, password }) => {
 };
 
 export const getUserById = async (userId) => {
+  if (!userId || typeof userId !== 'string' || !userId.trim()) {
+    throw new AppError('User ID is required', 400);
+  }
+
   const user = await prisma.user.findUnique({ where: { id: userId } });
 
   if (!user) {

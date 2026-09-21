@@ -83,6 +83,5 @@ model Season {
   league League @relation(fields: [leagueId], references: [id], onDelete: Cascade)
 
   @@unique([leagueId, year])
-  @@index([leagueId])
   @@index([status])
 }
