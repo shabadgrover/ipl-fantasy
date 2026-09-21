@@ -47,19 +47,9 @@ export const teamsData = [
 ];
 
 export const upcomingMatch = {
-  matchName: "Match 2: MI vs KKR",
-  date: "Sunday, 29 March 2026 • 7:30 PM",
+  matchName: "Match 6: KKR vs SRH",
+  date: "Thursday, 2 April 2026 • 7:30 PM",
   teams: [
-    {
-      name: "MI",
-      players: [
-        { name: "Rohit Sharma", ownedBy: "Virat's Warriors" },
-        { name: "Jasprit Bumrah", ownedBy: "Shabad's Team" },
-        { name: "Suryakumar Yadav", ownedBy: "Dhoni's Dynamos" },
-        { name: "Ishan Kishan", ownedBy: "Mumbai Paltan" },
-        { name: "Hardik Pandya", ownedBy: "Shabad's Team" },
-      ]
-    },
     {
       name: "KKR",
       players: [
@@ -68,6 +58,16 @@ export const upcomingMatch = {
         { name: "Shreyas Iyer", ownedBy: "Knight Riders" },
         { name: "Rinku Singh", ownedBy: "Virat's Warriors" },
         { name: "Mitchell Starc", ownedBy: "Lions XI" },
+      ]
+    },
+    {
+      name: "SRH",
+      players: [
+        { name: "Pat Cummins", ownedBy: "Virat's Warriors" },
+        { name: "Abhishek Sharma", ownedBy: "Shabad's Team" },
+        { name: "Heinrich Klaasen", ownedBy: "Dhoni's Dynamos" },
+        { name: "Travis Head", ownedBy: "Mumbai Paltan" },
+        { name: "T Natarajan", ownedBy: "Lions XI" },
       ]
     }
   ]
