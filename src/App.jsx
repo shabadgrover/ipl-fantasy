@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './components/Login';
 import Leaderboard from './components/Leaderboard';
 import Teams from './components/Teams';
@@ -17,19 +18,16 @@ import { saveCurrentStateSnapshot, getSavedSnapshots } from './utils/snapshot';
 import { BASELINE_PREVIOUS_MATCH } from './config/season2026';
 import { buildLeaderboard, toRankingsStorage } from './domain/leaderboard/standings';
 
-
-
-function App() {
+function AppContent() {
+  const { user, loading: authLoading, logout, isAuthenticated } = useAuth();
   const [teams, setTeams] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [dataLoading, setDataLoading] = useState(true);
   const [error, setError] = useState(null);
   const [lastUpdated, setLastUpdated] = useState('');
-  const [session, setSession] = useState(() => JSON.parse(localStorage.getItem('userSession')) || null);
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
   const [showToast, setShowToast] = useState(false);
   const [showSnapshot, setShowSnapshot] = useState(false);
   const [snapshotData, setSnapshotData] = useState(null);
-
 
   useEffect(() => {
     const root = document.documentElement;
@@ -68,13 +66,12 @@ function App() {
 
         // Store current rankings for next comparison
         localStorage.setItem('previousLeaderboard', JSON.stringify(toRankingsStorage(teamsWithTrend)));
-        // ----------------------------
 
-        setLoading(false);
+        setDataLoading(false);
       } catch (err) {
         console.error(err);
         setError(err.message);
-        setLoading(false);
+        setDataLoading(false);
       }
     };
 
@@ -104,7 +101,37 @@ function App() {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  if (loading) {
+  // 1. Session restoration loading state (avoids flashing login screen)
+  if (authLoading) {
+    return (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black transition-colors duration-500">
+        <div className="text-center flex flex-col items-center">
+          <motion.div
+            animate={{ scale: [1, 1.05, 1], opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center mb-6 backdrop-blur-sm border border-white/20"
+          >
+            <Zap className="w-8 h-8 text-white" fill="currentColor" />
+          </motion.div>
+          <motion.h2
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="text-2xl md:text-3xl font-black text-white tracking-tighter"
+          >
+            Loading Fantasy League...
+          </motion.h2>
+        </div>
+      </div>
+    );
+  }
+
+  // 2. Unauthenticated -> Login / Register screen
+  if (!isAuthenticated) {
+    return <Login />;
+  }
+
+  // 3. Authenticated -> Wait for excel data to finish loading
+  if (dataLoading) {
     return (
       <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black transition-colors duration-500">
         <div className="text-center flex flex-col items-center">
@@ -138,23 +165,13 @@ function App() {
     );
   }
 
-  const handleLogin = (userData) => {
-    localStorage.setItem('userSession', JSON.stringify(userData));
-    setSession(userData);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('userSession');
-    setSession(null);
-  };
-
-  if (!session) {
-    return <Login onLogin={handleLogin} />;
-  }
-
+  const userName = (user?.name || '').toLowerCase().trim();
   const teamsWithUser = teams.map(team => ({
     ...team,
-    isUser: session?.role === 'player' && team.teamName === session.team
+    isUser: Boolean(userName && team.teamName && (
+      team.teamName.toLowerCase().includes(userName) ||
+      userName.includes(team.teamName.toLowerCase().split("'")[0])
+    ))
   }));
 
   const userTeam = teamsWithUser.find(t => t.isUser);
@@ -210,25 +227,28 @@ function App() {
                 {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
               </button>
 
-              {session && (
-                <button
-                  onClick={() => setShowSnapshot(!showSnapshot)}
-                  className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-[#00d4ff] transition-all px-3 py-1.5 border border-black/10 dark:border-white/10 rounded-lg"
-                >
-                  <Target size={14} />
-                  <span className="hidden md:inline">Snapshot</span>
-                </button>
+              {user?.name && (
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 hidden sm:inline px-2 truncate max-w-[120px]" title={user.name}>
+                  {user.name}
+                </span>
               )}
 
-              {session && (
-                <button
-                  onClick={handleLogout}
-                  className="ml-1 md:ml-2 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all px-3 py-1.5 border border-black/10 dark:border-white/10 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 active:scale-95"
-                >
-                  <LogOut size={16} />
-                  <span className="hidden md:inline">{session.role === 'observer' ? 'Exit' : 'Logout'}</span>
-                </button>
-              )}
+              <button
+                onClick={() => setShowSnapshot(!showSnapshot)}
+                className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-[#00d4ff] transition-all px-3 py-1.5 border border-black/10 dark:border-white/10 rounded-lg"
+              >
+                <Target size={14} />
+                <span className="hidden md:inline">Snapshot</span>
+              </button>
+
+              <button
+                onClick={logout}
+                className="ml-1 md:ml-2 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all px-3 py-1.5 border border-black/10 dark:border-white/10 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 active:scale-95"
+                title="Sign out of your account"
+              >
+                <LogOut size={16} />
+                <span className="hidden md:inline">Logout</span>
+              </button>
             </div>
           </div>
         </div>
@@ -428,4 +448,10 @@ function App() {
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}

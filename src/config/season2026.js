@@ -101,18 +101,6 @@ export const MATCH_PHASE = {
   captainChangeMatch: 37,
 };
 
-/** Player access codes for the 2026 private league login gate */
-export const PLAYER_ACCESS_CODES = {
-  SHABAD123: { name: "Shabad", team: "shabad's Team" },
-  NITESH123: { name: "Nitesh", team: "Aizen" },
-  GURSHARAN123: { name: "Gursharan", team: "GURI XI" },
-  PIYUSH123: { name: "Piyush", team: "Piyush dhiman's Team" },
-  SUMIT123: { name: "Sumit", team: "Sumit's Team" },
-  ANKIT123: { name: "Ankit", team: "Ankit's Team" },
-  BHATTI123: { name: "Deepanshu", team: "Deepanshuu's Team" },
-  HARSH123: { name: "Harsh", team: "Maat maro shota bacha hu" },
-  SAHIL123: { name: "Sahil", team: "Jenna Morrh Warriors" },
-};
 
 /** Fantasy team names in the 2026 league */
 export const FANTASY_TEAM_NAMES = Object.keys(TEAM_ROLES);
