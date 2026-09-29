@@ -1,0 +1,501 @@
+{
+  "results": [
+    {
+      "id": "shabad's Team",
+      "totalPoints": 3132,
+      "previousPoints": 3132,
+      "diff": 0,
+      "rank": 1,
+      "prevRank": 1,
+      "rankDiff": 0
+    },
+    {
+      "id": "Sumit's Team",
+      "totalPoints": 2933.5,
+      "previousPoints": 2933.5,
+      "diff": 0,
+      "rank": 2,
+      "prevRank": 2,
+      "rankDiff": 0
+    },
+    {
+      "id": "Deepanshuu's Team",
+      "totalPoints": 2872.5,
+      "previousPoints": 2872.5,
+      "diff": 0,
+      "rank": 3,
+      "prevRank": 3,
+      "rankDiff": 0
+    },
+    {
+      "id": "Piyush dhiman's Team",
+      "totalPoints": 2380.5,
+      "previousPoints": 2380.5,
+      "diff": 0,
+      "rank": 4,
+      "prevRank": 4,
+      "rankDiff": 0
+    },
+    {
+      "id": "Ankit's Team",
+      "totalPoints": 2263.5,
+      "previousPoints": 2263.5,
+      "diff": 0,
+      "rank": 5,
+      "prevRank": 5,
+      "rankDiff": 0
+    },
+    {
+      "id": "Maat maro shota bacha hu",
+      "totalPoints": 2237.5,
+      "previousPoints": 2237.5,
+      "diff": 0,
+      "rank": 6,
+      "prevRank": 6,
+      "rankDiff": 0
+    },
+    {
+      "id": "Jenna Morrh Warriors",
+      "totalPoints": 2215.5,
+      "previousPoints": 2215.5,
+      "diff": 0,
+      "rank": 7,
+      "prevRank": 7,
+      "rankDiff": 0
+    },
+    {
+      "id": "GURI XI",
+      "totalPoints": 2036.5,
+      "previousPoints": 2036.5,
+      "diff": 0,
+      "rank": 8,
+      "prevRank": 8,
+      "rankDiff": 0
+    },
+    {
+      "id": "Aizen",
+      "totalPoints": 1656.5,
+      "previousPoints": 1656.5,
+      "diff": 0,
+      "rank": 9,
+      "prevRank": 9,
+      "rankDiff": 0
+    }
+  ],
+  "teamPlayerPoints": {
+    "Aizen": [
+      {
+        "name": "Vaibhav Sooryavanshi",
+        "points": 456
+      },
+      {
+        "name": "Cameron Green",
+        "points": 146
+      },
+      {
+        "name": "David Miller",
+        "points": 171
+      },
+      {
+        "name": "Varun Chakravarthy (C)",
+        "points": 80
+      },
+      {
+        "name": "Pat Cummins",
+        "points": 0
+      },
+      {
+        "name": "Will Jacks",
+        "points": 0
+      },
+      {
+        "name": "Prithvi Shaw",
+        "points": 0
+      },
+      {
+        "name": "Ishant Sharma",
+        "points": 0
+      },
+      {
+        "name": "Ashutosh Sharma",
+        "points": 45
+      },
+      {
+        "name": "Ishan Kishan (VC)",
+        "points": 742.5
+      },
+      {
+        "name": "Rahul Chahar",
+        "points": 16
+      }
+    ],
+    "Ankit's Team": [
+      {
+        "name": "Harshal Patel",
+        "points": 34
+      },
+      {
+        "name": "Shimron Hetmyer",
+        "points": 103
+      },
+      {
+        "name": "Sai Sudharsan",
+        "points": 241
+      },
+      {
+        "name": "Venkatesh Iyer",
+        "points": 61
+      },
+      {
+        "name": "Mitchell Starc",
+        "points": 0
+      },
+      {
+        "name": "Yuzvendra Chahal",
+        "points": 148
+      },
+      {
+        "name": "Virat Kohli (C)",
+        "points": 762
+      },
+      {
+        "name": "Trent Boult (VC)",
+        "points": 103.5
+      },
+      {
+        "name": "Bhuvneshwar Kumar",
+        "points": 235
+      },
+      {
+        "name": "Phil Salt",
+        "points": 302
+      },
+      {
+        "name": "Ajinkya Rahane",
+        "points": 274
+      }
+    ],
+    "Deepanshuu's Team": [
+      {
+        "name": "Sanju Samson",
+        "points": 367
+      },
+      {
+        "name": "Noor Ahmad",
+        "points": 243
+      },
+      {
+        "name": "Heinrich Klaasen",
+        "points": 408
+      },
+      {
+        "name": "Azmatullah Omarzai",
+        "points": 0
+      },
+      {
+        "name": "Matheesha Pathirana",
+        "points": 0
+      },
+      {
+        "name": "Ravindra Jadeja",
+        "points": 269
+      },
+      {
+        "name": "Aiden Markram",
+        "points": 258
+      },
+      {
+        "name": "Ayush Badoni",
+        "points": 147
+      },
+      {
+        "name": "Shashank Singh",
+        "points": 142
+      },
+      {
+        "name": "Mitchell Marsh (VC)",
+        "points": 226.5
+      },
+      {
+        "name": "Jos Buttler (C)",
+        "points": 812
+      }
+    ],
+    "GURI XI": [
+      {
+        "name": "Dhruv Jurel",
+        "points": 417
+      },
+      {
+        "name": "Jasprit Bumrah (VC)",
+        "points": 142.5
+      },
+      {
+        "name": "Dewald Brevis (C)",
+        "points": 238
+      },
+      {
+        "name": "Josh Hazlewood",
+        "points": 86
+      },
+      {
+        "name": "Sherfane Rutherford",
+        "points": 235
+      },
+      {
+        "name": "Tim Seifert",
+        "points": 0
+      },
+      {
+        "name": "Jitesh Sharma",
+        "points": 69
+      },
+      {
+        "name": "Finn Allen",
+        "points": 187
+      },
+      {
+        "name": "Tim David",
+        "points": 287
+      },
+      {
+        "name": "Rashid Khan",
+        "points": 308
+      },
+      {
+        "name": "Nehal Wadhera",
+        "points": 67
+      }
+    ],
+    "Jenna Morrh Warriors": [
+      {
+        "name": "Rachin Ravindra",
+        "points": 0
+      },
+      {
+        "name": "Ruturaj Gaikwad (C)",
+        "points": 236
+      },
+      {
+        "name": "T Natarajan",
+        "points": 181
+      },
+      {
+        "name": "Sunil Narine",
+        "points": 270
+      },
+      {
+        "name": "Liam Livingstone",
+        "points": 38
+      },
+      {
+        "name": "Priyansh Arya",
+        "points": 235
+      },
+      {
+        "name": "Abdul Samad",
+        "points": 136
+      },
+      {
+        "name": "Rinku Singh",
+        "points": 172
+      },
+      {
+        "name": "Hardik Pandya (VC)",
+        "points": 370.5
+      },
+      {
+        "name": "Ryan Rickelton",
+        "points": 291
+      },
+      {
+        "name": "Mohammed Shami",
+        "points": 286
+      }
+    ],
+    "Maat maro shota bacha hu": [
+      {
+        "name": "Marco Jansen (VC)",
+        "points": 238.5
+      },
+      {
+        "name": "Tristan Stubbs",
+        "points": 217
+      },
+      {
+        "name": "Riyan Parag",
+        "points": 189
+      },
+      {
+        "name": "Khaleel Ahmed",
+        "points": 170
+      },
+      {
+        "name": "Arshdeep Singh",
+        "points": 142
+      },
+      {
+        "name": "Ayush Mhatre",
+        "points": 351
+      },
+      {
+        "name": "Abishek Porel",
+        "points": 0
+      },
+      {
+        "name": "Shreyas Iyer (C)",
+        "points": 574
+      },
+      {
+        "name": "Auqib Nabi",
+        "points": 20
+      },
+      {
+        "name": "Rahul Tewatia",
+        "points": 84
+      },
+      {
+        "name": "Travis Head",
+        "points": 252
+      }
+    ],
+    "Piyush dhiman's Team": [
+      {
+        "name": "Glenn Phillips",
+        "points": 124
+      },
+      {
+        "name": "Rohit Sharma",
+        "points": 281
+      },
+      {
+        "name": "Tilak Varma",
+        "points": 125
+      },
+      {
+        "name": "Kagiso Rabada (VC)",
+        "points": 364.5
+      },
+      {
+        "name": "Suryakumar Yadav (C)",
+        "points": 416
+      },
+      {
+        "name": "Jacob Bethell",
+        "points": 0
+      },
+      {
+        "name": "Quinton de Kock",
+        "points": 0
+      },
+      {
+        "name": "Lungi Ngidi",
+        "points": 265
+      },
+      {
+        "name": "Ravi Bishnoi",
+        "points": 392
+      },
+      {
+        "name": "Jofra Archer",
+        "points": 379
+      },
+      {
+        "name": "Marcus Stoinis",
+        "points": 34
+      }
+    ],
+    "shabad's Team": [
+      {
+        "name": "Axar Patel",
+        "points": 181
+      },
+      {
+        "name": "Kuldeep Yadav",
+        "points": 165
+      },
+      {
+        "name": "MS Dhoni",
+        "points": 0
+      },
+      {
+        "name": "Rajat Patidar",
+        "points": 439
+      },
+      {
+        "name": "Prashant Veer",
+        "points": 97
+      },
+      {
+        "name": "Yashasvi Jaiswal (VC)",
+        "points": 588
+      },
+      {
+        "name": "Digvesh Rathi",
+        "points": 152
+      },
+      {
+        "name": "Nitish Kumar Reddy",
+        "points": 384
+      },
+      {
+        "name": "Shubman Gill (C)",
+        "points": 690
+      },
+      {
+        "name": "Angkrish Raghuvanshi",
+        "points": 361
+      },
+      {
+        "name": "Nicholas Pooran",
+        "points": 75
+      }
+    ],
+    "Sumit's Team": [
+      {
+        "name": "Rishabh Pant (C)",
+        "points": 466
+      },
+      {
+        "name": "Harshit Rana",
+        "points": 0
+      },
+      {
+        "name": "Shivam Dube",
+        "points": 256
+      },
+      {
+        "name": "KL Rahul",
+        "points": 239
+      },
+      {
+        "name": "Mohammed Siraj",
+        "points": 186
+      },
+      {
+        "name": "Washington Sundar",
+        "points": 254
+      },
+      {
+        "name": "Abhishek Sharma (VC)",
+        "points": 448.5
+      },
+      {
+        "name": "Avesh Khan",
+        "points": 169
+      },
+      {
+        "name": "Krunal Pandya",
+        "points": 211
+      },
+      {
+        "name": "Prabhsimran Singh",
+        "points": 282
+      },
+      {
+        "name": "Prasidh Krishna",
+        "points": 422
+      }
+    ]
+  }
+}
