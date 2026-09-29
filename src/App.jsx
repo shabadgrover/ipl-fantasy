@@ -7,7 +7,8 @@ import Teams from './components/Teams';
 import UpcomingMatch from './components/UpcomingMatch';
 import Home from './components/Home';
 import Schedule from './components/Schedule';
-import { Home as HomeIcon, LayoutDashboard, Users, Zap, Calendar, Target, Sun, Moon, Share2, CheckCircle2, LogOut } from 'lucide-react';
+import MyLeagues from './components/MyLeagues';
+import { Home as HomeIcon, LayoutDashboard, Users, Zap, Calendar, Target, Sun, Moon, Share2, CheckCircle2, LogOut, Trophy } from 'lucide-react';
 import { parseExcelData } from './utils/excelParser';
 import PlanAhead from './components/PlanAhead';
 import ImpactAnalysis from './components/ImpactAnalysis';
@@ -80,6 +81,7 @@ function AppContent() {
 
   const tabs = [
     { id: 'home', name: 'Home', icon: HomeIcon },
+    { id: 'my-leagues', name: 'My Leagues', icon: Trophy },
     { id: 'leaderboard', name: 'Leaderboard', icon: LayoutDashboard },
     { id: 'all-teams', name: 'All Teams', icon: Users },
     { id: 'upcoming', name: 'Upcoming Match', icon: Zap },
@@ -264,7 +266,20 @@ function AppContent() {
           <Home onNavigate={scrollTo} snapshotData={snapshotData} />
         </section>
 
-
+        {/* My Leagues — backend-driven multi-user league dashboard */}
+        <section id="my-leagues" className="pt-20 md:pt-32 pb-10 md:pb-20 border-t border-black/5 dark:border-white/5">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="max-w-5xl mx-auto px-4 mb-4 text-center"
+          >
+            <h2 className="text-[clamp(3rem,5vw,4.5rem)] font-black tracking-tighter leading-tight text-slate-900 dark:text-white text-shiny">Your Leagues.</h2>
+            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-500 mt-2 tracking-tight">Manage your fantasy leagues and teams.</p>
+          </motion.div>
+          <MyLeagues />
+        </section>
 
 
         <section id="leaderboard" className="pt-20 md:pt-32 pb-10 md:pb-20 border-t border-black/5 dark:border-white/5">

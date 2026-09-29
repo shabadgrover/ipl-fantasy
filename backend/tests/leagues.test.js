@@ -51,6 +51,7 @@ describe('League API (Secure Authorization)', () => {
     const leagueIds = [createdLeagueId, otherPrivateLeagueId].filter(Boolean);
 
     if (leagueIds.length > 0) {
+      // FantasyTeam cascades via LeagueMember cascade
       await prisma.leagueMember.deleteMany({ where: { leagueId: { in: leagueIds } } });
       await prisma.league.deleteMany({ where: { id: { in: leagueIds } } });
     }
@@ -59,6 +60,8 @@ describe('League API (Secure Authorization)', () => {
     }
     await prisma.$disconnect();
   });
+
+  // ─── Phase 3.5 Preserved Tests ──────────────────────────────────────────────
 
   describe('POST /api/leagues (Creation Security)', () => {
     it('rejects unauthenticated request with 401', async () => {
@@ -77,13 +80,13 @@ describe('League API (Secure Authorization)', () => {
         .send({
           name: "Shabad's IPL League",
           privacy: 'PRIVATE',
-          ownerId: nonMemberUser.id, // Attempted spoofing
+          ownerId: nonMemberUser.id, // Attempted spoofing — must be ignored
         });
 
       expect(response.status).toBe(201);
       expect(response.body.league).toMatchObject({
         name: "Shabad's IPL League",
-        ownerId: ownerUser.id, // Strictly set to authenticated user
+        ownerId: ownerUser.id, // strictly set to JWT user
         privacy: 'PRIVATE',
         status: 'ACTIVE',
       });
@@ -94,7 +97,7 @@ describe('League API (Secure Authorization)', () => {
       expect(response.body.league.members[0].role).toBe('OWNER');
       expect(response.body.league.members[0].userId).toBe(ownerUser.id);
 
-      // Verify member/owner emails are not exposed
+      // Emails must not be exposed
       expect(response.body.league.owner.email).toBeUndefined();
       expect(response.body.league.members[0].user.email).toBeUndefined();
 
@@ -130,6 +133,84 @@ describe('League API (Secure Authorization)', () => {
       expect(response.body.message).toBe('League name cannot exceed 100 characters');
     });
   });
+
+  // ─── Phase 4B: FantasyTeam Creation Tests ───────────────────────────────────
+
+  describe('POST /api/leagues (FantasyTeam auto-creation)', () => {
+    it('automatically creates a FantasyTeam for the owner when a league is created', async () => {
+      const response = await request(app)
+        .post('/api/leagues')
+        .set('Authorization', `Bearer ${ownerToken}`)
+        .send({ name: 'Team Auto-Create Test League', privacy: 'PRIVATE' });
+
+      expect(response.status).toBe(201);
+      expect(response.body.league.myTeam).toBeDefined();
+      expect(response.body.league.myTeam.id).toBeDefined();
+      expect(response.body.league.myTeam.name).toBe(`${ownerUser.name}'s Team`);
+
+      // Cleanup this extra league
+      await prisma.leagueMember.deleteMany({ where: { leagueId: response.body.league.id } });
+      await prisma.league.delete({ where: { id: response.body.league.id } });
+    });
+
+    it('derives team name from authenticated user name, not client-supplied ownerId', async () => {
+      const response = await request(app)
+        .post('/api/leagues')
+        .set('Authorization', `Bearer ${ownerToken}`)
+        .send({
+          name: 'Name Derivation Test',
+          privacy: 'PRIVATE',
+          ownerId: nonMemberUser.id, // spoofed — must be ignored
+        });
+
+      expect(response.status).toBe(201);
+      // Team name must come from the JWT user (ownerUser), not nonMemberUser
+      expect(response.body.league.myTeam.name).toBe(`${ownerUser.name}'s Team`);
+      expect(response.body.league.myTeam.name).not.toContain(nonMemberUser.name);
+
+      await prisma.leagueMember.deleteMany({ where: { leagueId: response.body.league.id } });
+      await prisma.league.delete({ where: { id: response.body.league.id } });
+    });
+
+    it('creates exactly one FantasyTeam per owner membership', async () => {
+      const response = await request(app)
+        .post('/api/leagues')
+        .set('Authorization', `Bearer ${ownerToken}`)
+        .send({ name: 'Single Team Test' });
+
+      expect(response.status).toBe(201);
+      const leagueId = response.body.league.id;
+
+      // Verify only 1 FantasyTeam exists for this league
+      const teams = await prisma.fantasyTeam.findMany({
+        where: { leagueMember: { leagueId } },
+      });
+      expect(teams).toHaveLength(1);
+
+      await prisma.leagueMember.deleteMany({ where: { leagueId } });
+      await prisma.league.delete({ where: { id: leagueId } });
+    });
+
+    it('different users creating leagues get their own team names', async () => {
+      const user2Data = await createTestUser('AnotherUser');
+      const user2 = user2Data.user;
+      const user2Token = user2Data.token;
+
+      const response = await request(app)
+        .post('/api/leagues')
+        .set('Authorization', `Bearer ${user2Token}`)
+        .send({ name: 'User2 League' });
+
+      expect(response.status).toBe(201);
+      expect(response.body.league.myTeam.name).toBe(`${user2.name}'s Team`);
+
+      await prisma.leagueMember.deleteMany({ where: { leagueId: response.body.league.id } });
+      await prisma.league.delete({ where: { id: response.body.league.id } });
+      await prisma.user.delete({ where: { id: user2.id } });
+    });
+  });
+
+  // ─── Phase 3.5 Preserved: GET /api/leagues/:id ──────────────────────────────
 
   describe('GET /api/leagues/:id (Retrieval & IDOR Protection)', () => {
     it('rejects unauthenticated request with 401', async () => {
@@ -180,9 +261,36 @@ describe('League API (Secure Authorization)', () => {
     });
   });
 
+  // ─── Phase 4B: myTeam in GET /api/leagues/:id ───────────────────────────────
+
+  describe('GET /api/leagues/:id (myTeam field)', () => {
+    it('returns myTeam for the league owner', async () => {
+      const response = await request(app)
+        .get(`/api/leagues/${createdLeagueId}`)
+        .set('Authorization', `Bearer ${ownerToken}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.league.myTeam).toBeDefined();
+      expect(response.body.league.myTeam.id).toBeDefined();
+      expect(response.body.league.myTeam.name).toBe(`${ownerUser.name}'s Team`);
+    });
+
+    it('returns myTeam null for a member who has no FantasyTeam yet', async () => {
+      // memberUser was added directly to DB without a FantasyTeam
+      const response = await request(app)
+        .get(`/api/leagues/${createdLeagueId}`)
+        .set('Authorization', `Bearer ${memberToken}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.league.myTeam).toBeNull();
+    });
+  });
+
+  // ─── Phase 3.5 Preserved: GET /api/leagues ──────────────────────────────────
+
   describe('GET /api/leagues (My Leagues Endpoint)', () => {
     beforeAll(async () => {
-      // Create a separate league owned by nonMemberUser
+      // Create a separate private league owned by nonMemberUser
       const otherLeague = await prisma.league.create({
         data: {
           name: "Other User's Private League",
@@ -234,6 +342,38 @@ describe('League API (Secure Authorization)', () => {
       const returnedLeagueIds = response.body.leagues.map((l) => l.id);
       expect(returnedLeagueIds).toContain(createdLeagueId);
       expect(returnedLeagueIds).not.toContain(otherPrivateLeagueId);
+    });
+  });
+
+  // ─── Phase 4B: myTeam in GET /api/leagues ───────────────────────────────────
+
+  describe('GET /api/leagues (myTeam field)', () => {
+    it('returns myTeam for each league in the list for the owner', async () => {
+      const response = await request(app)
+        .get('/api/leagues')
+        .set('Authorization', `Bearer ${ownerToken}`);
+
+      expect(response.status).toBe(200);
+      const league = response.body.leagues.find((l) => l.id === createdLeagueId);
+      expect(league).toBeDefined();
+      expect(league.myTeam).toBeDefined();
+      expect(league.myTeam.name).toBe(`${ownerUser.name}'s Team`);
+    });
+
+    it('returns empty array and no crash for a user with zero leagues', async () => {
+      // Create a brand new user who has no leagues
+      const freshData = await createTestUser('ZeroLeague');
+      const freshToken = freshData.token;
+      const freshUser = freshData.user;
+
+      const response = await request(app)
+        .get('/api/leagues')
+        .set('Authorization', `Bearer ${freshToken}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.leagues).toEqual([]);
+
+      await prisma.user.delete({ where: { id: freshUser.id } });
     });
   });
 });

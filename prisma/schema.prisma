@@ -62,8 +62,20 @@ model LeagueMember {
   league League @relation(fields: [leagueId], references: [id], onDelete: Cascade)
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  fantasyTeam FantasyTeam?
+
   @@unique([leagueId, userId])
   @@index([userId])
+}
+
+model FantasyTeam {
+  id             String       @id @default(cuid())
+  name           String
+  leagueMemberId String       @unique
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  leagueMember   LeagueMember @relation(fields: [leagueMemberId], references: [id], onDelete: Cascade)
 }
 
 enum SeasonStatus {
