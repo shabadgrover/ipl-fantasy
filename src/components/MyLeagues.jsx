@@ -163,7 +163,7 @@ const MyLeagues = () => {
   }, [fetchLeagues]);
 
   return (
-    <section id="my-leagues" className="max-w-5xl mx-auto px-4 py-12">
+    <div className="max-w-5xl mx-auto px-4 py-6">
       {/* Section header */}
       <div className="flex items-center justify-between mb-8">
         <div>
@@ -254,7 +254,7 @@ const MyLeagues = () => {
           />
         )}
       </AnimatePresence>
-    </section>
+    </div>
   );
 };
 
